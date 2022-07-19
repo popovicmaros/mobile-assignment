@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "SpaceX"
-include ':app'
+include(":app")
