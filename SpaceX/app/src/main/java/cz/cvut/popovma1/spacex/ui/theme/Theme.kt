@@ -1,10 +1,15 @@
 package cz.cvut.popovma1.spacex.ui.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -39,6 +44,11 @@ fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
         colors = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
-    )
+    ) {
+        Box(
+            modifier = Modifier
+                .wrapContentSize()
+                .background(colors.background)
+        ) { content() }
+    }
 }
