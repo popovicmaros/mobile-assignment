@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">SpaceX</string>
+
+    <!--  RocketList.kt  -->
+    <string name="title_activity_rocket_list">RocketList</string>
+    <string name="rocket_list_first_flight">First Flight: </string>
+
+    <!--  RocketDetail -->
+    <string name="title_activity_rocket_detail">RocketDetail</string>
+
+    <string name="rocket_detail_overview">Overview</string>
+    <string name="rocket_detail_parameters">Parameters</string>
+
+    <string name="rocket_detail_height">height</string>
+    <string name="rocket_detail_diameter">diameter</string>
+    <string name="rocket_detail_mass">mass</string>
+
+    <string name="rocket_detail_meters_abbr">m</string>
+    <string name="rocket_detail_tons_abbr">t</string>
+
+    <string name="rocket_detail_stage_reusable">reusable</string>
+    <string name="rocket_detail_stage_not_reusable">not reusable</string>
+    <string name="rocket_detail_engine_singular">engine</string>
+    <string name="rocket_detail_engine_plural">engines</string>
+    <string name="rocket_detail_tons_of_fuel">tons of fuel</string>
+    <string name="rocket_detail_seconds_burn_time">seconds burn time</string>
+
+    <string name="rocket_detail_photos">Photos</string>
+
 </resources>
