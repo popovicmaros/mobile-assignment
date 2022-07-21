@@ -4,6 +4,7 @@
     <!--  RocketList.kt  -->
     <string name="title_activity_rocket_list">RocketList</string>
     <string name="rocket_list_first_flight">First Flight: </string>
+    <string name="rocket_list_title_rockets">Rockets</string>
 
     <!--  RocketDetail -->
     <string name="title_activity_rocket_detail">RocketDetail</string>

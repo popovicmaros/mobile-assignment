@@ -3,8 +3,10 @@ package cz.cvut.popovma1.spacex
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,78 +18,91 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import cz.cvut.popovma1.spacex.ui.theme.*
 
 class RocketList : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RocketListWithHeadline(rockets = RocketsSampleData.getRocketsData())
+            RocketListScreen(rockets = RocketsSampleData.getRocketsData())
         }
     }
 }
 
 @Composable
 fun RocketCard(rocket: Rocket) {
-    Row(modifier = Modifier.padding(all = paddingSmall)) {
-        Image(
-            painter = painterResource(R.drawable.rocket),
-            contentDescription = "Rocket icon",
-            modifier = Modifier
-                .size(iconSizeMedium)
-        )
-
+    Row(
+        modifier = Modifier
+            .padding(all = paddingSmall)
+            .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        RocketIcon()
         Spacer(modifier = Modifier.width(spacerSize))
-
         Column {
-            Text(
-                text = rocket.rocketName,
-                style = MaterialTheme.typography.h6
-            )
-            Spacer(modifier = Modifier.height(spacerSize))
-
-            val firstFlightText =
-                stringResource(R.string.rocket_list_first_flight) + rocket.firstFlight
-            Text(
-                text = firstFlightText,
-                style = MaterialTheme.typography.subtitle1,
-//                    color = MaterialTheme.colors. TODO color
-            )
+            RocketName(rocket.rocketName)
+            RocketFirstFlight(rocket.firstFlight)
         }
-
-        Image(
-            painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_right_24),
-            contentDescription = "Rocket icon",
-            modifier = Modifier
-                .size(iconSizeMedium)
-        )
+        Spacer(Modifier.weight(1f))
+        RightArrowIcon()
     }
+}
+
+@Composable
+fun RocketName(rocketName: String) {
+    Text(
+        text = rocketName,
+        style = MaterialTheme.typography.h6
+    )
+}
+
+@Composable
+fun RocketFirstFlight(firstFlight: String) {
+    val firstFlightText =
+        stringResource(R.string.rocket_list_first_flight) + firstFlight
+    Text(
+        text = firstFlightText,
+        style = MaterialTheme.typography.subtitle1,
+//                    color = MaterialTheme.colors. TODO color
+    )
+}
+
+@Composable
+fun RocketIcon() {
+    Image(
+        painter = painterResource(R.drawable.rocket),
+        contentDescription = "rocket icon",
+        modifier = Modifier
+            .size(iconSizeMedium)
+    )
+}
+
+@Composable
+fun RightArrowIcon() {
+    Image(
+        painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_right_24),
+        contentDescription = "right arrow icon",
+        modifier = Modifier
+            .size(iconSizeMedium)
+    )
 }
 
 @Composable
 fun RocketList(rockets: List<Rocket>) {
-    LazyColumn {
-        items(rockets) { rocket ->
-            RocketCard(rocket)
+    Surface (
+        shape = RoundedCornerShape(cornerRadius),
+        elevation = 1.dp
+    ){
+        LazyColumn {
+            items(rockets) { rocket ->
+                RocketCard(rocket)
+            }
         }
-    }
-}
-//    @Preview(showBackground = true)
-@Composable
-fun RocketCardPreview() {
-    SpaceXTheme {
-        RocketCard(rocket = RocketsSampleData.getFirstRocketData())
-    }
-}
-
-//    @Preview(showBackground = true)
-@Composable
-fun RocketListPreview() {
-    SpaceXTheme {
-        RocketList(rockets = RocketsSampleData.getRocketsData())
     }
 }
 
@@ -96,25 +111,31 @@ fun RocketListWithHeadline(rockets: List<Rocket>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(cornerRadius)),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(paddingMedium),
+//        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Rockets",
-            style = MaterialTheme.typography.h3,
-        )
+        LargeTitle(stringResource(id = R.string.rocket_list_title_rockets))
         Spacer(modifier = Modifier.width(spacerSize))
         RocketList(rockets)
     }
 }
 
 @Composable
+fun LargeTitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.h3,
+    )
+}
+
+@Composable
 fun RocketListScreen(rockets: List<Rocket>) {
     SpaceXTheme {
-        Surface(
+        Surface( //TODO remove surface?
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.primary)
+//                .padding(paddingMedium),
+                    ,
         ) {
             RocketListWithHeadline(rockets)
         }
@@ -122,10 +143,8 @@ fun RocketListScreen(rockets: List<Rocket>) {
 }
 
 @Preview(showBackground = true)
-    @Composable
-    fun RocketListWithHeadlinePreview() {
-        SpaceXTheme {
-            RocketListScreen(rockets = RocketsSampleData.getRocketsData())
-        }
-    }
+@Composable
+fun Preview() {
+    RocketListScreen(rockets = RocketsSampleData.getRocketsData())
+}
 
