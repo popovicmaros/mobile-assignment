@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -15,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,14 +25,7 @@ class RocketDetail : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SpaceXTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                }
-            }
+            RocketDetailScreen()
         }
     }
 }
@@ -45,7 +38,10 @@ fun TextWithIcon(
     iconDescription: String = "icon",
     text: String
 ) {
-    Row {
+    Row(
+        Modifier.fillMaxHeight(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painter = painterResource(iconSrc),
             contentDescription = iconDescription,
@@ -94,6 +90,7 @@ fun Overview(rocket: Rocket) {
         title = stringResource(id = R.string.rocket_detail_overview),
         content = rocket.description
     )
+    Spacer(modifier = Modifier.height(spacerSize))
 }
 
 /* --------------- parameters --------------- */
@@ -103,27 +100,33 @@ fun Parameters(rocket: Rocket) {
     ColumnWithTitle(
         title = stringResource(id = R.string.rocket_detail_parameters),
     ) {
-        ParametersRow(rocket = rocket)
+        DimensionsRow(rocket = rocket)
         RocketStagesColumn(rocket = rocket)
     }
+    Spacer(modifier = Modifier.height(spacerSize))
 }
 
 @Composable
-fun ParametersRow(rocket: Rocket) {
-        Row(Modifier.padding(paddingMedium)) {
-            Parameter(
+fun DimensionsRow(rocket: Rocket) {
+        Row(
+            Modifier
+                .padding(paddingMedium)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+        ) {
+            Dimension(
                 value = rocket.heightInMeters,
                 metrics = stringResource(id = R.string.rocket_detail_meters_abbr),
                 description = stringResource(id = R.string.rocket_detail_height)
             )
             Spacer(Modifier.width(spacerSize))
-            Parameter(
+            Dimension(
                 value = rocket.diameterInMeters,
                 metrics = stringResource(id = R.string.rocket_detail_meters_abbr),
                 description = stringResource(id = R.string.rocket_detail_diameter)
             )
             Spacer(Modifier.width(spacerSize))
-            Parameter(
+            Dimension(
                 value = rocket.massInKilograms,
                 metrics = stringResource(id = R.string.rocket_detail_tons_abbr),
                 description = stringResource(id = R.string.rocket_detail_mass)
@@ -132,11 +135,11 @@ fun ParametersRow(rocket: Rocket) {
 }
 
 @Composable
-fun Parameter(value: Int, metrics: String, description: String) {
+fun Dimension(value: Int, metrics: String, description: String) {
     Surface(
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp,
-        color = MaterialTheme.colors.primary
+        color = MaterialTheme.colors.primary,
     ) {
         Column(
             Modifier.padding(paddingMedium),
@@ -157,11 +160,11 @@ fun Parameter(value: Int, metrics: String, description: String) {
 /* --------------- rocket stages --------------- */
 @Composable
 fun RocketStagesColumn(rocket: Rocket) {
-    LazyColumn(
+    Column(
         Modifier.padding(paddingMedium),
-//        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        itemsIndexed(rocket.stages) { i, stage ->
+        rocket.stages.forEachIndexed { i, stage ->
             RocketStage(stageNumber = i + 1, stage = stage)
             Spacer(modifier = Modifier.height(spacerSize))
         }
@@ -241,8 +244,8 @@ fun BurnTime(stage: Rocket.Stage) {
 @Composable
 fun RocketPhotos(rocketPhotos: List<Int>) {
     Title(text = stringResource(id = R.string.rocket_detail_photos))
-    LazyColumn {
-        items(rocketPhotos) { src ->
+    Column {
+        rocketPhotos.forEach { src ->
             RocketPhoto(photoSrc = src)
         }
     }
@@ -253,28 +256,32 @@ fun RocketPhoto(
     photoSrc: Int,
     photoDescription: String = "rocket photo",
 ) {
+    Spacer(modifier = Modifier.height(paddingMedium))
     Image(
         painter = painterResource(photoSrc),
         contentDescription = photoDescription,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+//            .fillMaxWidth()
+            .clip(RoundedCornerShape(cornerRadius))
     )
 }
+
 /* --------------- preview --------------- */
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview2() {
+fun RocketDetailScreen() {
     SpaceXTheme {
         val rocket = RocketsSampleData.getFirstRocketData()
         val rocketPhotos = RocketsSampleData.getRocketPhotos()
-        Column (
+        LazyColumn (
             modifier = Modifier.padding(paddingMedium)
         ){
-            Overview(rocket)
-            Spacer(modifier = Modifier.height(spacerSize))
-            Parameters(rocket)
-            Spacer(modifier = Modifier.height(spacerSize))
-            RocketPhotos(rocketPhotos)
+            item { Overview(rocket) }
+            item { Parameters(rocket) }
+            item { RocketPhotos(rocketPhotos) }
         }
+
     }
+
 }
