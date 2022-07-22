@@ -3,29 +3,56 @@
 
     <!--  RocketList.kt  -->
     <string name="title_activity_rocket_list">RocketList</string>
-    <string name="rocket_list_first_flight">First Flight: </string>
+    <string name="rocket_list_first_flight">First Flight: %1$s</string>
     <string name="rocket_list_title_rockets">Rockets</string>
 
-    <!--  RocketDetail -->
+    <string name="rocket_detail_right_arrow_icon_desc">right arrow</string>
+    <string name="rocket_detail_rocket_icon_desc">rocket</string>
+
+    <!--  RocketDetail.kt -->
     <string name="title_activity_rocket_detail">RocketDetail</string>
+    <string name="rocket_detail_default_icon_desc">icon</string>
 
     <string name="rocket_detail_overview">Overview</string>
     <string name="rocket_detail_parameters">Parameters</string>
+
+    <string name="rocket_detail_stage">Stage #%1$s</string>
 
     <string name="rocket_detail_height">height</string>
     <string name="rocket_detail_diameter">diameter</string>
     <string name="rocket_detail_mass">mass</string>
 
+    <string name="rocket_detail_dimension">%1$s%2$s</string>
     <string name="rocket_detail_meters_abbr">m</string>
     <string name="rocket_detail_tons_abbr">t</string>
 
     <string name="rocket_detail_stage_reusable">reusable</string>
     <string name="rocket_detail_stage_not_reusable">not reusable</string>
-    <string name="rocket_detail_engine_singular">engine</string>
-    <string name="rocket_detail_engine_plural">engines</string>
-    <string name="rocket_detail_tons_of_fuel">tons of fuel</string>
-    <string name="rocket_detail_seconds_burn_time">seconds burn time</string>
+    <string name="rocket_detail_reusable_icon_desc">reusable</string>
+
+    <plurals name="rocket_detail_engine">
+        <item quantity="one">%d engine</item>
+        <item quantity="other">%d engines</item>
+    </plurals>
+    <string name="rocket_detail_engine_icon_desc">engine</string>
+
+    <plurals name="rocket_detail_tons_of_fuel">
+        <item quantity="one">%d ton of fuel</item>
+        <item quantity="other">%d tons of fuel</item>
+    </plurals>
+    <string name="rocket_detail_fuel_icon_desc">fuel</string>
+
+    <plurals name="rocket_detail_seconds_burn_time">
+        <item quantity="one">%d second burn time</item>
+        <item quantity="other">%d seconds burn time</item>
+    </plurals>
+    <string name="rocket_detail_burn_icon_desc">burn</string>
 
     <string name="rocket_detail_photos">Photos</string>
+    
+    <!--  RocketLaunch.kt  -->
+    <string name="title_activity_rocket_launch">RocketLaunch</string>
+    <string name="rocket_launch_text_before_launch">Move your phone up to launch the rocket</string>
+    <string name="rocket_launch_text_after_launch">Launch successful!</string>
 
 </resources>

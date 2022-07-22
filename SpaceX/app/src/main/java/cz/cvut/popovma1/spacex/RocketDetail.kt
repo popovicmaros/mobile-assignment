@@ -3,6 +3,7 @@ package cz.cvut.popovma1.spacex
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.PluralsRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +37,9 @@ class RocketDetail : ComponentActivity() {
 @Composable
 fun TextWithIcon(
     iconSrc: Int,
-    iconDescription: String = "icon",
+    iconDescription: String = stringResource(
+        id = R.string.rocket_detail_default_icon_desc
+    ),
     text: String
 ) {
     Row(
@@ -45,8 +49,7 @@ fun TextWithIcon(
         Image(
             painter = painterResource(iconSrc),
             contentDescription = iconDescription,
-            modifier = Modifier
-                .size(iconSizeSmall)
+            modifier = Modifier.size(iconSizeSmall)
         )
         Spacer(modifier = Modifier.width(spacerSize))
         Text(text = text)
@@ -146,7 +149,11 @@ fun Dimension(value: Int, metrics: String, description: String) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "$value$metrics",
+                text = stringResource(
+                    id = R.string.rocket_detail_dimension,
+                    value,
+                    metrics
+                ),
                 style = MaterialTheme.typography.h5
             )
             Text(
@@ -173,7 +180,6 @@ fun RocketStagesColumn(rocket: Rocket) {
 
 @Composable
 fun RocketStage(stageNumber: Int, stage: Rocket.Stage) {
-    val title = "Stage #$stageNumber"
     Surface(
         shape = RoundedCornerShape(cornerRadius),
         color = MaterialTheme.colors.surface,
@@ -181,7 +187,10 @@ fun RocketStage(stageNumber: Int, stage: Rocket.Stage) {
         modifier = Modifier.fillMaxSize()
     ) {
         ColumnWithTitle(
-            title = title,
+            title = stringResource(
+                id = R.string.rocket_detail_stage,
+                stageNumber
+            ),
             modifier = Modifier.padding(paddingSmall)
         ) {
             Spacer(modifier = Modifier.height(spacerSize))
@@ -200,43 +209,55 @@ fun Reusable(stage: Rocket.Stage) {
     val text = if (stage.isReusable) reusableText else notReusableText
     TextWithIcon(
         iconSrc = R.drawable.ic_reusable,
-        iconDescription = "reusable",
+        iconDescription = stringResource(
+            id = R.string.rocket_detail_reusable_icon_desc
+        ),
         text = text
     )
 }
 
 @Composable
 fun Engine(stage: Rocket.Stage) {
-    val engineSingular = stringResource(id = R.string.rocket_detail_engine_singular)
-    val enginePlural = stringResource(id = R.string.rocket_detail_engine_plural)
-    val engineText = if (stage.enginesCnt == 1) engineSingular else enginePlural
-    val text = "${stage.enginesCnt} $engineText"
     TextWithIcon(
         iconSrc = R.drawable.ic_engine,
-        iconDescription = "engine",
-        text = text
+        iconDescription = stringResource(
+            id = R.string.rocket_detail_engine_icon_desc
+        ),
+        text = pluralResource(
+            resId = R.plurals.rocket_detail_engine,
+            stage.enginesCnt,
+            stage.enginesCnt
+        )
     )
 }
 
 @Composable
 fun Fuel(stage: Rocket.Stage) {
-    val tonsText = stringResource(id = R.string.rocket_detail_tons_of_fuel)
-    val text = "${stage.tonsOfFuel} $tonsText"
     TextWithIcon(
         iconSrc = R.drawable.ic_fuel,
-        iconDescription = "fuel",
-        text = text
+        iconDescription = stringResource(
+            id = R.string.rocket_detail_fuel_icon_desc
+        ),
+        text = pluralResource(
+            resId = R.plurals.rocket_detail_tons_of_fuel,
+            stage.tonsOfFuel,
+            stage.tonsOfFuel,
+        )
     )
 }
 
 @Composable
 fun BurnTime(stage: Rocket.Stage) {
-    val burnTimeText = stringResource(id = R.string.rocket_detail_seconds_burn_time)
-    val text = "${stage.burnTimeInSec} $burnTimeText"
     TextWithIcon(
         iconSrc = R.drawable.ic_burn,
-        iconDescription = "burn",
-        text = text
+        iconDescription = stringResource(
+            id = R.string.rocket_detail_burn_icon_desc
+        ),
+        text = pluralResource(
+            resId =  R.plurals.rocket_detail_seconds_burn_time,
+            stage.burnTimeInSec,
+            stage.burnTimeInSec,
+        )
     )
 }
 
@@ -264,6 +285,17 @@ fun RocketPhoto(
 //            .fillMaxWidth()
             .clip(RoundedCornerShape(cornerRadius))
     )
+}
+
+/* --------------- utils --------------- */
+@Composable
+fun pluralResource(
+    @PluralsRes resId: Int,
+    quantity: Int,
+    vararg formatArgs: Any? = emptyArray()
+): String {
+    return LocalContext.current.resources
+        .getQuantityString(resId, quantity, *formatArgs)
 }
 
 /* --------------- preview --------------- */

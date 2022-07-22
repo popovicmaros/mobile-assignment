@@ -63,10 +63,8 @@ fun RocketName(rocketName: String) {
 
 @Composable
 fun RocketFirstFlight(firstFlight: String) {
-    val firstFlightText =
-        stringResource(R.string.rocket_list_first_flight) + firstFlight
     Text(
-        text = firstFlightText,
+        text = stringResource(R.string.rocket_list_first_flight, firstFlight),
         style = MaterialTheme.typography.subtitle1,
 //                    color = MaterialTheme.colors. TODO color
     )
@@ -76,7 +74,9 @@ fun RocketFirstFlight(firstFlight: String) {
 fun RocketIcon() {
     Image(
         painter = painterResource(R.drawable.ic_rocket),
-        contentDescription = "rocket icon",
+        contentDescription = stringResource(
+            id = R.string.rocket_detail_rocket_icon_desc
+        ),
         modifier = Modifier
             .size(iconSizeMedium)
     )
@@ -86,7 +86,9 @@ fun RocketIcon() {
 fun RightArrowIcon() {
     Image(
         painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_right_24),
-        contentDescription = "right arrow icon",
+        contentDescription = stringResource(
+            id = R.string.rocket_detail_right_arrow_icon_desc
+        ),
         modifier = Modifier
             .size(iconSizeMedium)
     )
