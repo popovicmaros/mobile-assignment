@@ -11,7 +11,6 @@
 
     <!--  RocketDetail.kt -->
     <string name="title_activity_rocket_detail">RocketDetail</string>
-    <string name="rocket_detail_default_icon_desc">icon</string>
 
     <string name="rocket_detail_overview">Overview</string>
     <string name="rocket_detail_parameters">Parameters</string>
@@ -49,7 +48,8 @@
     <string name="rocket_detail_burn_icon_desc">burn</string>
 
     <string name="rocket_detail_photos">Photos</string>
-    
+    <string name="rocket_detail_default_rocket_photo_desc">rocket photo</string>
+
     <!--  RocketLaunch.kt  -->
     <string name="title_activity_rocket_launch">RocketLaunch</string>
     <string name="rocket_launch_text_before_launch">Move your phone up to launch the rocket</string>

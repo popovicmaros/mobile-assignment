@@ -1,7 +1,7 @@
 package cz.cvut.popovma1.spacex
 
 object RocketsSampleData {
-    fun getRocketsData(): List<Rocket> = (1..4).map {
+    fun getRocketsList(): List<Rocket> = (1..4).map {
         Rocket(
             rocketName = "Falcon $it",
             firstFlight = "$it.1.2022",
@@ -10,12 +10,12 @@ object RocketsSampleData {
                     "orbit.",
             heightInMeters = it * 10,
             diameterInMeters = it,
-            massInKilograms = it * 10_000,
+            massInKilograms = it * 1000,
             stages = getRocketStages()
         )
     }
 
-    fun getFirstRocketData(): Rocket = getRocketsData()[0]
+    fun getRocket(): Rocket = getRocketsList()[0]
 
     fun getRocketStages(): List<Rocket.Stage> =
         (1..3).map {
