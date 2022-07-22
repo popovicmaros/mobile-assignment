@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.PluralsRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,10 +13,12 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -216,6 +217,7 @@ fun Reusable(stage: Rocket.Stage) {
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Engine(stage: Rocket.Stage) {
     TextWithIcon(
@@ -223,14 +225,15 @@ fun Engine(stage: Rocket.Stage) {
         iconDescription = stringResource(
             id = R.string.rocket_detail_engine_icon_desc
         ),
-        text = pluralResource(
-            resId = R.plurals.rocket_detail_engine,
+        text = pluralStringResource(
+            id = R.plurals.rocket_detail_engine,
             stage.enginesCnt,
             stage.enginesCnt
         )
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Fuel(stage: Rocket.Stage) {
     TextWithIcon(
@@ -238,14 +241,15 @@ fun Fuel(stage: Rocket.Stage) {
         iconDescription = stringResource(
             id = R.string.rocket_detail_fuel_icon_desc
         ),
-        text = pluralResource(
-            resId = R.plurals.rocket_detail_tons_of_fuel,
+        text = pluralStringResource(
+            id = R.plurals.rocket_detail_tons_of_fuel,
             stage.tonsOfFuel,
             stage.tonsOfFuel,
         )
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BurnTime(stage: Rocket.Stage) {
     TextWithIcon(
@@ -253,8 +257,8 @@ fun BurnTime(stage: Rocket.Stage) {
         iconDescription = stringResource(
             id = R.string.rocket_detail_burn_icon_desc
         ),
-        text = pluralResource(
-            resId =  R.plurals.rocket_detail_seconds_burn_time,
+        text = pluralStringResource(
+            id =  R.plurals.rocket_detail_seconds_burn_time,
             stage.burnTimeInSec,
             stage.burnTimeInSec,
         )
@@ -285,17 +289,6 @@ fun RocketPhoto(
 //            .fillMaxWidth()
             .clip(RoundedCornerShape(cornerRadius))
     )
-}
-
-/* --------------- utils --------------- */
-@Composable
-fun pluralResource(
-    @PluralsRes resId: Int,
-    quantity: Int,
-    vararg formatArgs: Any? = emptyArray()
-): String {
-    return LocalContext.current.resources
-        .getQuantityString(resId, quantity, *formatArgs)
 }
 
 /* --------------- preview --------------- */
