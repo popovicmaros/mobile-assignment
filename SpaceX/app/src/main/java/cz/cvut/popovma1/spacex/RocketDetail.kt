@@ -199,7 +199,7 @@ fun Reusable(stage: Rocket.Stage) {
     val notReusableText = stringResource(id = R.string.rocket_detail_stage_not_reusable)
     val text = if (stage.isReusable) reusableText else notReusableText
     TextWithIcon(
-        iconSrc = R.drawable.reusable,
+        iconSrc = R.drawable.ic_reusable,
         iconDescription = "reusable",
         text = text
     )
@@ -212,7 +212,7 @@ fun Engine(stage: Rocket.Stage) {
     val engineText = if (stage.enginesCnt == 1) engineSingular else enginePlural
     val text = "${stage.enginesCnt} $engineText"
     TextWithIcon(
-        iconSrc = R.drawable.engine,
+        iconSrc = R.drawable.ic_engine,
         iconDescription = "engine",
         text = text
     )
@@ -223,7 +223,7 @@ fun Fuel(stage: Rocket.Stage) {
     val tonsText = stringResource(id = R.string.rocket_detail_tons_of_fuel)
     val text = "${stage.tonsOfFuel} $tonsText"
     TextWithIcon(
-        iconSrc = R.drawable.fuel,
+        iconSrc = R.drawable.ic_fuel,
         iconDescription = "fuel",
         text = text
     )
@@ -234,7 +234,7 @@ fun BurnTime(stage: Rocket.Stage) {
     val burnTimeText = stringResource(id = R.string.rocket_detail_seconds_burn_time)
     val text = "${stage.burnTimeInSec} $burnTimeText"
     TextWithIcon(
-        iconSrc = R.drawable.burn,
+        iconSrc = R.drawable.ic_burn,
         iconDescription = "burn",
         text = text
     )

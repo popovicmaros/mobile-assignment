@@ -75,7 +75,7 @@ fun RocketFirstFlight(firstFlight: String) {
 @Composable
 fun RocketIcon() {
     Image(
-        painter = painterResource(R.drawable.rocket),
+        painter = painterResource(R.drawable.ic_rocket),
         contentDescription = "rocket icon",
         modifier = Modifier
             .size(iconSizeMedium)
