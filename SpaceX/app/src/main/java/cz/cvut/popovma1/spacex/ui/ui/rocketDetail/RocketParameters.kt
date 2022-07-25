@@ -10,7 +10,7 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.column.ColumnWithTitle
-import cz.cvut.popovma1.spacex.ui.theme.spacerSize
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketParameters(rocket: Rocket) {
@@ -18,10 +18,10 @@ fun RocketParameters(rocket: Rocket) {
         title = stringResource(id = R.string.rocket_detail_parameters),
     ) {
         RocketDimensions(rocket = rocket)
-        Spacer(modifier = Modifier.height(spacerSize))
+        Spacer(modifier = Modifier.height(spacerSizeSmall))
         RocketStages(rocket = rocket)
     }
-    Spacer(modifier = Modifier.height(spacerSize))
+    Spacer(modifier = Modifier.height(spacerSizeSmall))
 }
 
 @Preview

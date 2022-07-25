@@ -11,7 +11,7 @@ import cz.cvut.popovma1.spacex.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.text.TextWithTitle
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
-import cz.cvut.popovma1.spacex.ui.theme.spacerSize
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketOverview(rocket: Rocket) {
@@ -19,7 +19,7 @@ fun RocketOverview(rocket: Rocket) {
         title = stringResource(id = R.string.rocket_detail_overview),
         content = rocket.description
     )
-    Spacer(modifier = Modifier.height(spacerSize))
+    Spacer(modifier = Modifier.height(spacerSizeSmall))
 }
 
 @Preview

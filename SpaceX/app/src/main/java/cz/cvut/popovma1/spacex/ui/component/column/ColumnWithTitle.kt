@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cz.cvut.popovma1.spacex.ui.component.text.Title
-import cz.cvut.popovma1.spacex.ui.theme.spacerSize
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun ColumnWithTitle(
@@ -17,7 +17,7 @@ fun ColumnWithTitle(
 ) {
     Column(modifier = modifier) {
         Title(text = title)
-        Spacer(modifier = Modifier.height(spacerSize))
+        Spacer(modifier = Modifier.height(spacerSizeSmall))
         content()
     }
 }

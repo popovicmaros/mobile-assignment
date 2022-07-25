@@ -10,7 +10,7 @@ import cz.cvut.popovma1.spacex.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.card.SquareCardWithTwoTexts
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
-import cz.cvut.popovma1.spacex.ui.theme.spacerSize
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketDimensions(rocket: Rocket) {
@@ -25,13 +25,13 @@ fun RocketDimensions(rocket: Rocket) {
             metrics = stringResource(id = R.string.rocket_detail_meters_abbr),
             description = stringResource(id = R.string.rocket_detail_height)
         )
-        Spacer(Modifier.width(spacerSize))
+        Spacer(Modifier.width(spacerSizeSmall))
         DimensionCard(
             value = rocket.diameterInMeters,
             metrics = stringResource(id = R.string.rocket_detail_meters_abbr),
             description = stringResource(id = R.string.rocket_detail_diameter)
         )
-        Spacer(Modifier.width(spacerSize))
+        Spacer(Modifier.width(spacerSizeSmall))
         DimensionCard(
             value = rocket.massInKilograms,
             metrics = stringResource(id = R.string.rocket_detail_tons_abbr),

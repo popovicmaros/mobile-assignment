@@ -18,7 +18,7 @@ import cz.cvut.popovma1.spacex.ui.component.card.CardWithTitle
 import cz.cvut.popovma1.spacex.ui.component.text.TextWithIcon
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
-import cz.cvut.popovma1.spacex.ui.theme.spacerSize
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketStages(rocket: Rocket) {
@@ -27,7 +27,7 @@ fun RocketStages(rocket: Rocket) {
     ) {
         rocket.stages.forEachIndexed { i, stage ->
             RocketStage(stageNumber = i + 1, stage = stage)
-            Spacer(modifier = Modifier.height(spacerSize))
+            Spacer(modifier = Modifier.height(spacerSizeSmall))
         }
     }
 }
