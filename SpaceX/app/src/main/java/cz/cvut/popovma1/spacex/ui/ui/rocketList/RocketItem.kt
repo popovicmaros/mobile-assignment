@@ -1,6 +1,7 @@
 package cz.cvut.popovma1.spacex.ui.ui.rocketList
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -17,12 +18,16 @@ import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
 
 @Composable
-fun RocketItem(rocket: Rocket) {
+fun RocketItem(rocket: Rocket) { // TODO onclick
     Row(
         modifier = Modifier
             .padding(all = paddingSmall)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .clickable {
+//                       Log.d(localClassName, "")
+            },
         verticalAlignment = Alignment.CenterVertically,
+
     ) {
         RocketIcon()
         Spacer(modifier = Modifier.width(spacerSizeMedium))
