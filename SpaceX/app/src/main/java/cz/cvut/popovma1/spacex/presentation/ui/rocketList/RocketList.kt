@@ -55,3 +55,30 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (Int) -> Unit) {
         }
     }
 }
+
+@Composable
+fun RocketListWithTitleScrollable(
+    title: String = stringResource(id = R.string.rocket_list_title_rockets),
+    rockets: List<Rocket>,
+    onItemClick: (Int) -> Unit
+) {
+    Surface (
+        shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
+        elevation = 1.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = paddingMedium, start = paddingMedium, end = paddingMedium),
+    ) {
+        LazyColumn(
+
+        ) {
+            item {
+                LargeTitle(title)
+                Spacer(modifier = Modifier.width(spacerSizeSmall))
+            }
+            items(rockets) { rocket ->
+                RocketItem(rocket, onItemClick)
+            }
+        }
+    }
+}
