@@ -20,7 +20,8 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 @Composable
 fun RocketListWithTitle(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
-    rockets: List<Rocket>
+    rockets: List<Rocket>,
+    onItemClick: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -29,7 +30,7 @@ fun RocketListWithTitle(
     ) {
         LargeTitle(title)
         Spacer(modifier = Modifier.width(spacerSizeSmall))
-        RocketList(rockets)
+        RocketList(rockets = rockets, onItemClick = onItemClick)
     }
 }
 
@@ -42,14 +43,14 @@ fun LargeTitle(text: String) {
 }
 
 @Composable
-fun RocketList(rockets: List<Rocket>) {
+fun RocketList(rockets: List<Rocket>, onItemClick: (Int) -> Unit) {
     Surface (
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp
     ){
         LazyColumn {
             items(rockets) { rocket ->
-                RocketItem(rocket)
+                RocketItem(rocket, onItemClick)
             }
         }
     }

@@ -1,6 +1,7 @@
 package cz.cvut.popovma1.spacex
 
 data class Rocket (
+    val id: Int,
     val rocketName: String,
     val firstFlight: String, // TODO Date/Calendar ?
     val description: String,

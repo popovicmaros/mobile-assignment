@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_rocketDetailFragment_to_rocketLaunchFragment"
             app:destination="@id/rocketLaunchFragment" />
+        <argument
+            android:name="rocketId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/rocketLaunchFragment"

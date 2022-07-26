@@ -5,13 +5,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import cz.cvut.popovma1.spacex.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.theme.*
 
 @Composable
-fun RocketDetailScreen() {
-        val rocket = RocketsSampleData.getRocket()
-        val rocketPhotos = RocketsSampleData.getRocketPhotos()
+fun RocketDetailScreen(rocket: Rocket, rocketPhotos: List<Int>) {
         LazyColumn (
             modifier = Modifier.padding(paddingMedium)
         ){
@@ -24,7 +23,9 @@ fun RocketDetailScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewRocketDetailScreen() {
+    val rocket = RocketsSampleData.getRocket()
+    val rocketPhotos = RocketsSampleData.getRocketPhotos()
     SpaceXTheme {
-        RocketDetailScreen()
+        RocketDetailScreen(rocket, rocketPhotos)
     }
 }

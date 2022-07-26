@@ -1,11 +1,15 @@
 package cz.cvut.popovma1.spacex.ui.ui.rocketList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 
@@ -19,9 +23,16 @@ class RocketListFragment : Fragment() {
             SpaceXTheme {
                 RocketListScreen(
                     rockets = RocketsSampleData.getRocketsList(),
-//                    toRocketDetailAction = {
-//
-//                    }
+                    onItemClick = { rocketId ->
+                        val navController: NavController = findNavController() // from navigation-fragment-ktx
+                        val action: NavDirections = RocketListFragmentDirections
+                            .actionRocketListFragmentToRocketDetailFragment(
+                                rocketId = rocketId
+                            ) // from safeArgs
+
+                        navController.navigate(action)
+                        Log.d("RocketListFragment", "rocketId = $rocketId")
+                    }
                 )
             }
         }
