@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
 
+    implementation("com.github.Qase:KotlinLogger:2.2.10")
+
     implementation("androidx.appcompat:appcompat:1.4.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
