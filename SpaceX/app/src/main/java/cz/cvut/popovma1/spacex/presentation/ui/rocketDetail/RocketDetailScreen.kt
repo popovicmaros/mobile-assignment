@@ -1,16 +1,41 @@
 package cz.cvut.popovma1.spacex.presentation.ui.rocketDetail
 
+import BackButton
+import CenteredTitleTopBar
+import LaunchButton
+import cz.cvut.popovma1.spacex.presentation.component.topAppBar.ContentWithTopBar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
+import cz.cvut.popovma1.spacex.presentation.component.text.Title
 import cz.cvut.popovma1.spacex.presentation.theme.*
 
 @Composable
-fun RocketDetailScreen(rocket: Rocket, rocketPhotos: List<Int>) {
+fun RocketDetailScreen(
+    rocket: Rocket,
+    rocketPhotos: List<Int>,
+    onBackClick: () -> Unit,
+    onLaunchClick: () -> Unit,
+) {
+    ContentWithTopBar(
+        topBar = { RocketDetailTopBar(
+            title = rocket.rocketName,
+            onBackClick = onBackClick,
+            onLaunchClick = onLaunchClick
+        ) }
+    ) {
         LazyColumn (
             modifier = Modifier.padding(paddingMedium)
         ){
@@ -18,6 +43,23 @@ fun RocketDetailScreen(rocket: Rocket, rocketPhotos: List<Int>) {
             item { RocketParameters(rocket) }
             item { RocketPhotos(rocketPhotos) }
         }
+    }
+}
+
+@Composable
+private fun RocketDetailTopBar(
+    title: String,
+    onBackClick: () -> Unit,
+    onLaunchClick: () -> Unit
+) {
+    CenteredTitleTopBar(title = title) {
+        BackButton(
+            text = stringResource(id = R.string.rocket_list_title_rockets),
+            onBackClick = onBackClick
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        LaunchButton(onLaunchClick = onLaunchClick)
+    }
 }
 
 @Preview(showBackground = true)
@@ -26,6 +68,11 @@ fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
     val rocketPhotos = RocketsSampleData.getRocketPhotos()
     SpaceXTheme {
-        RocketDetailScreen(rocket, rocketPhotos)
+        RocketDetailScreen(
+            rocket,
+            rocketPhotos,
+            onBackClick = {},
+            onLaunchClick = {}
+        )
     }
 }

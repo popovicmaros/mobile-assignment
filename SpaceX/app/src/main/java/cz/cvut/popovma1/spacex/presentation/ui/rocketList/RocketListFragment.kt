@@ -23,18 +23,20 @@ class RocketListFragment : Fragment() {
             SpaceXTheme {
                 RocketListScreen(
                     rockets = RocketsSampleData.getRocketsList(),
-                    onItemClick = { rocketId ->
-                        val navController: NavController = findNavController() // from navigation-fragment-ktx
-                        val action: NavDirections = RocketListFragmentDirections
-                            .actionRocketListFragmentToRocketDetailFragment(
-                                rocketId = rocketId
-                            ) // from safeArgs
-
-                        navController.navigate(action)
-                        Log.d("RocketListFragment", "rocketId = $rocketId")
-                    }
+                    onItemClick = { rocketId -> navigateToRocketDetail(rocketId) },
                 )
             }
         }
+    }
+
+    private fun navigateToRocketDetail(rocketId: Int) {
+        val navController: NavController = findNavController() // from navigation-fragment-ktx
+        val action: NavDirections = RocketListFragmentDirections
+            .actionRocketListFragmentToRocketDetailFragment(
+                rocketId = rocketId
+            ) // from safeArgs
+
+        navController.navigate(action)
+        Log.d("RocketListFragment", "rocketId = $rocketId")
     }
 }

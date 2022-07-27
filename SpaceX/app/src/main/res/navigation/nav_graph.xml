@@ -27,5 +27,9 @@
     <fragment
         android:id="@+id/rocketLaunchFragment"
         android:name="cz.cvut.popovma1.spacex.presentation.ui.rocketLaunch.RocketLaunchFragment"
-        android:label="RocketLaunchFragment" />
+        android:label="RocketLaunchFragment" >
+        <argument
+            android:name="rocketName"
+            app:argType="string" />
+    </fragment>
 </navigation>
