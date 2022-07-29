@@ -23,6 +23,9 @@
         <argument
             android:name="rocketId"
             app:argType="integer" />
+        <argument
+            android:name="rocketName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/rocketLaunchFragment"

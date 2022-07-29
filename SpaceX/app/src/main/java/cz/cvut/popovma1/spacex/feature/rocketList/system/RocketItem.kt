@@ -18,13 +18,13 @@ import cz.cvut.popovma1.spacex.presentation.theme.paddingSmall
 import cz.cvut.popovma1.spacex.presentation.theme.spacerSizeMedium
 
 @Composable
-fun RocketItem(rocket: Rocket, onItemClick: (Int) -> Unit) {
+fun RocketItem(rocket: Rocket, onItemClick: (Int, String) -> Unit) {
     Row(
         modifier = Modifier
             .padding(all = paddingSmall)
             .fillMaxSize()
             .clickable {
-                onItemClick(rocket.id)
+                onItemClick(rocket.id, rocket.rocketName)
             },
         verticalAlignment = Alignment.CenterVertically,
 

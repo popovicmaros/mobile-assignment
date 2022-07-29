@@ -24,11 +24,12 @@ class RocketDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
+
         val args: RocketDetailFragmentArgs by navArgs()
         Log.d( "rocketId = ${args.rocketId}")
-//        Log.d( "rocketName = ${args.rocketName}")
+        Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
-        val rocketPhotos = RocketsSampleData.getRocketPhotos()
+        val rocketPhotos = RocketsSampleData.getRocketPhotos() // TODO how to get actual photos?
 
         val viewModel: RocketDetailViewModel by viewModels()
         viewModel.getRocket(id = args.rocketId)
@@ -37,9 +38,10 @@ class RocketDetailFragment : Fragment() {
             SpaceXTheme {
                 RocketDetailScreen(
                     rocket = viewModel.rocket.collectAsState().value,
-                    rocketPhotos,
+                    rocketName = args.rocketName,
+                    rocketPhotos = rocketPhotos,
                     onBackClick = { navigateBack() }
-                ) { navigateToRocketLaunch(rocketName = "args.rocketName") } // TODO args.rocketName
+                ) { navigateToRocketLaunch(rocketName = args.rocketName) }
             }
         }
     }

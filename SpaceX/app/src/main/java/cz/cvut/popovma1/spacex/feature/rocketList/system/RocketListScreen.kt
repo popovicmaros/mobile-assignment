@@ -15,7 +15,7 @@ import cz.cvut.popovma1.spacex.repository.model.State
 @Composable
 fun RocketListScreen(
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int) -> Unit,
+    onItemClick: (Int, String) -> Unit,
 ) {
     ContentWithTopBar(
         topBar = { TopAppBar(
@@ -35,7 +35,7 @@ fun Preview() {
     SpaceXTheme {
         RocketListScreen(
             rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
-            onItemClick = {},
+            onItemClick = { _, _ -> },
         )
     }
 }

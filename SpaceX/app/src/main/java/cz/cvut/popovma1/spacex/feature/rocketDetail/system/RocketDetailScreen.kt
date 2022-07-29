@@ -23,13 +23,14 @@ import cz.cvut.popovma1.spacex.repository.model.State
 @Composable
 fun RocketDetailScreen(
     rocket: ResponseWrapper<Rocket>,
+    rocketName: String,
     rocketPhotos: List<Int>,
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
 ) {
     ContentWithTopBar(
         topBar = { RocketDetailTopBar(
-            title = getRocketName(rocket),
+            title = rocketName,
             onBackClick = onBackClick,
             onLaunchClick = onLaunchClick
         ) }
@@ -55,12 +56,6 @@ private fun LazyListScope.RocketDetailSuccess(
     item { RocketPhotos(rocketPhotos) }
 }
 
-fun getRocketName(rocket: ResponseWrapper<Rocket>): String =
-    when(rocket.state) {
-        State.SUCCESS -> rocket.data.rocketName
-        else -> "" // TODO pass rocket name from navig. args to have fixed topbar
-    }
-
 @Composable
 private fun RocketDetailTopBar(
     title: String,
@@ -80,11 +75,13 @@ private fun RocketDetailTopBar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewRocketDetailScreen() {
+    val rocket = RocketsSampleData.getRocket()
     val rocketPhotos = RocketsSampleData.getRocketPhotos()
     SpaceXTheme {
         RocketDetailScreen(
-            rocket = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocket()),
-            rocketPhotos,
+            rocket = ResponseWrapper(State.SUCCESS, rocket),
+            rocketName = rocket.rocketName,
+            rocketPhotos = rocketPhotos,
             onBackClick = {}
         ) {}
     }

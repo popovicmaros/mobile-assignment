@@ -25,7 +25,7 @@ import cz.cvut.popovma1.spacex.repository.model.State
 fun RocketListWithTitle(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: List<Rocket>,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int, String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -47,7 +47,7 @@ fun LargeTitle(text: String) {
 }
 
 @Composable
-fun RocketList(rockets: List<Rocket>, onItemClick: (Int) -> Unit) {
+fun RocketList(rockets: List<Rocket>, onItemClick: (Int, String) -> Unit) {
     Surface (
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp
@@ -64,7 +64,7 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (Int) -> Unit) {
 fun RocketListWithTitleScrollable(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int, String) -> Unit,
 ) {
     Surface (
         shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
@@ -93,7 +93,7 @@ private fun LazyListScope.RocketListError() {
 
 private fun LazyListScope.RocketListSuccess(
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int, String) -> Unit
 ) {
     if (rockets.data.isNotEmpty()) {
         items(rockets.data) { rocket ->
