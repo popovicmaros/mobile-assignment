@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.flow
 class RocketRepositoryImpl: RocketRepository {
 
     override fun getAllRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
-        delay(500) // todo remove "loading"
+        delay(2000) // todo remove "loading"
+//        emit(ResponseWrapper(State.ERROR, listOf()))
         emit(ResponseWrapper(
             State.SUCCESS,
             RocketsSampleData.getRocketsList() // TODO replace this with data from flow
@@ -20,6 +21,7 @@ class RocketRepositoryImpl: RocketRepository {
 
     override fun getRocket(id: Int): Flow<ResponseWrapper<Rocket>> = flow {
         delay(500) // todo remove "loading"
+//        emit(ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET))
         emit(ResponseWrapper(
             State.SUCCESS,
             RocketsSampleData.getRocket(id) // TODO replace this with data from flow

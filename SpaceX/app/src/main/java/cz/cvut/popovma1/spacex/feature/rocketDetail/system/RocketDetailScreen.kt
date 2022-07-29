@@ -7,8 +7,9 @@ import cz.cvut.popovma1.spacex.presentation.component.topAppBar.ContentWithTopBa
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,9 +17,13 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.presentation.component.screen.LoadingScreen
+import cz.cvut.popovma1.spacex.presentation.component.snackbar.showLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.presentation.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketDetailScreen(
@@ -28,20 +33,28 @@ fun RocketDetailScreen(
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
 ) {
+    // snackbar setup
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
+
     ContentWithTopBar(
         topBar = { RocketDetailTopBar(
             title = rocketName,
             onBackClick = onBackClick,
-            onLaunchClick = onLaunchClick
-        ) }
+            onLaunchClick = onLaunchClick,
+        ) },
+        scaffoldState = scaffoldState,
     ) {
-        LazyColumn (
-            modifier = Modifier.padding(paddingMedium)
-        ){
+        LazyColumn (modifier = Modifier.padding(paddingMedium)){
             when(rocket.state) {
                 State.SUCCESS -> RocketDetailSuccess(rocket.data, rocketPhotos)
                 State.LOADING -> item { LoadingScreen() }
-                State.ERROR -> item { Text(text = "Error") }
+                State.ERROR -> showLoadingErrorSnackbar(
+                    coroutineScope,
+                    scaffoldState
+                // TODO onActionPerformed -> call refresh()
+                // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
+                )
             }
         }
     }

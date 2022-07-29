@@ -6,20 +6,24 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.presentation.component.screen.LoadingScreen
+import cz.cvut.popovma1.spacex.presentation.component.snackbar.showLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.presentation.theme.cornerRadius
 import cz.cvut.popovma1.spacex.presentation.theme.paddingMedium
 import cz.cvut.popovma1.spacex.presentation.theme.spacerSizeSmall
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun RocketListWithTitle(
@@ -65,7 +69,10 @@ fun RocketListWithTitleScrollable(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Int, String) -> Unit,
+    scaffoldState: ScaffoldState
 ) {
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
+
     Surface (
         shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
         elevation = 1.dp,
@@ -81,14 +88,13 @@ fun RocketListWithTitleScrollable(
             when (rockets.state) {
                 State.SUCCESS -> RocketListSuccess(rockets, onItemClick)
                 State.LOADING -> item { LoadingScreen() }
-                State.ERROR -> RocketListError()
+                State.ERROR -> showLoadingErrorSnackbar(
+                    coroutineScope = coroutineScope,
+                    scaffoldState = scaffoldState
+                )
             }
         }
     }
-}
-
-private fun LazyListScope.RocketListError() {
-    item { Text(text = "Error") }
 }
 
 private fun LazyListScope.RocketListSuccess(

@@ -17,14 +17,19 @@ fun RocketListScreen(
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Int, String) -> Unit,
 ) {
+    // setup snackbar
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+
     ContentWithTopBar(
         topBar = { TopAppBar(
             title = { Text(stringResource(id = R.string.title_activity_rocket_list)) },
-        )}
+        )},
+        scaffoldState = scaffoldState
     ) {
         RocketListWithTitleScrollable(
             rockets = rockets,
-            onItemClick = onItemClick
+            onItemClick = onItemClick,
+            scaffoldState = scaffoldState
         )
     }
 }
