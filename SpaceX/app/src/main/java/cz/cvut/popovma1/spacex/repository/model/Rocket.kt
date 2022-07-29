@@ -18,5 +18,18 @@ data class Rocket (
         val tonsOfFuel: Int,
         val burnTimeInSec: Int
     )
+
+    companion object {
+        val NULL_ROCKET = Rocket(
+            id = 0,
+            rocketName = "",
+            firstFlight = "",
+            description = "",
+            heightInMeters = 0,
+            diameterInMeters = 0,
+            massInKilograms = 0,
+            stages = listOf()
+        )
+    }
 }
 

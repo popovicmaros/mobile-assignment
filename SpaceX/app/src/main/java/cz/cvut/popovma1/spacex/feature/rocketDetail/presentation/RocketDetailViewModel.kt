@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.feature.rocketList.presentation
+package cz.cvut.popovma1.spacex.feature.rocketDetail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,20 +11,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class RocketListViewModel(
-    private val rocketRepository: RocketRepository = RocketRepositoryImpl() /* todo <- remove init */
+class RocketDetailViewModel(
+    private val rocketRepository: RocketRepository = RocketRepositoryImpl() /* todo <- remove init */,
 ): ViewModel() {
 
-    val rockets = MutableStateFlow(ResponseWrapper<List<Rocket>>(State.LOADING, listOf()))
+    val rocket = MutableStateFlow(ResponseWrapper<Rocket>(State.LOADING, Rocket.NULL_ROCKET))
 
-    init {
-        getRockets()
-    }
-
-    private fun getRockets() {
+    fun getRocket(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            rocketRepository.getAllRockets().collect {
-                rockets.value = it
+            rocketRepository.getRocket(id).collect {
+                rocket.value = it
             }
         }
     }

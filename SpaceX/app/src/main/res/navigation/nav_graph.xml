@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/rocketDetailFragment"
-        android:name="cz.cvut.popovma1.spacex.presentation.ui.rocketDetail.RocketDetailFragment"
+        android:name="cz.cvut.popovma1.spacex.feature.rocketDetail.system.RocketDetailFragment"
         android:label="RocketDetailFragment" >
         <action
             android:id="@+id/action_rocketDetailFragment_to_rocketLaunchFragment"

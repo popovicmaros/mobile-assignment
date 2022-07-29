@@ -1,39 +1,45 @@
-package cz.cvut.popovma1.spacex.presentation.ui.rocketDetail
+package cz.cvut.popovma1.spacex.feature.rocketDetail.system
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.RocketsSampleData
+import cz.cvut.popovma1.spacex.feature.rocketDetail.presentation.RocketDetailViewModel
 import cz.cvut.popovma1.spacex.presentation.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
 
 class RocketDetailFragment : Fragment() {
 
-    private val args: RocketDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-//        Log.d( "rocketId = ${args.rocketId}")
-        val rocket = RocketsSampleData.getRocket(id = args.rocketId)
+        val args: RocketDetailFragmentArgs by navArgs()
+        Log.d( "rocketId = ${args.rocketId}")
+//        Log.d( "rocketName = ${args.rocketName}")
+
         val rocketPhotos = RocketsSampleData.getRocketPhotos()
+
+        val viewModel: RocketDetailViewModel by viewModels()
+        viewModel.getRocket(id = args.rocketId)
 
         setContent {
             SpaceXTheme {
                 RocketDetailScreen(
-                    rocket,
+                    rocket = viewModel.rocket.collectAsState().value,
                     rocketPhotos,
-                    onBackClick = { navigateBack() },
-                    onLaunchClick = { navigateToRocketLaunch(rocketName = rocket.rocketName) }
-                )
+                    onBackClick = { navigateBack() }
+                ) { navigateToRocketLaunch(rocketName = "args.rocketName") } // TODO args.rocketName
             }
         }
     }

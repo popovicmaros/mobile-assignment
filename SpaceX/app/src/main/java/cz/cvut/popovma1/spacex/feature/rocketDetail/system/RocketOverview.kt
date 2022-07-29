@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.presentation.ui.rocketDetail
+package cz.cvut.popovma1.spacex.feature.rocketDetail.system
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

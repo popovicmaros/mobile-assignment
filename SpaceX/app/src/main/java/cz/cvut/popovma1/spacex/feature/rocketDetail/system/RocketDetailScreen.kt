@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.presentation.ui.rocketDetail
+package cz.cvut.popovma1.spacex.feature.rocketDetail.system
 
 import BackButton
 import CenteredTitleTopBar
@@ -6,6 +6,8 @@ import LaunchButton
 import cz.cvut.popovma1.spacex.presentation.component.topAppBar.ContentWithTopBar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -13,18 +15,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
+import cz.cvut.popovma1.spacex.presentation.component.screen.LoadingScreen
 import cz.cvut.popovma1.spacex.presentation.theme.*
+import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.State
 
 @Composable
 fun RocketDetailScreen(
-    rocket: Rocket,
+    rocket: ResponseWrapper<Rocket>,
     rocketPhotos: List<Int>,
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
 ) {
     ContentWithTopBar(
         topBar = { RocketDetailTopBar(
-            title = rocket.rocketName,
+            title = getRocketName(rocket),
             onBackClick = onBackClick,
             onLaunchClick = onLaunchClick
         ) }
@@ -32,12 +37,29 @@ fun RocketDetailScreen(
         LazyColumn (
             modifier = Modifier.padding(paddingMedium)
         ){
-            item { RocketOverview(rocket) }
-            item { RocketParameters(rocket) }
-            item { RocketPhotos(rocketPhotos) }
+            when(rocket.state) {
+                State.SUCCESS -> RocketDetailSuccess(rocket.data, rocketPhotos)
+                State.LOADING -> item { LoadingScreen() }
+                State.ERROR -> item { Text(text = "Error") }
+            }
         }
     }
 }
+
+private fun LazyListScope.RocketDetailSuccess(
+    rocket: Rocket,
+    rocketPhotos: List<Int>
+) {
+    item { RocketOverview(rocket) }
+    item { RocketParameters(rocket) }
+    item { RocketPhotos(rocketPhotos) }
+}
+
+fun getRocketName(rocket: ResponseWrapper<Rocket>): String =
+    when(rocket.state) {
+        State.SUCCESS -> rocket.data.rocketName
+        else -> "" // TODO pass rocket name from navig. args to have fixed topbar
+    }
 
 @Composable
 private fun RocketDetailTopBar(
@@ -58,14 +80,12 @@ private fun RocketDetailTopBar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewRocketDetailScreen() {
-    val rocket = RocketsSampleData.getRocket()
     val rocketPhotos = RocketsSampleData.getRocketPhotos()
     SpaceXTheme {
         RocketDetailScreen(
-            rocket,
+            rocket = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocket()),
             rocketPhotos,
-            onBackClick = {},
-            onLaunchClick = {}
-        )
+            onBackClick = {}
+        ) {}
     }
 }

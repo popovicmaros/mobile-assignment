@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cvut.popovma1.spacex.R
+import cz.cvut.popovma1.spacex.presentation.component.screen.LoadingScreen
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.presentation.theme.cornerRadius
 import cz.cvut.popovma1.spacex.presentation.theme.paddingMedium
@@ -78,9 +79,9 @@ fun RocketListWithTitleScrollable(
                 Spacer(modifier = Modifier.width(spacerSizeSmall))
             }
             when (rockets.state) {
-                State.SUCCESS -> { RocketListSuccess(rockets, onItemClick) }
-                State.LOADING -> { RocketListLoading() }
-                State.ERROR -> { RocketListError() }
+                State.SUCCESS -> RocketListSuccess(rockets, onItemClick)
+                State.LOADING -> item { LoadingScreen() }
+                State.ERROR -> RocketListError()
             }
         }
     }
@@ -90,16 +91,11 @@ private fun LazyListScope.RocketListError() {
     item { Text(text = "Error") }
 }
 
-private fun LazyListScope.RocketListLoading() {
-    item { Text("Loading..") }
-}
-
-
 private fun LazyListScope.RocketListSuccess(
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Int) -> Unit
 ) {
-    if (rockets.data?.isNotEmpty() == true) {
+    if (rockets.data.isNotEmpty()) {
         items(rockets.data) { rocket ->
             RocketItem(rocket, onItemClick)
         }
