@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/rocketListFragment"
-        android:name="cz.cvut.popovma1.spacex.feature.rocketList.system.RocketListFragment"
+        android:name="cz.cvut.popovma1.spacex.feature.rocketlist.system.RocketListFragment"
         android:label="RocketListFragment">
         <action
             android:id="@+id/action_rocketListFragment_to_rocketDetailFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/rocketDetailFragment"
-        android:name="cz.cvut.popovma1.spacex.feature.rocketDetail.system.RocketDetailFragment"
+        android:name="cz.cvut.popovma1.spacex.feature.rocketdetail.system.RocketDetailFragment"
         android:label="RocketDetailFragment" >
         <action
             android:id="@+id/action_rocketDetailFragment_to_rocketLaunchFragment"
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/rocketLaunchFragment"
-        android:name="cz.cvut.popovma1.spacex.presentation.ui.rocketLaunch.RocketLaunchFragment"
+        android:name="cz.cvut.popovma1.spacex.feature.rocketlaunch.system.RocketLaunchFragment"
         android:label="RocketLaunchFragment" >
         <argument
             android:name="rocketName"
