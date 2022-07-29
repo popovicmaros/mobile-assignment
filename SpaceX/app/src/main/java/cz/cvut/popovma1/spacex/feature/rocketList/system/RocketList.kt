@@ -2,6 +2,7 @@ package cz.cvut.popovma1.spacex.feature.rocketList.system
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -16,6 +17,8 @@ import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.presentation.theme.cornerRadius
 import cz.cvut.popovma1.spacex.presentation.theme.paddingMedium
 import cz.cvut.popovma1.spacex.presentation.theme.spacerSizeSmall
+import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.State
 
 @Composable
 fun RocketListWithTitle(
@@ -59,7 +62,7 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (Int) -> Unit) {
 @Composable
 fun RocketListWithTitleScrollable(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
-    rockets: List<Rocket>,
+    rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Int) -> Unit
 ) {
     Surface (
@@ -69,16 +72,45 @@ fun RocketListWithTitleScrollable(
             .fillMaxWidth()
             .padding(top = paddingMedium, start = paddingMedium, end = paddingMedium),
     ) {
-        LazyColumn(
-
-        ) {
+        LazyColumn {
             item {
                 LargeTitle(title)
                 Spacer(modifier = Modifier.width(spacerSizeSmall))
             }
-            items(rockets) { rocket ->
-                RocketItem(rocket, onItemClick)
+            when (rockets.state) {
+                State.SUCCESS -> { RocketListSuccess(rockets, onItemClick) }
+                State.LOADING -> { RocketListLoading() }
+                State.ERROR -> { RocketListError() }
             }
         }
+    }
+}
+
+private fun LazyListScope.RocketListError() {
+    item { Text(text = "Error") }
+}
+
+private fun LazyListScope.RocketListLoading() {
+    item { Text("Loading..") }
+}
+
+
+private fun LazyListScope.RocketListSuccess(
+    rockets: ResponseWrapper<List<Rocket>>,
+    onItemClick: (Int) -> Unit
+) {
+    if (rockets.data?.isNotEmpty() == true) {
+        items(rockets.data) { rocket ->
+            RocketItem(rocket, onItemClick)
+        }
+    } else {
+        item { NoItemsSurface() }
+    }
+}
+
+@Composable
+fun NoItemsSurface() {
+    Surface {
+        Text(text = "Success: No Items")
     }
 }

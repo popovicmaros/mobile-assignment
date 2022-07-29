@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.feature.rocketList.presentation.RocketListViewModel
 import cz.cvut.popovma1.spacex.presentation.theme.SpaceXTheme
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import quanti.com.kotlinlog.Log
 
 class RocketListFragment : Fragment() {
@@ -26,7 +27,7 @@ class RocketListFragment : Fragment() {
         setContent {
             SpaceXTheme {
                 RocketListScreen(
-                    rockets = viewModel.rockets.collectAsState().value.data ?: listOf(),
+                    rockets = viewModel.rockets.collectAsState().value,
                     onItemClick = { rocketId -> navigateToRocketDetail(rocketId) },
                 )
             }

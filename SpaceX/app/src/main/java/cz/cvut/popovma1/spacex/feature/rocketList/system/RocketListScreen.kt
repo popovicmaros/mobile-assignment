@@ -9,10 +9,12 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.presentation.theme.*
+import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.State
 
 @Composable
 fun RocketListScreen(
-    rockets: List<Rocket>,
+    rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Int) -> Unit,
 ) {
     ContentWithTopBar(
@@ -32,7 +34,7 @@ fun RocketListScreen(
 fun Preview() {
     SpaceXTheme {
         RocketListScreen(
-            rockets = RocketsSampleData.getRocketsList(),
+            rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
             onItemClick = {},
         )
     }
