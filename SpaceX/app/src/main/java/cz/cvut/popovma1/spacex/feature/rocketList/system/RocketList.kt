@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.presentation.ui.rocketList
+package cz.cvut.popovma1.spacex.feature.rocketList.system
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.presentation.theme.cornerRadius
 import cz.cvut.popovma1.spacex.presentation.theme.paddingMedium
 import cz.cvut.popovma1.spacex.presentation.theme.spacerSizeSmall

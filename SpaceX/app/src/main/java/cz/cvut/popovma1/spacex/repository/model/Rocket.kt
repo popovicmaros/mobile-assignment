@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex
+package cz.cvut.popovma1.spacex.repository.model
 
 data class Rocket (
     val id: Int,

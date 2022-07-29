@@ -1,5 +1,7 @@
 package cz.cvut.popovma1.spacex
 
+import cz.cvut.popovma1.spacex.repository.model.Rocket
+
 object RocketsSampleData {
     fun getRocketsList(): List<Rocket> = (1..20).map {
         Rocket(

@@ -55,6 +55,7 @@
     <string name="rocket_launch_text_before_launch">Move your phone up to launch the rocket</string>
     <string name="rocket_launch_text_after_launch">Launch successful!</string>
     <string name="rocket_launch_title">Launch</string>
+    <string name="rocket_launch_image_description">flying rocket</string>
 
     <!--  BackButton.kt  -->
     <string name="icon_back">back</string>

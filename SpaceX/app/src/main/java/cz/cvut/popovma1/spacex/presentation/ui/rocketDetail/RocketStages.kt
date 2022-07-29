@@ -12,7 +12,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
 import cz.cvut.popovma1.spacex.presentation.component.card.CardWithTitle
 import cz.cvut.popovma1.spacex.presentation.component.text.TextWithIcon

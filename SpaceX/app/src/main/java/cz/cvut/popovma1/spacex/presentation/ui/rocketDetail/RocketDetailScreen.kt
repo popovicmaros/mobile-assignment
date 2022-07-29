@@ -6,20 +6,13 @@ import LaunchButton
 import cz.cvut.popovma1.spacex.presentation.component.topAppBar.ContentWithTopBar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.RocketsSampleData
-import cz.cvut.popovma1.spacex.presentation.component.text.Title
 import cz.cvut.popovma1.spacex.presentation.theme.*
 
 @Composable

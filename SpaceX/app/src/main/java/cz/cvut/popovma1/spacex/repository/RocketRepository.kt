@@ -1,0 +1,12 @@
+package cz.cvut.popovma1.spacex.repository
+
+import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.Rocket
+import kotlinx.coroutines.flow.Flow
+
+interface RocketRepository {
+
+    fun getAllRockets(): Flow<ResponseWrapper<List<Rocket>>>
+
+    // todo getRocketById
+}

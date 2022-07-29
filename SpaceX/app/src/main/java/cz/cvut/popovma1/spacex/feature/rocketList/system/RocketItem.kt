@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.presentation.ui.rocketList
+package cz.cvut.popovma1.spacex.feature.rocketList.system
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.presentation.theme.iconSizeMedium
 import cz.cvut.popovma1.spacex.presentation.theme.paddingSmall
 import cz.cvut.popovma1.spacex.presentation.theme.spacerSizeMedium
@@ -24,7 +24,6 @@ fun RocketItem(rocket: Rocket, onItemClick: (Int) -> Unit) {
             .padding(all = paddingSmall)
             .fillMaxSize()
             .clickable {
-//                       Log.d(localClassName, "")
                 onItemClick(rocket.id)
             },
         verticalAlignment = Alignment.CenterVertically,
