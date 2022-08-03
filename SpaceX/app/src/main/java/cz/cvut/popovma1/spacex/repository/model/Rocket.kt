@@ -30,6 +30,13 @@ data class Rocket (
             massInKilograms = 0,
             stages = listOf()
         )
+
+        val NULL_STAGE = Stage(
+            isReusable = false,
+            enginesCnt = 0,
+            tonsOfFuel = 0,
+            burnTimeInSec = 0
+        )
     }
 }
 

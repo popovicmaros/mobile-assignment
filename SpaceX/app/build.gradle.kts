@@ -2,10 +2,14 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp")
 }
 
 val composeVersion = "1.2.0-beta01"
 val navVersion = "2.3.5"
+val retrofitVersion = "2.9.0"
+val moshiVersion = "1.13.0"
+val okHttpVersion = "4.9.3"
 
 android {
     compileSdk = 32
@@ -61,6 +65,15 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    runtimeOnly("com.squareup.moshi:moshi:${moshiVersion}")
+    runtimeOnly("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
+
+    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
+
+    implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
 
     implementation("com.github.Qase:KotlinLogger:2.2.10")
 

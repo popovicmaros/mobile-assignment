@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RocketRepository {
 
-    fun getAllRockets(): Flow<ResponseWrapper<List<Rocket>>>
+    fun getRockets(): Flow<ResponseWrapper<List<Rocket>>>
 
     fun getRocket(id: Int): Flow<ResponseWrapper<Rocket>>
 

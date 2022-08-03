@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class RocketListViewModel(
-    private val rocketRepository: RocketRepository = RocketRepositoryImpl() /* todo <- remove init */
+    private val rocketRepository: RocketRepository //= RocketRepositoryImpl() /* todo <- remove init */
 ): ViewModel() {
 
-    val rockets = MutableStateFlow(ResponseWrapper<List<Rocket>>(State.LOADING, listOf()))
+    val rockets = defaultRockets()
 
     init {
         getRockets()
@@ -23,9 +23,12 @@ class RocketListViewModel(
 
     private fun getRockets() {
         viewModelScope.launch(Dispatchers.IO) {
-            rocketRepository.getAllRockets().collect {
+            rocketRepository.getRockets().collect {
                 rockets.value = it
             }
         }
     }
+
+    private fun defaultRockets() =
+        MutableStateFlow(ResponseWrapper<List<Rocket>>(State.LOADING, listOf()))
 }

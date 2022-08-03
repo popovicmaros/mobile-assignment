@@ -12,8 +12,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewModel
+import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
+import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 
 class RocketListFragment : Fragment() {
     override fun onCreateView(
@@ -21,7 +26,17 @@ class RocketListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-        val viewModel: RocketListViewModel by viewModels()
+
+        val spaceXApi = Retrofit.Builder()
+            .baseUrl("https://api.spacexdata.com/v3/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+            .create(SpaceXApi::class.java)
+
+        val rocketRepository = RocketRepositoryImpl(spaceXApi)
+//        val viewModel: RocketListViewModel by viewModels()
+        val viewModel = RocketListViewModel(rocketRepository)
+
         setContent {
             SpaceXTheme {
                 RocketListScreen(
@@ -30,6 +45,7 @@ class RocketListFragment : Fragment() {
                 )
             }
         }
+
     }
 
     private fun navigateToRocketDetail(rocketId: Int, rocketName: String) {
