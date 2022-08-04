@@ -53,31 +53,29 @@ class RocketRepositoryImpl(
                 data = Rocket.NULL_ROCKET
             ))
         }
-//        fakeGetRocket(id)
+//        fakeGetRocket()
     }
 
     // TODO remove
-    private suspend fun FlowCollector<ResponseWrapper<Rocket>>.fakeGetRocket(
-        id: Int
-    ) {
-        delay(500) // todo remove "loading"
+    private suspend fun FlowCollector<ResponseWrapper<Rocket>>.fakeGetRocket() {
+        delay(2000)
         //        emit(ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET))
         emit(
             ResponseWrapper(
                 State.SUCCESS,
-                RocketsSampleData.getRocket(id) // TODO replace this with data from flow
+                RocketsSampleData.getRocket()
             )
         )
     }
 
     // TODO remove
     private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.fakeGetRockets() {
-        delay(2000) // todo remove "loading"
+        delay(2000)
         //        emit(ResponseWrapper(State.ERROR, listOf()))
         emit(
             ResponseWrapper(
                 State.SUCCESS,
-                RocketsSampleData.getRocketsList() // TODO replace this with data from flow
+                RocketsSampleData.getRocketsList()
             )
         )
     }

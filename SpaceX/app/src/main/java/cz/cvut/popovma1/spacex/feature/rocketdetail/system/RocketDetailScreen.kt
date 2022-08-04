@@ -42,10 +42,9 @@ fun RocketDetailScreen(
         ) },
         scaffoldState = scaffoldState,
     ) {
-        LazyColumn (modifier = Modifier.padding(paddingMedium)){
             when(rocket.state) {
                 State.SUCCESS -> RocketDetailSuccess(rocket.data)
-                State.LOADING -> item { LoadingScreen() }
+                State.LOADING -> LoadingScreen()
                 State.ERROR -> showLoadingErrorSnackbar(
                     coroutineScope,
                     scaffoldState
@@ -53,16 +52,18 @@ fun RocketDetailScreen(
                 // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
                 )
             }
-        }
     }
 }
 
-private fun LazyListScope.RocketDetailSuccess(
+@Composable
+private fun RocketDetailSuccess(
     rocket: Rocket,
 ) {
-    item { RocketOverview(rocket) }
-    item { RocketParameters(rocket) }
-    item { RocketImages(rocket.images) }
+    LazyColumn (modifier = Modifier.padding(paddingMedium)) {
+        item { RocketOverview(rocket) }
+        item { RocketParameters(rocket) }
+        item { RocketImages(rocket.images) }
+    }
 }
 
 @Composable
@@ -88,6 +89,8 @@ fun PreviewRocketDetailScreen() {
     SpaceXTheme {
         RocketDetailScreen(
             rocket = ResponseWrapper(State.SUCCESS, rocket),
+//            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
+//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
             onBackClick = {}
         ) {}

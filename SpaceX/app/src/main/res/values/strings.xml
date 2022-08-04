@@ -60,4 +60,6 @@
     <!--  BackButton.kt  -->
     <string name="icon_back">back</string>
 
+    <!--  LoadingScreen.kt  -->
+    <string name="text_loading">Loading…</string>
 </resources>
