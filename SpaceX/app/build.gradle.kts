@@ -10,6 +10,7 @@ val navVersion = "2.3.5"
 val retrofitVersion = "2.9.0"
 val moshiVersion = "1.13.0"
 val okHttpVersion = "4.9.3"
+val coilVersion = "2.1.0"
 
 android {
     compileSdk = 32
@@ -76,6 +77,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
 
     implementation("com.github.Qase:KotlinLogger:2.2.10")
+
+    implementation("io.coil-kt:coil:$coilVersion")
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 
     implementation("androidx.appcompat:appcompat:1.4.2")
     testImplementation("junit:junit:4.13.2")

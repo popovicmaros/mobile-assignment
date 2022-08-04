@@ -5,21 +5,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
-import cz.cvut.popovma1.spacex.ui.component.column.ImagesColumn
+import cz.cvut.popovma1.spacex.ui.component.images.UrlImagesColumn
 
 @Composable
-fun RocketPhotos(rocketPhotos: List<Int>) {
-    ImagesColumn(
+fun RocketImages(rocketImages: List<String>) {
+    UrlImagesColumn(
         title = stringResource(id = R.string.rocket_detail_photos),
         imagesDescription = stringResource(
             id = R.string.rocket_detail_default_rocket_photo_desc
         ),
-        imagesList = rocketPhotos
+        imagesList = rocketImages
     )
 }
 
 @Preview
 @Composable
-fun PreviewRocketPhotos() {
-    RocketPhotos(rocketPhotos = RocketsSampleData.getRocketPhotos())
+fun PreviewRocketImages() {
+    RocketImages(rocketImages = RocketsSampleData.getRocketImages())
 }

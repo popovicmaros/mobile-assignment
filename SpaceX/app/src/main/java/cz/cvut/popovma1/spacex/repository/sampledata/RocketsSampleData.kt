@@ -21,7 +21,7 @@ object RocketsSampleData {
         )
     }
 
-    private fun getRocketImages(): List<String> = listOf(
+    fun getRocketImages(): List<String> = listOf(
         "https://imgur.com/DaCfMsj.jpg",
         "https://imgur.com/azYafd8.jpg"
     )
@@ -40,11 +40,5 @@ object RocketsSampleData {
                 burnTimeInSec = it * 100
             )
         }
-
-    fun getRocketPhotos(): List<Int> = listOf(
-        R.drawable.rocket_photo1,
-        R.drawable.rocket_photo2,
-        R.drawable.rocket_photo3,
-    )
 
 }

@@ -27,7 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 fun RocketDetailScreen(
     rocket: ResponseWrapper<Rocket>,
     rocketName: String,
-    rocketPhotos: List<Int>,
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
 ) {
@@ -45,7 +44,7 @@ fun RocketDetailScreen(
     ) {
         LazyColumn (modifier = Modifier.padding(paddingMedium)){
             when(rocket.state) {
-                State.SUCCESS -> RocketDetailSuccess(rocket.data, rocketPhotos)
+                State.SUCCESS -> RocketDetailSuccess(rocket.data)
                 State.LOADING -> item { LoadingScreen() }
                 State.ERROR -> showLoadingErrorSnackbar(
                     coroutineScope,
@@ -60,11 +59,10 @@ fun RocketDetailScreen(
 
 private fun LazyListScope.RocketDetailSuccess(
     rocket: Rocket,
-    rocketPhotos: List<Int>
 ) {
     item { RocketOverview(rocket) }
     item { RocketParameters(rocket) }
-    item { RocketPhotos(rocketPhotos) }
+    item { RocketImages(rocket.images) }
 }
 
 @Composable
@@ -87,12 +85,10 @@ private fun RocketDetailTopBar(
 @Composable
 fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
-    val rocketPhotos = RocketsSampleData.getRocketPhotos()
     SpaceXTheme {
         RocketDetailScreen(
             rocket = ResponseWrapper(State.SUCCESS, rocket),
             rocketName = rocket.rocketName,
-            rocketPhotos = rocketPhotos,
             onBackClick = {}
         ) {}
     }

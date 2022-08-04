@@ -10,6 +10,8 @@ val paddingSmall = 8.dp
 val paddingMedium = 16.dp
 val cornerRadius = 25.dp
 
+val smallBorder = 2.dp
+
 // RocketLaunch.kt
 val launchedRocketSize = 150.dp
 val squareCardSize = 100.dp

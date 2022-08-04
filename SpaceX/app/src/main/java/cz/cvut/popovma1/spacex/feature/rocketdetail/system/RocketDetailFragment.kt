@@ -32,8 +32,6 @@ class RocketDetailFragment : Fragment() {
         Log.d( "rocketId = ${args.rocketId}")
         Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
-        val rocketPhotos = RocketsSampleData.getRocketPhotos() // TODO how to get actual photos?
-
         val spaceXApi = SpaceXRetrofitApi.spaceXApi
         val rocketRepository = RocketRepositoryImpl(spaceXApi)
         val viewModel = RocketDetailViewModel(rocketRepository)
@@ -44,7 +42,6 @@ class RocketDetailFragment : Fragment() {
                 RocketDetailScreen(
                     rocket = viewModel.rocket.collectAsState().value,
                     rocketName = args.rocketName,
-                    rocketPhotos = rocketPhotos,
                     onBackClick = { navigateBack() }
                 ) { navigateToRocketLaunch(rocketName = args.rocketName) }
             }
