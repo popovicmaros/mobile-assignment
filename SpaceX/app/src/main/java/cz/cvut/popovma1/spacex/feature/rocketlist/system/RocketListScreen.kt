@@ -13,6 +13,8 @@ import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.screen.LoadingScreen
+import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.ErrorScreen
+import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.NoDataScreen
 import cz.cvut.popovma1.spacex.ui.component.snackbar.showLoadingErrorSnackbar
 import kotlinx.coroutines.CoroutineScope
 import quanti.com.kotlinlog.Log
@@ -35,15 +37,18 @@ fun RocketListScreen(
         scaffoldState = scaffoldState
     ) {
         when (rockets.state) {
-            State.SUCCESS -> RocketListSuccess(
-                rockets = rockets,
-                onItemClick = onItemClick,
-            )
+            State.SUCCESS -> {
+                RocketListSuccess(rockets = rockets, onItemClick = onItemClick)
+            }
             State.LOADING -> LoadingScreen()
-            State.ERROR -> showLoadingErrorSnackbar(
-                coroutineScope = coroutineScope,
-                scaffoldState = scaffoldState
-            )
+            State.ERROR -> {
+                ErrorScreen()
+                showLoadingErrorSnackbar(
+                    coroutineScope = coroutineScope,
+                    scaffoldState = scaffoldState
+                )
+            }
+            State.NO_DATA -> NoDataScreen()
         }
     }
 }
@@ -55,6 +60,8 @@ fun Preview() {
         RocketListScreen(
             rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
 //            rockets = ResponseWrapper(State.LOADING, listOf()),
+//            rockets = ResponseWrapper(State.ERROR, listOf()),
+//            rockets = ResponseWrapper(State.NO_DATA, listOf()),
             onItemClick = { _, _ -> },
         )
     }

@@ -20,7 +20,7 @@ fun LoadingScreen() {
     ) {
         CircularProgressIndicator()
         Text(
-            text = stringResource(id = R.string.text_loading),
+            text = stringResource(id = R.string.loading_screen_text_loading),
         )
     }
 }

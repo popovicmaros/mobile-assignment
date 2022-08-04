@@ -60,7 +60,6 @@ fun RocketLaunchContent() {
             modifier = Modifier.width(launchedRocketSize)
         )
         Spacer(modifier = Modifier.height(200.dp))
-        getLaunchText(isLaunched = true)
     }
 }
 

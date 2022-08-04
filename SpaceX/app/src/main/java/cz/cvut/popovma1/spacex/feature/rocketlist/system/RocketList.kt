@@ -76,20 +76,9 @@ fun RocketListSuccess(
                 LargeTitle(title)
                 Spacer(modifier = Modifier.width(spacerSizeSmall))
             }
-            if (rockets.data.isNotEmpty()) {
-                items(rockets.data) { rocket ->
-                    RocketItem(rocket, onItemClick)
-                }
-            } else {
-                item { NoItemsSurface() }
+            items(rockets.data) { rocket ->
+                RocketItem(rocket, onItemClick)
             }
         }
-    }
-}
-
-@Composable
-fun NoItemsSurface() {
-    Surface {
-        Text(text = "Success: No Items")
     }
 }

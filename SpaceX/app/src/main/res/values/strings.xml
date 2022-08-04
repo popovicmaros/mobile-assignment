@@ -61,5 +61,14 @@
     <string name="icon_back">back</string>
 
     <!--  LoadingScreen.kt  -->
-    <string name="text_loading">Loading…</string>
+    <string name="loading_screen_text_loading">Loading…</string>
+
+    <!--  ErrorScreen.kt  -->
+    <string name="error_screen_text_error">Error</string>
+    <string name="error_screen_error_icon_desc">error icon</string>
+
+    <!--  NoDataScreen.kt  -->
+    <string name="no_data_screen_text_no_data">No data</string>
+    <string name="no_data_icon_desc">no data icon</string>
+
 </resources>

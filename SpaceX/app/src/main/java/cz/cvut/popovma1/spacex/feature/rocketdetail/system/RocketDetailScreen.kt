@@ -21,6 +21,7 @@ import cz.cvut.popovma1.spacex.ui.component.snackbar.showLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
+import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.ErrorScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -45,12 +46,15 @@ fun RocketDetailScreen(
             when(rocket.state) {
                 State.SUCCESS -> RocketDetailSuccess(rocket.data)
                 State.LOADING -> LoadingScreen()
-                State.ERROR -> showLoadingErrorSnackbar(
-                    coroutineScope,
-                    scaffoldState
-                // TODO onActionPerformed -> call refresh()
-                // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
-                )
+                else -> {
+                    ErrorScreen()
+                    showLoadingErrorSnackbar(
+                        coroutineScope,
+                        scaffoldState
+                        // TODO onActionPerformed -> call refresh()
+                        // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
+                    )
+                }
             }
     }
 }
@@ -88,11 +92,12 @@ fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
     SpaceXTheme {
         RocketDetailScreen(
-            rocket = ResponseWrapper(State.SUCCESS, rocket),
+//            rocket = ResponseWrapper(State.SUCCESS, rocket),
 //            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
-//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
+            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
-            onBackClick = {}
-        ) {}
+            onBackClick = {},
+            onLaunchClick = {}
+        )
     }
 }

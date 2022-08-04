@@ -19,25 +19,56 @@ class RocketRepositoryImpl(
 ): RocketRepository {
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
+        delay(2000) // TODO remove
         try {
             val response: List<RocketNetwork> = api.getRockets()
-            val mappedResponse: List<Rocket> = response.map { RocketNetworkMapper().mapToRocket(it) }
-            Log.d("getRockets() response = $mappedResponse")
-            emit(ResponseWrapper(
-                state = State.SUCCESS,
-                data = mappedResponse
-            ))
+            if(response.isNotEmpty()) {
+                getRocketsSuccess(response)
+            } else {
+                getRocketsEmpty()
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
-            emit(ResponseWrapper(
-                state = State.ERROR, // TODO error state shows 2 snackbars (only on app start)
-                data = listOf<Rocket>()
-            ))
+            getRocketsError(e)
         }
 //        fakeGetRockets()
     }
 
+    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.getRocketsError(
+        e: Exception
+    ) {
+        e.printStackTrace()
+        emit(
+            ResponseWrapper(
+                state = State.ERROR, // TODO error state shows 2 snackbars (only on app start)
+                data = listOf<Rocket>()
+            )
+        )
+    }
+
+    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.getRocketsEmpty() {
+        emit(
+            ResponseWrapper(
+                state = State.NO_DATA,
+                data = listOf<Rocket>()
+            )
+        )
+    }
+
+    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.getRocketsSuccess(
+        response: List<RocketNetwork>
+    ) {
+        val mappedResponse: List<Rocket> = response.map { RocketNetworkMapper().mapToRocket(it) }
+        Log.d("getRockets() response = $mappedResponse")
+        emit(
+            ResponseWrapper(
+                state = State.SUCCESS,
+                data = mappedResponse
+            )
+        )
+    }
+
     override fun getRocket(rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
+        delay(2000) // TODO remove
         try {
             val response = api.getRocket(rocketId)
             val mappedResponse = RocketNetworkMapper().mapToRocket(response)
