@@ -14,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewModel
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
+import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
+import cz.cvut.popovma1.spacex.util.Constants.SPACEX_URL
 import quanti.com.kotlinlog.Log
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -27,11 +29,7 @@ class RocketListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
 
-        val spaceXApi = Retrofit.Builder()
-            .baseUrl("https://api.spacexdata.com/v3/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-            .create(SpaceXApi::class.java)
+        val spaceXApi = SpaceXRetrofitApi.spaceXApi
 
         val rocketRepository = RocketRepositoryImpl(spaceXApi)
 //        val viewModel: RocketListViewModel by viewModels()
@@ -48,7 +46,7 @@ class RocketListFragment : Fragment() {
 
     }
 
-    private fun navigateToRocketDetail(rocketId: Int, rocketName: String) {
+    private fun navigateToRocketDetail(rocketId: String, rocketName: String) {
         val navController: NavController = findNavController() // from navigation-fragment-ktx
         val action: NavDirections = RocketListFragmentDirections
             .actionRocketListFragmentToRocketDetailFragment(

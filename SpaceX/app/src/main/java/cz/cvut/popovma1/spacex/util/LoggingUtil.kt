@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex
+package cz.cvut.popovma1.spacex.util
 
 import android.content.Context
 import quanti.com.kotlinlog.Log

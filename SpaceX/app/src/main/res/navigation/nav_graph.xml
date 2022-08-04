@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/rocketListFragment">
 
@@ -22,7 +21,7 @@
             app:destination="@id/rocketLaunchFragment" />
         <argument
             android:name="rocketId"
-            app:argType="integer" />
+            app:argType="string" />
         <argument
             android:name="rocketName"
             app:argType="string" />

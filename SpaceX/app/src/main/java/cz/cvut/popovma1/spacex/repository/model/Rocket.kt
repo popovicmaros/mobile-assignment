@@ -2,6 +2,7 @@ package cz.cvut.popovma1.spacex.repository.model
 
 data class Rocket (
     val id: Int,
+    val rocketId: String,
     val rocketName: String,
     val firstFlight: String, // TODO Date/Calendar ?
     val description: String,
@@ -10,7 +11,8 @@ data class Rocket (
     val diameterInMeters: Int,
     val massInKilograms: Int,
 
-    val stages: List<Stage>
+    val stages: List<Stage>,
+    val images: List<String>
 ) {
     data class Stage (
         val isReusable: Boolean,
@@ -22,13 +24,15 @@ data class Rocket (
     companion object {
         val NULL_ROCKET = Rocket(
             id = 0,
+            rocketId = "",
             rocketName = "",
             firstFlight = "",
             description = "",
             heightInMeters = 0,
             diameterInMeters = 0,
             massInKilograms = 0,
-            stages = listOf()
+            stages = listOf(),
+            images = listOf()
         )
 
         val NULL_STAGE = Stage(

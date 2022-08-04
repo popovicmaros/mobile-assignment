@@ -11,14 +11,16 @@ import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
+import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketListScreen(
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int, String) -> Unit,
+    onItemClick: (String, String) -> Unit,
 ) {
     // setup snackbar
     val scaffoldState: ScaffoldState = rememberScaffoldState()
+    Log.d("@Composable RocketListScreen recomposed")
 
     ContentWithTopBar(
         topBar = { TopAppBar(

@@ -6,6 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class RocketNetwork(
     @Json(name = "id") val id: Int = 0,
+    @Json(name = "rocket_id") val rocketId: String = "",
     @Json(name = "rocket_name") val name: String = "",
     @Json(name = "first_flight") val firstFlight: String = "",
 
@@ -16,7 +17,9 @@ data class RocketNetwork(
     @Json(name = "description") val description: String = "",
 
     @Json(name = "first_stage") val stage1: StageNetwork = StageNetwork(),
-    @Json(name = "second_stage") val stage2: StageNetwork  = StageNetwork()
+    @Json(name = "second_stage") val stage2: StageNetwork  = StageNetwork(),
+
+    @Json(name = "flickr_images") val images: List<String> = listOf(),
 ) {
 
     @JsonClass(generateAdapter = true)

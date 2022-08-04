@@ -7,6 +7,7 @@ object RocketsSampleData {
     fun getRocketsList(): List<Rocket> = (1..20).map {
         Rocket(
             id = it,
+            rocketId = "falcon$it",
             rocketName = "Falcon $it",
             firstFlight = "$it.1.2022",
             description = "Falcon $it is a two-stage rocket designed and manufactured by SpaceX for " +
@@ -15,9 +16,15 @@ object RocketsSampleData {
             heightInMeters = it * 10,
             diameterInMeters = it,
             massInKilograms = it * 1000,
-            stages = getRocketStages()
+            stages = getRocketStages(),
+            images = getRocketImages()
         )
     }
+
+    private fun getRocketImages(): List<String> = listOf(
+        "https://imgur.com/DaCfMsj.jpg",
+        "https://imgur.com/azYafd8.jpg"
+    )
 
     fun getRocket(id: Int = 1): Rocket {
         val idxOffset = 1

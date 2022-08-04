@@ -24,12 +24,13 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
 import kotlinx.coroutines.CoroutineScope
+import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketListWithTitle(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: List<Rocket>,
-    onItemClick: (Int, String) -> Unit
+    onItemClick: (String, String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +52,7 @@ fun LargeTitle(text: String) {
 }
 
 @Composable
-fun RocketList(rockets: List<Rocket>, onItemClick: (Int, String) -> Unit) {
+fun RocketList(rockets: List<Rocket>, onItemClick: (String, String) -> Unit) {
     Surface (
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp
@@ -68,7 +69,7 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (Int, String) -> Unit) {
 fun RocketListWithTitleScrollable(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int, String) -> Unit,
+    onItemClick: (String, String) -> Unit,
     scaffoldState: ScaffoldState
 ) {
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -99,7 +100,7 @@ fun RocketListWithTitleScrollable(
 
 private fun LazyListScope.RocketListSuccess(
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (Int, String) -> Unit
+    onItemClick: (String, String) -> Unit
 ) {
     if (rockets.data.isNotEmpty()) {
         items(rockets.data) { rocket ->

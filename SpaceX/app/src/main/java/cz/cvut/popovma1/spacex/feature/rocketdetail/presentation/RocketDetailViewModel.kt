@@ -17,9 +17,9 @@ class RocketDetailViewModel(
 
     val rocket = defaultRocket()
 
-    fun getRocket(id: Int) {
+    fun getRocket(rocketId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            rocketRepository.getRocket(id).collect {
+            rocketRepository.getRocket(rocketId).collect {
                 rocket.value = it
             }
         }

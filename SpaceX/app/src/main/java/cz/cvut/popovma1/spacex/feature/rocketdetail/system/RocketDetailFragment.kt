@@ -13,6 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
+import cz.cvut.popovma1.spacex.repository.RocketRepository
+import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
+import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
 
@@ -31,8 +34,10 @@ class RocketDetailFragment : Fragment() {
 
         val rocketPhotos = RocketsSampleData.getRocketPhotos() // TODO how to get actual photos?
 
-        val viewModel: RocketDetailViewModel by viewModels()
-        viewModel.getRocket(id = args.rocketId)
+        val spaceXApi = SpaceXRetrofitApi.spaceXApi
+        val rocketRepository = RocketRepositoryImpl(spaceXApi)
+        val viewModel = RocketDetailViewModel(rocketRepository)
+        viewModel.getRocket(rocketId = args.rocketId)
 
         setContent {
             SpaceXTheme {

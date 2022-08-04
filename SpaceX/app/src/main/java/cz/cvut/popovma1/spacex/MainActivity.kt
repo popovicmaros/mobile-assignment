@@ -2,6 +2,7 @@ package cz.cvut.popovma1.spacex
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import cz.cvut.popovma1.spacex.util.LoggingUtil
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
