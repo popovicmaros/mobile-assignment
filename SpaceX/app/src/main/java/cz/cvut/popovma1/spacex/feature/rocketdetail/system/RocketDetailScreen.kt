@@ -3,14 +3,19 @@ package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 import BackButton
 import CenteredTitleTopBar
 import LaunchButton
+import androidx.compose.foundation.Image
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
@@ -43,19 +48,19 @@ fun RocketDetailScreen(
         ) },
         scaffoldState = scaffoldState,
     ) {
-            when(rocket.state) {
-                State.SUCCESS -> RocketDetailSuccess(rocket.data)
-                State.LOADING -> LoadingScreen()
-                else -> {
-                    ErrorScreen()
-                    showLoadingErrorSnackbar(
-                        coroutineScope,
-                        scaffoldState
-                        // TODO onActionPerformed -> call refresh()
-                        // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
-                    )
-                }
+        when(rocket.state) {
+            State.SUCCESS -> RocketDetailSuccess(rocket.data)
+            State.LOADING -> LoadingScreen()
+            else -> {
+                ErrorScreen()
+                showLoadingErrorSnackbar(
+                    coroutineScope,
+                    scaffoldState
+                    // TODO onActionPerformed -> call refresh()
+                    // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
+                )
             }
+        }
     }
 }
 
@@ -92,9 +97,9 @@ fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
     SpaceXTheme {
         RocketDetailScreen(
-//            rocket = ResponseWrapper(State.SUCCESS, rocket),
+            rocket = ResponseWrapper(State.SUCCESS, rocket),
 //            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
-            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
+//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
             onBackClick = {},
             onLaunchClick = {}

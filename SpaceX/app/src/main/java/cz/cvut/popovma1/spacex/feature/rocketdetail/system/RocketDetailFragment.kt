@@ -42,8 +42,9 @@ class RocketDetailFragment : Fragment() {
                 RocketDetailScreen(
                     rocket = viewModel.rocket.collectAsState().value,
                     rocketName = args.rocketName,
-                    onBackClick = { navigateBack() }
-                ) { navigateToRocketLaunch(rocketName = args.rocketName) }
+                    onBackClick = ::navigateBack,
+                    onLaunchClick = { navigateToRocketLaunch(rocketName = args.rocketName) }
+                )
             }
         }
     }

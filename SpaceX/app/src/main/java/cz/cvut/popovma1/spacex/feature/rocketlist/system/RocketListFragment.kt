@@ -39,7 +39,9 @@ class RocketListFragment : Fragment() {
             SpaceXTheme {
                 RocketListScreen(
                     rockets = viewModel.rockets.collectAsState().value,
-                    onItemClick = { rocketId, rocketName -> navigateToRocketDetail(rocketId, rocketName) },
+                    onItemClick = ::navigateToRocketDetail,
+                    isRefreshing = viewModel.isRefreshing.collectAsState().value,
+                    refreshData = viewModel::refresh
                 )
             }
         }

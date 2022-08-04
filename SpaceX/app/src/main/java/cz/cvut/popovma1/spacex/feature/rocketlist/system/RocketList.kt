@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
@@ -62,8 +64,9 @@ fun RocketListSuccess(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (String, String) -> Unit,
+    isRefreshing: Boolean,
+    refreshData: () -> Unit
 ) {
-
     Surface (
         shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
         elevation = 1.dp,
@@ -71,13 +74,18 @@ fun RocketListSuccess(
             .fillMaxWidth()
             .padding(top = paddingMedium, start = paddingMedium, end = paddingMedium),
     ) {
-        LazyColumn {
-            item {
-                LargeTitle(title)
-                Spacer(modifier = Modifier.width(spacerSizeSmall))
-            }
-            items(rockets.data) { rocket ->
-                RocketItem(rocket, onItemClick)
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing),
+            onRefresh = refreshData
+        ) {
+            LazyColumn {
+                item {
+                    LargeTitle(title)
+                    Spacer(modifier = Modifier.width(spacerSizeSmall))
+                }
+                items(rockets.data) { rocket ->
+                    RocketItem(rocket, onItemClick)
+                }
             }
         }
     }
