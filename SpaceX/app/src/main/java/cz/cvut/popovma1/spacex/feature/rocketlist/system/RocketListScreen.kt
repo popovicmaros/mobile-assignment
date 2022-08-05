@@ -49,13 +49,20 @@ fun RocketListScreen(
             }
             State.LOADING -> LoadingScreen()
             State.ERROR -> {
-                ErrorScreen()
+                ErrorScreen(
+                    isRefreshing = isRefreshing,
+                    refreshData = refreshData,
+                )
                 showLoadingErrorSnackbar(
                     coroutineScope = coroutineScope,
-                    scaffoldState = scaffoldState
+                    scaffoldState = scaffoldState,
+                    onActionPerformed = refreshData
                 )
             }
-            State.NO_DATA -> NoDataScreen()
+            State.NO_DATA -> NoDataScreen(
+                isRefreshing = isRefreshing,
+                refreshData = refreshData,
+            )
         }
     }
 }

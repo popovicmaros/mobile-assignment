@@ -71,4 +71,8 @@
     <string name="no_data_screen_text_no_data">No data</string>
     <string name="no_data_icon_desc">no data icon</string>
 
+    <!--  LoadingErrorSnackBar.kt  -->
+    <string name="loading_error_snackbar_text">Loading error</string>
+    <string name="loading_error_snackbar_action">Refresh</string>
+
 </resources>

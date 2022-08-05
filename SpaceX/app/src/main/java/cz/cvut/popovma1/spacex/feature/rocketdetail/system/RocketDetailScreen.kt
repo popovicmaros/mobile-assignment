@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
@@ -35,6 +37,8 @@ fun RocketDetailScreen(
     rocketName: String,
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
+    isRefreshing: Boolean,
+    refreshData: () -> Unit,
 ) {
     // snackbar setup
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -49,14 +53,21 @@ fun RocketDetailScreen(
         scaffoldState = scaffoldState,
     ) {
         when(rocket.state) {
-            State.SUCCESS -> RocketDetailSuccess(rocket.data)
+            State.SUCCESS -> RocketDetailSuccess(
+                rocket = rocket.data,
+                isRefreshing = isRefreshing,
+                refreshData = refreshData
+            )
             State.LOADING -> LoadingScreen()
             else -> {
-                ErrorScreen()
+                ErrorScreen(
+                    isRefreshing = isRefreshing,
+                    refreshData = refreshData
+                )
                 showLoadingErrorSnackbar(
-                    coroutineScope,
-                    scaffoldState
-                    // TODO onActionPerformed -> call refresh()
+                    coroutineScope = coroutineScope,
+                    scaffoldState = scaffoldState,
+                    onActionPerformed = refreshData
                     // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
                 )
             }
@@ -67,11 +78,18 @@ fun RocketDetailScreen(
 @Composable
 private fun RocketDetailSuccess(
     rocket: Rocket,
+    isRefreshing: Boolean,
+    refreshData: () -> Unit,
 ) {
-    LazyColumn (modifier = Modifier.padding(paddingMedium)) {
-        item { RocketOverview(rocket) }
-        item { RocketParameters(rocket) }
-        item { RocketImages(rocket.images) }
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing),
+        onRefresh = refreshData
+    ) {
+        LazyColumn (modifier = Modifier.padding(paddingMedium)) {
+            item { RocketOverview(rocket) }
+            item { RocketParameters(rocket) }
+            item { RocketImages(rocket.images) }
+        }
     }
 }
 
@@ -102,7 +120,9 @@ fun PreviewRocketDetailScreen() {
 //            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
             onBackClick = {},
-            onLaunchClick = {}
+            onLaunchClick = {},
+            isRefreshing = false,
+            refreshData = {}
         )
     }
 }

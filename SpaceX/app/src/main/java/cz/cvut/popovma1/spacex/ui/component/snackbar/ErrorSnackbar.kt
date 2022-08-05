@@ -7,15 +7,15 @@ import kotlinx.coroutines.CoroutineScope
 fun showLoadingErrorSnackbar(
     coroutineScope: CoroutineScope,
     scaffoldState: ScaffoldState,
-//    onActionPerformed: () -> Unit = {},
-//    onDismissed: () -> Unit = {}
+    onActionPerformed: () -> Unit = {},
+    onDismissed: () -> Unit = {}
 ) {
     showCustomSnackbar(
         coroutineScope = coroutineScope,
         scaffoldState = scaffoldState,
         message = "Loading error",
-//        actionLabel = "TODO Refresh",
-//        onActionPerformed = onActionPerformed,
-//        onDismissed = onDismissed
+        actionLabel = "Refresh",
+        onActionPerformed = onActionPerformed,
+        onDismissed = onDismissed
     )
 }

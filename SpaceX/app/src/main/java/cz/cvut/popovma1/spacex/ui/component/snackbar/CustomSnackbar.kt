@@ -20,25 +20,25 @@ fun showCustomSnackbar(
     coroutineScope: CoroutineScope,
     scaffoldState: ScaffoldState,
     message: String,
-//    actionLabel: String,
-//    onActionPerformed: () -> Unit = {},
-//    onDismissed: () -> Unit = {}
+    actionLabel: String,
+    onActionPerformed: () -> Unit = {},
+    onDismissed: () -> Unit = {}
 ) {
     coroutineScope.launch {
         val result = scaffoldState.snackbarHostState.showSnackbar(
             message = message,
-//            actionLabel = actionLabel
+            actionLabel = actionLabel
         )
 
-//        when(result) {
-//            SnackbarResult.ActionPerformed -> {
-//                Log.d("SnackbarResult.ActionPerformed ($actionLabel)")
-//                onActionPerformed()
-//            }
-//            SnackbarResult.Dismissed -> {
-//                Log.d("SnackbarResult.Dismissed")
-//                onDismissed()
-//            }
-//        }
+        when(result) {
+            SnackbarResult.ActionPerformed -> {
+                Log.d("SnackbarResult.ActionPerformed ($actionLabel)")
+                onActionPerformed()
+            }
+            SnackbarResult.Dismissed -> {
+                Log.d("SnackbarResult.Dismissed")
+                onDismissed()
+            }
+        }
     }
 }

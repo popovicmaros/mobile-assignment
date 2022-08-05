@@ -8,11 +8,16 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 
 @Composable
-fun NoDataScreen() {
-    InformationScreen(
+fun NoDataScreen(
+    isRefreshing: Boolean = false,
+    refreshData: () -> Unit = {},
+) {
+    InformationRefreshScreen(
         title = stringResource(id = R.string.no_data_screen_text_no_data),
         painter = painterResource(id = R.drawable.ic_baseline_info_24),
         contentDescription = stringResource(id = R.string.no_data_icon_desc),
+        isRefreshing = isRefreshing,
+        refreshData = refreshData
     )
 }
 
