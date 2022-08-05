@@ -19,7 +19,6 @@ class RocketRepositoryImpl(
 ): RocketRepository {
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
-        delay(2000) // TODO remove
         try {
             val response: List<RocketNetwork> = api.getRockets()
             if(response.isNotEmpty()) {
@@ -68,7 +67,6 @@ class RocketRepositoryImpl(
     }
 
     override fun getRocket(rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
-        delay(2000) // TODO remove
         try {
             val response = api.getRocket(rocketId)
             val mappedResponse = RocketNetworkMapper().mapToRocket(response)

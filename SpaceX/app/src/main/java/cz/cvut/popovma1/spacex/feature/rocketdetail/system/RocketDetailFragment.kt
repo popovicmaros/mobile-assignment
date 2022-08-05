@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
-import cz.cvut.popovma1.spacex.repository.RocketRepository
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
@@ -45,7 +42,7 @@ class RocketDetailFragment : Fragment() {
                     onBackClick = ::navigateBack,
                     onLaunchClick = { navigateToRocketLaunch(rocketName = args.rocketName) },
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = { viewModel.getRocket(rocketId = args.rocketId) }
+                    refreshData = { viewModel.refreshRocket(rocketId = args.rocketId) }
                 )
             }
         }
