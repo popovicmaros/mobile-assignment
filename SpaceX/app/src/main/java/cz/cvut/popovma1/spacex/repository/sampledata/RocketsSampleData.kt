@@ -2,6 +2,7 @@ package cz.cvut.popovma1.spacex.repository.sampledata
 
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Stage
 
 object RocketsSampleData {
     fun getRocketsList(): List<Rocket> = (1..20).map {
@@ -31,9 +32,9 @@ object RocketsSampleData {
         return getRocketsList()[id - idxOffset]
     }
 
-    fun getRocketStages(): List<Rocket.Stage> =
+    fun getRocketStages(): List<Stage> =
         (1..3).map {
-            Rocket.Stage(
+            Stage(
                 isReusable = (it % 2 == 0),
                 enginesCnt = it-1,
                 tonsOfFuel = it * 1000,

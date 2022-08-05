@@ -24,7 +24,7 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 fun RocketListWithTitle(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: List<Rocket>,
-    onItemClick: (String, String) -> Unit
+    onItemClick: (Rocket) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -46,7 +46,7 @@ fun LargeTitle(text: String) {
 }
 
 @Composable
-fun RocketList(rockets: List<Rocket>, onItemClick: (String, String) -> Unit) {
+fun RocketList(rockets: List<Rocket>, onItemClick: (Rocket) -> Unit) {
     Surface (
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp
@@ -63,7 +63,7 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (String, String) -> Unit) {
 fun RocketListSuccess(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (String, String) -> Unit,
+    onItemClick: (Rocket) -> Unit,
     isRefreshing: Boolean,
     refreshData: () -> Unit
 ) {

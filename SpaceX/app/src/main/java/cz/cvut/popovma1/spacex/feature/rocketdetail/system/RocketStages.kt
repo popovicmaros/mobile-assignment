@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Stage
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.card.CardWithTitle
 import cz.cvut.popovma1.spacex.ui.component.text.TextWithIcon
@@ -33,7 +34,7 @@ fun RocketStages(rocket: Rocket) {
 }
 
 @Composable
-fun RocketStage(stageNumber: Int, stage: Rocket.Stage) {
+fun RocketStage(stageNumber: Int, stage: Stage) {
     CardWithTitle(
         title = stringResource(
             id = R.string.rocket_detail_stage,
@@ -49,7 +50,7 @@ fun RocketStage(stageNumber: Int, stage: Rocket.Stage) {
 }
 
 @Composable
-private fun ReusableItem(stage: Rocket.Stage) {
+private fun ReusableItem(stage: Stage) {
     val reusableText = stringResource(id = R.string.rocket_detail_stage_reusable)
     val notReusableText = stringResource(id = R.string.rocket_detail_stage_not_reusable)
     val text = if (stage.isReusable) reusableText else notReusableText
@@ -64,7 +65,7 @@ private fun ReusableItem(stage: Rocket.Stage) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun EngineItem(stage: Rocket.Stage) {
+private fun EngineItem(stage: Stage) {
     TextWithIcon(
         iconSrc = R.drawable.ic_engine,
         iconDescription = stringResource(
@@ -80,7 +81,7 @@ private fun EngineItem(stage: Rocket.Stage) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun FuelItem(stage: Rocket.Stage) {
+private fun FuelItem(stage: Stage) {
     TextWithIcon(
         iconSrc = R.drawable.ic_fuel,
         iconDescription = stringResource(
@@ -96,7 +97,7 @@ private fun FuelItem(stage: Rocket.Stage) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun BurnTimeItem(stage: Rocket.Stage) {
+private fun BurnTimeItem(stage: Stage) {
     TextWithIcon(
         iconSrc = R.drawable.ic_burn,
         iconDescription = stringResource(

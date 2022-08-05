@@ -22,7 +22,7 @@ import quanti.com.kotlinlog.Log
 @Composable
 fun RocketListScreen(
     rockets: ResponseWrapper<List<Rocket>>,
-    onItemClick: (String, String) -> Unit,
+    onItemClick: (Rocket) -> Unit,
     isRefreshing: Boolean,
     refreshData: () -> Unit,
 ) {
@@ -76,7 +76,7 @@ fun Preview() {
 //            rockets = ResponseWrapper(State.LOADING, listOf()),
 //            rockets = ResponseWrapper(State.ERROR, listOf()),
 //            rockets = ResponseWrapper(State.NO_DATA, listOf()),
-            onItemClick = { _, _ -> },
+            onItemClick = {},
             isRefreshing = false,
             refreshData = {},
         )

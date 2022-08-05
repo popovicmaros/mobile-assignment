@@ -15,6 +15,7 @@ import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewMod
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
 import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.util.Constants.SPACEX_URL
 import quanti.com.kotlinlog.Log
@@ -48,15 +49,16 @@ class RocketListFragment : Fragment() {
 
     }
 
-    private fun navigateToRocketDetail(rocketId: String, rocketName: String) {
+    private fun navigateToRocketDetail(rocket: Rocket) {
         val navController: NavController = findNavController() // from navigation-fragment-ktx
         val action: NavDirections = RocketListFragmentDirections
             .actionRocketListFragmentToRocketDetailFragment(
-                rocketId = rocketId,
-                rocketName = rocketName
+                id = rocket.id,
+                rocketId = rocket.rocketId,
+                rocketName = rocket.rocketName
             ) // from safeArgs
 
         navController.navigate(action)
-        Log.d("RocketListFragment", "rocketId = $rocketId")
+        Log.d("RocketListFragment", "rocketId = ${rocket.rocketId}")
     }
 }

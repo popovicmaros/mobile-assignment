@@ -2,12 +2,13 @@ package cz.cvut.popovma1.spacex.repository.mapper
 
 import cz.cvut.popovma1.spacex.repository.entity.RocketNetwork
 import cz.cvut.popovma1.spacex.repository.model.Rocket
+import cz.cvut.popovma1.spacex.repository.model.Stage
 
 class RocketNetworkMapper {
 
     fun mapToRocket(rocketNetwork: RocketNetwork): Rocket {
         val emptyRocket = Rocket.NULL_ROCKET
-        val emptyStage = Rocket.NULL_STAGE
+        val emptyStage = Stage.NULL_STAGE
 
         with(rocketNetwork) {
             val rocket = emptyRocket.copy(

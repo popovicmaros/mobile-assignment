@@ -1,10 +1,16 @@
 package cz.cvut.popovma1.spacex.repository.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
+
+@Entity
 data class Rocket (
-    val id: Int,
-    val rocketId: String,
+    @PrimaryKey val id: Int,
+
+    @NotNull val rocketId: String,
     val rocketName: String,
-    val firstFlight: String, // TODO Date/Calendar ?
+    val firstFlight: String,
     val description: String,
 
     val heightInMeters: Int,
@@ -14,12 +20,6 @@ data class Rocket (
     val stages: List<Stage>,
     val images: List<String>
 ) {
-    data class Stage (
-        val isReusable: Boolean,
-        val enginesCnt: Int,
-        val tonsOfFuel: Int,
-        val burnTimeInSec: Int
-    )
 
     companion object {
         val NULL_ROCKET = Rocket(
@@ -35,12 +35,6 @@ data class Rocket (
             images = listOf()
         )
 
-        val NULL_STAGE = Stage(
-            isReusable = false,
-            enginesCnt = 0,
-            tonsOfFuel = 0,
-            burnTimeInSec = 0
-        )
     }
 }
 

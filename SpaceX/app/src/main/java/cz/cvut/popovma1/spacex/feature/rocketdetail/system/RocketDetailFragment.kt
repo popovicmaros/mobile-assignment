@@ -26,6 +26,7 @@ class RocketDetailFragment : Fragment() {
     ): View = ComposeView(inflater.context).apply {
 
         val args: RocketDetailFragmentArgs by navArgs()
+        Log.d( "id = ${args.id}")
         Log.d( "rocketId = ${args.rocketId}")
         Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
