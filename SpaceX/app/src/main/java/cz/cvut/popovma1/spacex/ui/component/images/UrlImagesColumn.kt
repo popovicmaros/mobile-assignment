@@ -4,16 +4,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import cz.cvut.popovma1.spacex.ui.component.column.ColumnWithTitle
-import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
-import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
-import cz.cvut.popovma1.spacex.ui.theme.smallBorder
+import cz.cvut.popovma1.spacex.ui.theme.*
 
 @Composable
 fun UrlImagesColumn(
@@ -29,12 +30,15 @@ fun UrlImagesColumn(
                 contentDescription = imagesDescription,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(imageHeight)
                     .clip(RoundedCornerShape(cornerRadius))
                     .border(
                         width = smallBorder,
                         color = MaterialTheme.colors.primary,
                         shape = RoundedCornerShape(cornerRadius)
-                    )
+                    ),
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Crop
             )
         }
     }

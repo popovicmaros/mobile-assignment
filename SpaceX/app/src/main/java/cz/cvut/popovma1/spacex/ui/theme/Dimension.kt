@@ -15,3 +15,6 @@ val smallBorder = 2.dp
 // RocketLaunch.kt
 val launchedRocketSize = 150.dp
 val squareCardSize = 100.dp
+
+// UrlImagesColumn.kt
+val imageHeight = 200.dp
