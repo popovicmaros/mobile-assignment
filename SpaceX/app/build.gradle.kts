@@ -11,7 +11,7 @@ val retrofitVersion = "2.9.0"
 val moshiVersion = "1.13.0"
 val okHttpVersion = "4.9.3"
 val coilVersion = "2.1.0"
-val roomVersion = "2.4.3"
+val roomVersion = "2.5.0-alpha01"
 
 android {
     compileSdk = 32
@@ -71,8 +71,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
 
     // moshi
-    runtimeOnly("com.squareup.moshi:moshi:${moshiVersion}")
-    runtimeOnly("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
+    implementation("com.squareup.moshi:moshi:${moshiVersion}")
+    implementation("com.squareup.moshi:moshi-kotlin:${moshiVersion}")
+    implementation("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
 
     // okhttp
@@ -94,9 +95,8 @@ dependencies {
 
     // room
     implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
-//    implementation("androidx.room:room-ktx:$roomVersion")
-//    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 
 
     implementation("androidx.appcompat:appcompat:1.4.2")

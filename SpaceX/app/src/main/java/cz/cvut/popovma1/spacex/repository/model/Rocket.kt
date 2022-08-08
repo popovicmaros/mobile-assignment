@@ -2,9 +2,13 @@ package cz.cvut.popovma1.spacex.repository.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.squareup.moshi.JsonClass
+import cz.cvut.popovma1.spacex.repository.database.Converters
 import org.jetbrains.annotations.NotNull
 
 @Entity
+@JsonClass(generateAdapter = true)
 data class Rocket (
     @PrimaryKey val id: Int,
 
@@ -17,7 +21,10 @@ data class Rocket (
     val diameterInMeters: Int,
     val massInKilograms: Int,
 
+    @TypeConverters(Converters::class)
     val stages: List<Stage>,
+
+    @TypeConverters(Converters::class)
     val images: List<String>
 ) {
 

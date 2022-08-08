@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.room.Room
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
+import cz.cvut.popovma1.spacex.repository.database.RocketRoomDatabase
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
 
@@ -31,7 +33,8 @@ class RocketDetailFragment : Fragment() {
         Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
         val spaceXApi = SpaceXRetrofitApi.spaceXApi
-        val rocketRepository = RocketRepositoryImpl(spaceXApi)
+        val rocketDatabase = RocketRoomDatabase(applicationContext = context)
+        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!!)
         val viewModel = RocketDetailViewModel(rocketRepository)
         viewModel.getRocket(rocketId = args.rocketId)
 
