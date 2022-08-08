@@ -17,19 +17,19 @@ class RocketDetailViewModel(
     val rocket = MutableStateFlow(defaultRocket())
     val isRefreshing = MutableStateFlow(false)
 
-    fun getRocket(rocketId: String) {
+    fun getRocket(id: Int, rocketId: String) {
         viewModelScope.launch {
             isRefreshing.value = true
-            downloadRocket(rocketId)
+            downloadRocket(id, rocketId)
             isRefreshing.value = false
         }
     }
 
-    fun refreshRocket(rocketId: String) {
+    fun refreshRocket(id: Int, rocketId: String) {
         var delayJob: Job? = null
         val downloadJob = viewModelScope.launch {
             isRefreshing.value = true
-            downloadRocket(rocketId)
+            downloadRocket(id, rocketId)
             if(delayJob?.isActive != true) {
                 isRefreshing.value = false
             }
@@ -42,9 +42,9 @@ class RocketDetailViewModel(
         }
     }
 
-    private suspend fun downloadRocket(rocketId: String) {
+    private suspend fun downloadRocket(id: Int, rocketId: String) {
         withContext(Dispatchers.IO) {
-            rocketRepository.getRocket(rocketId).collect {
+            rocketRepository.getRocket(id, rocketId).collect {
                 rocket.value = it
             }
         }

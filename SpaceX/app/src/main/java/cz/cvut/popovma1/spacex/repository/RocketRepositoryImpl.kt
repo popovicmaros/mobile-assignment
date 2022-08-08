@@ -33,7 +33,7 @@ class RocketRepositoryImpl(
             rocketDao.insertAll(mappedResponse)
             val dbResponse = rocketDao.getAllRockets()
 
-            if(dbResponse.isNotEmpty()) {
+            if(!dbResponse.isNullOrEmpty()) {
                 // success
                 emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
             } else {
@@ -48,23 +48,35 @@ class RocketRepositoryImpl(
 //        fakeGetRockets()
     }
 
-    override fun getRocket(rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
-        try {
-            val response = api.getRocket(rocketId)
-            // success
-            val mappedResponse = RocketNetworkMapper().mapToRocket(response)
-            Log.d("getRocket() response = $mappedResponse")
-            emit(ResponseWrapper(
-                state = State.SUCCESS,
-                data = mappedResponse
-            ))
-        } catch (e: Exception) {
-            // error
-            e.printStackTrace()
-            emit(ResponseWrapper(
-                state = State.ERROR,
-                data = Rocket.NULL_ROCKET
-            ))
+    override fun getRocket(id: Int, rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
+        val dbResponse: Rocket? = rocketDao.getRocket(id)
+        if(dbResponse != null) {
+            emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
+        } else {
+            emit(ResponseWrapper(state = State.ERROR, data = Rocket.NULL_ROCKET))
+/*
+            try {
+                val response = api.getRocket(rocketId)
+
+                // success
+                val mappedResponse = RocketNetworkMapper().mapToRocket(response)
+                Log.d("getRocket() response = $mappedResponse")
+                rocketDao.insert(rocket = mappedResponse)
+
+                val dbResponse = rocketDao.getRocket(id = mappedResponse.id)!! // if null fall into exception
+                emit(ResponseWrapper(
+                    state = State.SUCCESS,
+                    data = dbResponse
+                ))
+            } catch (e: Exception) {
+                // error
+                e.printStackTrace()
+                emit(ResponseWrapper(
+                    state = State.ERROR,
+                    data = Rocket.NULL_ROCKET
+                ))
+            }
+*/
         }
 //        fakeGetRocket()
     }

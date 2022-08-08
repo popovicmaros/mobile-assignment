@@ -20,7 +20,6 @@ import quanti.com.kotlinlog.Log
 
 class RocketDetailFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,9 +33,9 @@ class RocketDetailFragment : Fragment() {
 
         val spaceXApi = SpaceXRetrofitApi.spaceXApi
         val rocketDatabase = RocketRoomDatabase(applicationContext = context)
-        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!!)
+        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /* tmp */)
         val viewModel = RocketDetailViewModel(rocketRepository)
-        viewModel.getRocket(rocketId = args.rocketId)
+        viewModel.getRocket(id = args.id, rocketId = args.rocketId)
 
         setContent {
             SpaceXTheme {
@@ -46,7 +45,7 @@ class RocketDetailFragment : Fragment() {
                     onBackClick = ::navigateBack,
                     onLaunchClick = { navigateToRocketLaunch(rocketName = args.rocketName) },
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = { viewModel.refreshRocket(rocketId = args.rocketId) }
+                    refreshData = { viewModel.refreshRocket(id = args.id, rocketId = args.rocketId) }
                 )
             }
         }

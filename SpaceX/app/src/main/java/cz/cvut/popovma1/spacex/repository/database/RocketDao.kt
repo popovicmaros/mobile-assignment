@@ -8,16 +8,19 @@ import kotlinx.coroutines.flow.Flow
 interface RocketDao {
 
     @Query("SELECT * FROM rocket")
-    fun getAll(): Flow<List<Rocket>>
+    fun getAll(): Flow<List<Rocket>>?
 
     @Query("SELECT * FROM rocket")
-    suspend fun getAllRockets(): List<Rocket>
+    suspend fun getAllRockets(): List<Rocket>?
 
     @Query("SELECT * FROM rocket where id=:id")
-    suspend fun getRocket(id: Int): Rocket
+    suspend fun getRocket(id: Int): Rocket?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(rockets: List<Rocket>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(rocket: Rocket)
 
     @Query("DELETE FROM rocket")
     suspend fun deleteAll()
