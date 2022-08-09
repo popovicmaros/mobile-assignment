@@ -26,19 +26,15 @@ class RocketDetailViewModel(
     }
 
     fun refreshRocket(id: Int, rocketId: String) {
-        var delayJob: Job? = null
-        val downloadJob = viewModelScope.launch {
-            isRefreshing.value = true
-            downloadRocket(id, rocketId)
-            if(delayJob?.isActive != true) {
-                isRefreshing.value = false
-            }
-        }
-        delayJob = viewModelScope.launch {
-            delay(2000)
-            if(!downloadJob.isActive) {
-                isRefreshing.value = false
-            }
+        isRefreshing.value = true
+
+        val downloadJob = viewModelScope.launch { downloadRocket(id, rocketId) }
+        val delayJob = viewModelScope.launch { delay(2000) } // always show progressbar for at least 2s
+
+        viewModelScope.launch {
+            downloadJob.join()
+            delayJob.join()
+            isRefreshing.value = false
         }
     }
 

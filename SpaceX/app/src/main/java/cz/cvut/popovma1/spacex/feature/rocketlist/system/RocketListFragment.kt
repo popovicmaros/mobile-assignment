@@ -19,18 +19,27 @@ import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
 
 class RocketListFragment : Fragment() {
+
+    private lateinit var viewModel: RocketListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if(!this::viewModel.isInitialized) {
+            val spaceXApi = SpaceXRetrofitApi.spaceXApi
+            val rocketDatabase = RocketRoomDatabase(requireContext())
+            val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /*tmp*/)
+//        val viewModel: RocketListViewModel by viewModels()
+            viewModel = RocketListViewModel(rocketRepository)
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-
-        val spaceXApi = SpaceXRetrofitApi.spaceXApi
-        val rocketDatabase = RocketRoomDatabase(applicationContext = context)
-
-        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!!)
-//        val viewModel: RocketListViewModel by viewModels()
-        val viewModel = RocketListViewModel(rocketRepository)
 
         setContent {
             SpaceXTheme {
@@ -38,7 +47,7 @@ class RocketListFragment : Fragment() {
                     rockets = viewModel.rockets.collectAsState().value,
                     onItemClick = ::navigateToRocketDetail,
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = viewModel::refresh
+                    refreshData = viewModel::refreshRockets
                 )
             }
         }

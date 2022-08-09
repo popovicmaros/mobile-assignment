@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.room.Room
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
@@ -19,6 +18,21 @@ import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import quanti.com.kotlinlog.Log
 
 class RocketDetailFragment : Fragment() {
+
+    private lateinit var viewModel: RocketDetailViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if(!this::viewModel.isInitialized) {
+            val spaceXApi = SpaceXRetrofitApi.spaceXApi
+            val rocketDatabase = RocketRoomDatabase(requireContext())
+            val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /*tmp*/)
+//        val viewModel: RocketListViewModel by viewModels()
+            viewModel = RocketDetailViewModel(rocketRepository)
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +48,7 @@ class RocketDetailFragment : Fragment() {
         val spaceXApi = SpaceXRetrofitApi.spaceXApi
         val rocketDatabase = RocketRoomDatabase(applicationContext = context)
         val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /* tmp */)
-        val viewModel = RocketDetailViewModel(rocketRepository)
-        viewModel.getRocket(id = args.id, rocketId = args.rocketId)
+        viewModel.getRocket(id = args.id, rocketId = args.rocketId) //db
 
         setContent {
             SpaceXTheme {
