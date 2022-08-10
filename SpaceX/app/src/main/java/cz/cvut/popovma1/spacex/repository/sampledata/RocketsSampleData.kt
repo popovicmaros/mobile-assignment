@@ -1,6 +1,5 @@
 package cz.cvut.popovma1.spacex.repository.sampledata
 
-import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.Stage
 

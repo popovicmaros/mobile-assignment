@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
@@ -14,7 +16,7 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 @Composable
 fun TextWithIcon(
     iconSrc: Int,
-    iconDescription: String = DEFAULT_ICON_DESCRIPTION,
+    iconDescription: String = stringResource(R.string.defalt_icon_desc),
     text: String
 ) {
     Row(
@@ -31,5 +33,3 @@ fun TextWithIcon(
     }
     Spacer(modifier = Modifier.height(spacerSizeSmall))
 }
-
-private const val DEFAULT_ICON_DESCRIPTION = "icon"

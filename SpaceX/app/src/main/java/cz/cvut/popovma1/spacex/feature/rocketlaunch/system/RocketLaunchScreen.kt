@@ -2,10 +2,14 @@ package cz.cvut.popovma1.spacex.feature.rocketlaunch.system
 
 import BackButton
 import CenteredTitleTopBar
+import LaunchButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -38,6 +42,10 @@ fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
 
 @Composable
 fun RocketLaunchContent() {
+    val isLaunched = remember { mutableStateOf(false) }
+    Button(onClick = { isLaunched.value = !isLaunched.value }) {
+        Text(text = "Launch")
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,7 +55,10 @@ fun RocketLaunchContent() {
             verticalArrangement = Arrangement.Bottom
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_rocket_idle),
+                painter = if (isLaunched.value)
+                    painterResource(id = R.drawable.ic_rocket_idle)
+                else
+                    painterResource(id = R.drawable.ic_rocket_flying),
                 contentDescription = stringResource(id = R.string.rocket_launch_image_description),
                 modifier = Modifier
                     .width(launchedRocketSize)
@@ -57,7 +68,8 @@ fun RocketLaunchContent() {
         }
         Text(
             text = stringResource(id = getLaunchText(false)),
-            modifier = Modifier.width(launchedRocketSize)
+            modifier = Modifier
+                .width(launchedRocketSize)
         )
         Spacer(modifier = Modifier.height(200.dp))
     }

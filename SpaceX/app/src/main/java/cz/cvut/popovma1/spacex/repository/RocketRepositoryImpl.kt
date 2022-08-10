@@ -1,10 +1,9 @@
 package cz.cvut.popovma1.spacex.repository
 
 import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
-import cz.cvut.popovma1.spacex.repository.database.RocketDatabase
+import cz.cvut.popovma1.spacex.repository.database.RocketDao
 import cz.cvut.popovma1.spacex.repository.entity.RocketNetwork
 import cz.cvut.popovma1.spacex.repository.mapper.RocketNetworkMapper
-import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
@@ -17,10 +16,9 @@ import java.lang.Exception
 
 class RocketRepositoryImpl(
     private val api: SpaceXApi,
-    private val database: RocketDatabase
+    private val rocketDao: RocketDao,
+    private val rocketNetworkMapper: RocketNetworkMapper = RocketNetworkMapper()
 ): RocketRepository {
-
-    private val rocketDao = database.rocketDao()
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
         downloadApiToDb()
@@ -32,20 +30,20 @@ class RocketRepositoryImpl(
             // download data & save to db
             val apiResponse: List<RocketNetwork> = api.getRockets()
             val mappedResponse: List<Rocket> = apiResponse.map {
-                RocketNetworkMapper().mapToRocket(it)
+                rocketNetworkMapper.mapToRocket(it)
             }
             Log.d("getRockets() response = $mappedResponse")
             rocketDao.insertAll(mappedResponse)
         } catch (e: Exception) {
             // error downloading
             e.printStackTrace()
-            emit(ResponseWrapper(state = State.ERROR, data = listOf()))
         }
     }
 
     private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.emitDataFromDb() {
         // display data from db
         try {
+            delay(5000)
             val dbResponse = rocketDao.getAll()
             if (!dbResponse.isNullOrEmpty()) {
                 // success
@@ -61,7 +59,7 @@ class RocketRepositoryImpl(
         }
     }
 
-    override fun getRocket(id: Int, rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
+    override fun getRocket(id: Int): Flow<ResponseWrapper<Rocket>> = flow {
         val dbResponse: Rocket? = rocketDao.getRocket(id)
         dbResponse?.let {
             emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))

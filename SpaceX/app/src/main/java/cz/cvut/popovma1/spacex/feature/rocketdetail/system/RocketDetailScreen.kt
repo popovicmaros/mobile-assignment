@@ -3,19 +3,13 @@ package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 import BackButton
 import CenteredTitleTopBar
 import LaunchButton
-import androidx.compose.foundation.Image
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -23,12 +17,12 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
-import cz.cvut.popovma1.spacex.ui.component.screen.LoadingScreen
-import cz.cvut.popovma1.spacex.ui.component.snackbar.showLoadingErrorSnackbar
+import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
+import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
-import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.ErrorScreen
+import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -58,13 +52,13 @@ fun RocketDetailScreen(
                 isRefreshing = isRefreshing,
                 refreshData = refreshData
             )
-            State.LOADING -> LoadingScreen()
+            State.LOADING -> Loading()
             else -> {
-                ErrorScreen(
+                Error(
                     isRefreshing = isRefreshing,
                     refreshData = refreshData
                 )
-                showLoadingErrorSnackbar(
+                ShowLoadingErrorSnackbar(
                     coroutineScope = coroutineScope,
                     scaffoldState = scaffoldState,
                     onActionPerformed = refreshData

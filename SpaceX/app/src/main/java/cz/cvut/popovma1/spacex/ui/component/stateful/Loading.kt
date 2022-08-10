@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.ui.component.screen
+package cz.cvut.popovma1.spacex.ui.component.stateful
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -12,7 +12,7 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 
 @Composable
-fun LoadingScreen() {
+fun Loading() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -29,6 +29,6 @@ fun LoadingScreen() {
 @Preview
 fun LoadingScreenPreview() {
     SpaceXTheme {
-        LoadingScreen()
+        Loading()
     }
 }

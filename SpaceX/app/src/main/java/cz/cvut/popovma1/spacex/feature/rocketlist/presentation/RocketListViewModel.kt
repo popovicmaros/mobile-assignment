@@ -14,8 +14,11 @@ class RocketListViewModel(
     private val rocketRepository: RocketRepository
 ): ViewModel() {
 
-    val rockets = MutableStateFlow(defaultRocketsResponse())
-    val isRefreshing = MutableStateFlow(false)
+    private val _rockets = MutableStateFlow(defaultRocketsResponse())
+    val rockets get() = _rockets
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing get() = _isRefreshing
 
     init {
         getRockets()
@@ -23,29 +26,29 @@ class RocketListViewModel(
 
     private fun getRockets() {
         viewModelScope.launch {
-            isRefreshing.value = true
+            _isRefreshing.value = true
             downloadRockets()
-            isRefreshing.value = false
+            _isRefreshing.value = false
         }
     }
 
     fun refreshRockets() {
         Log.d("refreshRockets() called")
-        isRefreshing.value = true
+        _isRefreshing.value = true
         val downloadJob = viewModelScope.launch { downloadRockets() }
         val delayJob = viewModelScope.launch { delay(2000) } // always show progressbar for at least 2s
 
         viewModelScope.launch {
             downloadJob.join()
             delayJob.join()
-            isRefreshing.value = false
+            _isRefreshing.value = false
         }
     }
 
     private suspend fun downloadRockets() {
         withContext(Dispatchers.IO) {
             rocketRepository.getRockets().collect {
-                rockets.value = it
+                _rockets.value = it
             }
         }
     }

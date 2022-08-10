@@ -7,11 +7,9 @@ import cz.cvut.popovma1.spacex.repository.model.Stage
 class RocketNetworkMapper {
 
     fun mapToRocket(rocketNetwork: RocketNetwork): Rocket {
-        val emptyRocket = Rocket.NULL_ROCKET
-        val emptyStage = Stage.NULL_STAGE
 
         with(rocketNetwork) {
-            val rocket = emptyRocket.copy(
+            val rocket = Rocket(
                 id = id,
                 rocketId = rocketId,
                 rocketName = name,
@@ -19,9 +17,9 @@ class RocketNetworkMapper {
                 description = description,
                 heightInMeters = height.meters.toInt(), // TODO make double
                 diameterInMeters = diameter.meters.toInt(),// TODO make double
-                massInKilograms = mass.kilograms.toInt() / 1000 ,// TODO make double + convert to kg
+                massInKilograms = mass.kilograms.toInt() / 1000,// TODO make double + convert to tons
                 stages = listOf(stage1, stage2).map { stage ->
-                    emptyStage.copy(
+                    Stage(
                         isReusable = stage.isReusable,
                         enginesCnt = stage.enginesCnt,
                         tonsOfFuel = stage.tonsOfFuel.toInt(),

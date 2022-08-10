@@ -42,7 +42,7 @@ data class RocketNetwork(
         @Json(name = "reusable") val isReusable: Boolean = false,
         @Json(name = "engines") val enginesCnt: Int = 0,
         @Json(name = "fuel_amount_tons") val tonsOfFuel: Double = 0.0,
-        @Json(name = "burn_time_sec") val burnTimeInSec: Int? = 0
+        @Json(name = "burn_time_sec") val burnTimeInSec: Int? = null
     )
 
 }

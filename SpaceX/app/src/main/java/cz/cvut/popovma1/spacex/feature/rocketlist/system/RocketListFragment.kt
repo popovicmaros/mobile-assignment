@@ -22,13 +22,14 @@ class RocketListFragment : Fragment() {
 
     private lateinit var viewModel: RocketListViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun setupViewModel() {
 
         if(!this::viewModel.isInitialized) {
             val spaceXApi = SpaceXRetrofitApi.spaceXApi
-            val rocketDatabase = RocketRoomDatabase(requireContext())
-            val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /*tmp*/)
+            val rocketDatabase = RocketRoomDatabase(requireContext()).let {
+                RocketRoomDatabase.db
+            }
+            val rocketRepository = RocketRepositoryImpl(spaceXApi, rocketDatabase!!.rocketDao() /*tmp*/)
 //        val viewModel: RocketListViewModel by viewModels()
             viewModel = RocketListViewModel(rocketRepository)
         }
@@ -40,6 +41,8 @@ class RocketListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
+
+        setupViewModel()
 
         setContent {
             SpaceXTheme {

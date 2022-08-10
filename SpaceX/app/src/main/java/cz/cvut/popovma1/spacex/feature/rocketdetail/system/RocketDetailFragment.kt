@@ -21,13 +21,14 @@ class RocketDetailFragment : Fragment() {
 
     private lateinit var viewModel: RocketDetailViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun setupViewModel() {
 
         if(!this::viewModel.isInitialized) {
             val spaceXApi = SpaceXRetrofitApi.spaceXApi
-            val rocketDatabase = RocketRoomDatabase(requireContext())
-            val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /*tmp*/)
+            val rocketDatabase = RocketRoomDatabase(requireContext()).let {
+                RocketRoomDatabase.db
+            }
+            val rocketRepository = RocketRepositoryImpl(spaceXApi, rocketDatabase!!.rocketDao() /*tmp*/)
 //        val viewModel: RocketListViewModel by viewModels()
             viewModel = RocketDetailViewModel(rocketRepository)
         }
@@ -39,16 +40,14 @@ class RocketDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
+        setupViewModel()
 
         val args: RocketDetailFragmentArgs by navArgs()
         Log.d( "id = ${args.id}")
         Log.d( "rocketId = ${args.rocketId}")
         Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
-        val spaceXApi = SpaceXRetrofitApi.spaceXApi
-        val rocketDatabase = RocketRoomDatabase(applicationContext = context)
-        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!! /* tmp */)
-        viewModel.getRocket(id = args.id, rocketId = args.rocketId) //db
+        viewModel.getRocket(id = args.id) //db
 
         setContent {
             SpaceXTheme {
@@ -58,7 +57,7 @@ class RocketDetailFragment : Fragment() {
                     onBackClick = ::navigateBack,
                     onLaunchClick = { navigateToRocketLaunch(rocketName = args.rocketName) },
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = { viewModel.refreshRocket(id = args.id, rocketId = args.rocketId) }
+                    refreshData = { viewModel.refreshRocket(id = args.id) }
                 )
             }
         }

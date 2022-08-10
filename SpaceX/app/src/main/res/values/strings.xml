@@ -74,5 +74,8 @@
     <!--  LoadingErrorSnackBar.kt  -->
     <string name="loading_error_snackbar_text">Loading error</string>
     <string name="loading_error_snackbar_action">Refresh</string>
+    <string name="error_snackbar_message">Loading error</string>
+    <string name="error_snackbar_action">Refresh</string>
+    <string name="defalt_icon_desc">icon</string>
 
 </resources>

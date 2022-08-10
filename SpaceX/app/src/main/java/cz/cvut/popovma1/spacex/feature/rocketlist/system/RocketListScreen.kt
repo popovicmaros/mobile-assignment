@@ -12,10 +12,10 @@ import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.State
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
-import cz.cvut.popovma1.spacex.ui.component.screen.LoadingScreen
-import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.ErrorScreen
-import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.NoDataScreen
-import cz.cvut.popovma1.spacex.ui.component.snackbar.showLoadingErrorSnackbar
+import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
+import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
+import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.NoData
+import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import kotlinx.coroutines.CoroutineScope
 import quanti.com.kotlinlog.Log
 
@@ -47,19 +47,19 @@ fun RocketListScreen(
                     refreshData = refreshData,
                 )
             }
-            State.LOADING -> LoadingScreen()
+            State.LOADING -> Loading()
             State.ERROR -> {
-                ErrorScreen(
+                Error(
                     isRefreshing = isRefreshing,
                     refreshData = refreshData,
                 )
-                showLoadingErrorSnackbar(
+                ShowLoadingErrorSnackbar(
                     coroutineScope = coroutineScope,
                     scaffoldState = scaffoldState,
                     onActionPerformed = refreshData
                 )
             }
-            State.NO_DATA -> NoDataScreen(
+            State.NO_DATA -> NoData(
                 isRefreshing = isRefreshing,
                 refreshData = refreshData,
             )
