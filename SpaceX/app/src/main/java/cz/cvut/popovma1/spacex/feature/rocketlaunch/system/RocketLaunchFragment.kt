@@ -35,5 +35,4 @@ class RocketLaunchFragment : Fragment() {
         Log.d("navigateBack() pressed")
         findNavController().popBackStack()
     }
-
 }

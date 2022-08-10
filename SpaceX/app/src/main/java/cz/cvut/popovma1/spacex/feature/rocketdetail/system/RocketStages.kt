@@ -104,7 +104,7 @@ private fun BurnTimeItem(stage: Stage) {
             id = R.string.rocket_detail_burn_icon_desc
         ),
         text = pluralStringResource(
-            id =  R.plurals.rocket_detail_seconds_burn_time,
+            id = R.plurals.rocket_detail_seconds_burn_time,
             stage.burnTimeInSec,
             stage.burnTimeInSec,
         )

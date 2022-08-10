@@ -3,10 +3,11 @@ package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 import BackButton
 import CenteredTitleTopBar
 import LaunchButton
-import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -15,14 +16,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.repository.model.Rocket
-import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
-import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
-import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
-import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
+import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
+import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
+import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
+import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
+import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -39,14 +42,16 @@ fun RocketDetailScreen(
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     ContentWithTopBar(
-        topBar = { RocketDetailTopBar(
-            title = rocketName,
-            onBackClick = onBackClick,
-            onLaunchClick = onLaunchClick,
-        ) },
+        topBar = {
+            RocketDetailTopBar(
+                title = rocketName,
+                onBackClick = onBackClick,
+                onLaunchClick = onLaunchClick,
+            )
+        },
         scaffoldState = scaffoldState,
     ) {
-        when(rocket.state) {
+        when (rocket.state) {
             State.SUCCESS -> RocketDetailSuccess(
                 rocket = rocket.data,
                 isRefreshing = isRefreshing,
@@ -79,7 +84,7 @@ private fun RocketDetailSuccess(
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = refreshData
     ) {
-        LazyColumn (modifier = Modifier.padding(paddingMedium)) {
+        LazyColumn(modifier = Modifier.padding(paddingMedium)) {
             item { RocketOverview(rocket) }
             item { RocketParameters(rocket) }
             item { RocketImages(rocket.images) }

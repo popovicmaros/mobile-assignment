@@ -2,9 +2,13 @@ package cz.cvut.popovma1.spacex.feature.rocketlaunch.system
 
 import BackButton
 import CenteredTitleTopBar
-import LaunchButton
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,10 +28,12 @@ import cz.cvut.popovma1.spacex.ui.theme.launchedRocketSize
 @Composable
 fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit) {
     ContentWithTopBar(
-        topBar = { RocketLaunchTopBar(
-            rocketName = rocketName,
-            onBackClick = onBackClick,
-        ) }
+        topBar = {
+            RocketLaunchTopBar(
+                rocketName = rocketName,
+                onBackClick = onBackClick,
+            )
+        }
     ) {
         RocketLaunchContent()
     }
@@ -76,11 +82,10 @@ fun RocketLaunchContent() {
 }
 
 private fun getLaunchText(isLaunched: Boolean): Int =
-    if(isLaunched)
+    if (isLaunched)
         R.string.rocket_launch_text_before_launch
     else
         R.string.rocket_launch_text_after_launch
-
 
 @Preview(showBackground = true)
 @Composable

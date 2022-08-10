@@ -27,5 +27,4 @@ data class Stage(
             burnTimeInSec = 0
         )
     }
-
 }

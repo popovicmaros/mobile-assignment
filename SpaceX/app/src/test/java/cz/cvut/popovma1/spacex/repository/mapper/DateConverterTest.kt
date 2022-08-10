@@ -1,8 +1,7 @@
 package cz.cvut.popovma1.spacex.repository.mapper
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 internal class DateConverterTest {
 

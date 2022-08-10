@@ -21,7 +21,6 @@ fun Error(
     )
 }
 
-
 @Preview
 @Composable
 fun PreviewErrorScreen() {

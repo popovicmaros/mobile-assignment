@@ -1,8 +1,10 @@
 package cz.cvut.popovma1.spacex.repository.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import cz.cvut.popovma1.spacex.repository.model.Rocket
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RocketDao {
@@ -26,5 +28,4 @@ interface RocketDao {
 
     @Query("DELETE FROM rocket")
     suspend fun deleteAll()
-
 }

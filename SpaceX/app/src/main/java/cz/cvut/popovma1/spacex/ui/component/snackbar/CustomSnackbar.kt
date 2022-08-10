@@ -30,7 +30,7 @@ fun showCustomSnackbar(
             actionLabel = actionLabel
         )
 
-        when(result) {
+        when (result) {
             SnackbarResult.ActionPerformed -> {
                 Log.d("SnackbarResult.ActionPerformed ($actionLabel)")
                 onActionPerformed()

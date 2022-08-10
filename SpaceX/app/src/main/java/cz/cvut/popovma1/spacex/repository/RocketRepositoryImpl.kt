@@ -18,7 +18,7 @@ class RocketRepositoryImpl(
     private val api: SpaceXApi,
     private val rocketDao: RocketDao,
     private val rocketNetworkMapper: RocketNetworkMapper = RocketNetworkMapper()
-): RocketRepository {
+) : RocketRepository {
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
         downloadApiToDb()
@@ -68,5 +68,4 @@ class RocketRepositoryImpl(
             emit(ResponseWrapper(state = State.ERROR, data = Rocket.NULL_ROCKET))
         }
     }
-
 }

@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
 val composeVersion = "1.2.0-beta01"
@@ -71,10 +72,10 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
 
     // moshi
-    implementation("com.squareup.moshi:moshi:${moshiVersion}")
-    implementation("com.squareup.moshi:moshi-kotlin:${moshiVersion}")
-    implementation("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:${moshiVersion}")
+    implementation("com.squareup.moshi:moshi:$moshiVersion")
+    implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
+    implementation("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
 
     // okhttp
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
@@ -97,7 +98,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
-
 
     implementation("androidx.appcompat:appcompat:1.4.2")
     testImplementation("junit:junit:4.13.2")

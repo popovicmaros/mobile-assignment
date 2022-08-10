@@ -6,13 +6,16 @@ import cz.cvut.popovma1.spacex.repository.RocketRepository
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import quanti.com.kotlinlog.Log
 
 class RocketListViewModel(
     private val rocketRepository: RocketRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _rockets = MutableStateFlow(defaultRocketsResponse())
     val rockets get() = _rockets

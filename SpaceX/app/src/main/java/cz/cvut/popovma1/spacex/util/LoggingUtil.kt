@@ -12,7 +12,7 @@ object LoggingUtil {
         // Log initialisation
         Log.initialise(context)
 
-        //forwards all log to android logcat
+        // forwards all log to android logcat
         val androidBundle = LoggerBundle(minimalLogLevel = LogLevel.VERBOSE)
         Log.addLogger(AndroidLogger(androidBundle))
     }

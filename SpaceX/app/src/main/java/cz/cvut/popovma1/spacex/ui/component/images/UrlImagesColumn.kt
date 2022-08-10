@@ -4,7 +4,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,7 +13,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import cz.cvut.popovma1.spacex.ui.component.column.ColumnWithTitle
-import cz.cvut.popovma1.spacex.ui.theme.*
+import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
+import cz.cvut.popovma1.spacex.ui.theme.imageHeight
+import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
+import cz.cvut.popovma1.spacex.ui.theme.smallBorder
 
 @Composable
 fun UrlImagesColumn(

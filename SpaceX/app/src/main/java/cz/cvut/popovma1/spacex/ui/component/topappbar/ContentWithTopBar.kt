@@ -3,7 +3,9 @@ package cz.cvut.popovma1.spacex.ui.component.topappbar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -22,5 +24,4 @@ fun ContentWithTopBar(
             content = content
         )
     }
-
 }

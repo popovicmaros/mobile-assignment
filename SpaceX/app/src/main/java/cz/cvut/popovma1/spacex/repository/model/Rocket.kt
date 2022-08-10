@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class Rocket (
+data class Rocket(
     @PrimaryKey val id: Int,
 
     @NotNull val rocketId: String,
@@ -41,7 +41,5 @@ data class Rocket (
             stages = listOf(),
             images = listOf()
         )
-
     }
 }
-

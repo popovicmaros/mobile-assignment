@@ -24,7 +24,7 @@ class RocketListFragment : Fragment() {
 
     private fun setupViewModel() {
 
-        if(!this::viewModel.isInitialized) {
+        if (!this::viewModel.isInitialized) {
             val spaceXApi = SpaceXRetrofitApi.spaceXApi
             val rocketDatabase = RocketRoomDatabase(requireContext()).let {
                 RocketRoomDatabase.db
@@ -33,7 +33,6 @@ class RocketListFragment : Fragment() {
 //        val viewModel: RocketListViewModel by viewModels()
             viewModel = RocketListViewModel(rocketRepository)
         }
-
     }
 
     override fun onCreateView(
@@ -54,7 +53,6 @@ class RocketListFragment : Fragment() {
                 )
             }
         }
-
     }
 
     private fun navigateToRocketDetail(rocket: Rocket) {

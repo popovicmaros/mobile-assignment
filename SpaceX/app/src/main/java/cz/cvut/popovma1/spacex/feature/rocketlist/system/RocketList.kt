@@ -1,6 +1,10 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,10 +51,10 @@ fun LargeTitle(text: String) {
 
 @Composable
 fun RocketList(rockets: List<Rocket>, onItemClick: (Rocket) -> Unit) {
-    Surface (
+    Surface(
         shape = RoundedCornerShape(cornerRadius),
         elevation = 1.dp
-    ){
+    ) {
         LazyColumn {
             items(rockets) { rocket ->
                 RocketItem(rocket, onItemClick)
@@ -67,7 +71,7 @@ fun RocketListSuccess(
     isRefreshing: Boolean,
     refreshData: () -> Unit
 ) {
-    Surface (
+    Surface(
         shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
         elevation = 1.dp,
         modifier = Modifier

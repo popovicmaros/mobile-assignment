@@ -2,10 +2,8 @@ package cz.cvut.popovma1.spacex.repository.database
 
 import cz.cvut.popovma1.spacex.repository.model.Stage
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
-import quanti.com.kotlinlog.Log
 
 internal class ConvertersTest {
 
@@ -31,5 +29,4 @@ internal class ConvertersTest {
         val images = RocketsSampleData.getRocketImages()
         assertEquals(images, c.stringToImages(c.imagesToString(images)))
     }
-
 }

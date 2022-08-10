@@ -22,7 +22,6 @@ class Converters {
     @TypeConverter
     fun stringToStageList(string: String): List<Stage> = stageListAdapter.fromJson(string) ?: listOf()
 
-
     @TypeConverter
     fun stageToString(stage: Stage): String = stageAdapter.toJson(stage)
     @TypeConverter
@@ -32,5 +31,4 @@ class Converters {
     fun imagesToString(images: List<String>): String = imagesAdapter.toJson(images)
     @TypeConverter
     fun stringToImages(string: String): List<String> = imagesAdapter.fromJson(string) ?: listOf()
-
 }

@@ -23,7 +23,7 @@ class RocketDetailFragment : Fragment() {
 
     private fun setupViewModel() {
 
-        if(!this::viewModel.isInitialized) {
+        if (!this::viewModel.isInitialized) {
             val spaceXApi = SpaceXRetrofitApi.spaceXApi
             val rocketDatabase = RocketRoomDatabase(requireContext()).let {
                 RocketRoomDatabase.db
@@ -32,7 +32,6 @@ class RocketDetailFragment : Fragment() {
 //        val viewModel: RocketListViewModel by viewModels()
             viewModel = RocketDetailViewModel(rocketRepository)
         }
-
     }
 
     override fun onCreateView(
@@ -43,11 +42,11 @@ class RocketDetailFragment : Fragment() {
         setupViewModel()
 
         val args: RocketDetailFragmentArgs by navArgs()
-        Log.d( "id = ${args.id}")
-        Log.d( "rocketId = ${args.rocketId}")
-        Log.d( "rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
+        Log.d("id = ${args.id}")
+        Log.d("rocketId = ${args.rocketId}")
+        Log.d("rocketName = ${args.rocketName}") // passing rocketName to avoid topBar loading
 
-        viewModel.getRocket(id = args.id) //db
+        viewModel.getRocket(id = args.id) // db
 
         setContent {
             SpaceXTheme {

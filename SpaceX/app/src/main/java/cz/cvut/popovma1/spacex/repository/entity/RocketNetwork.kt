@@ -17,7 +17,7 @@ data class RocketNetwork(
     @Json(name = "description") val description: String = "",
 
     @Json(name = "first_stage") val stage1: StageNetwork = StageNetwork(),
-    @Json(name = "second_stage") val stage2: StageNetwork  = StageNetwork(),
+    @Json(name = "second_stage") val stage2: StageNetwork = StageNetwork(),
 
     @Json(name = "flickr_images") val images: List<String> = listOf(),
 ) {
@@ -38,12 +38,10 @@ data class RocketNetwork(
     )
 
     @JsonClass(generateAdapter = true)
-    data class StageNetwork (
+    data class StageNetwork(
         @Json(name = "reusable") val isReusable: Boolean = false,
         @Json(name = "engines") val enginesCnt: Int = 0,
         @Json(name = "fuel_amount_tons") val tonsOfFuel: Double = 0.0,
         @Json(name = "burn_time_sec") val burnTimeInSec: Int? = null
     )
-
 }
-
