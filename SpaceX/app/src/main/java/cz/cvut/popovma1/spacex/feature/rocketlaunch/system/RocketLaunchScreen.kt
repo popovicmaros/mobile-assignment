@@ -11,12 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -38,7 +35,7 @@ import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchHeight
 import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchWidth
 
 @Composable
-fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit) {
+fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit, isLifted: Boolean = false) {
     ContentWithTopBar(
         topBar = {
             RocketLaunchTopBar(
@@ -47,16 +44,22 @@ fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit) {
             )
         }
     ) {
+/*
         val isLaunched = remember { mutableStateOf(false) }
         Button(onClick = { isLaunched.value = !isLaunched.value }) {
             Text(text = "Launch")
         }
+*/
         Column(
             modifier = Modifier.align(Alignment.BottomCenter), // column is centered inside box
             horizontalAlignment = Alignment.CenterHorizontally // column content is centered inside column
         ) {
+/*
             RocketLaunchAnimation(isLaunched.value)
             RocketLaunchText(isLaunched.value)
+*/
+            RocketLaunchAnimation(isLifted)
+            RocketLaunchText(isLifted)
             Spacer(modifier = Modifier.height(rocketLaunchBottomOffset))
         }
     }
@@ -117,6 +120,6 @@ fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
 @Composable
 fun PreviewRocketLaunchScreen() {
     SpaceXTheme {
-        RocketLaunchScreen("Falcon 1", {})
+        RocketLaunchScreen("Falcon 1", {}, false)
     }
 }

@@ -7,7 +7,6 @@ import cz.cvut.popovma1.spacex.repository.mapper.RocketNetworkMapper
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
@@ -43,7 +42,6 @@ class RocketRepositoryImpl(
     private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.emitDataFromDb() {
         // display data from db
         try {
-            delay(5000)
             val dbResponse = rocketDao.getAll()
             if (!dbResponse.isNullOrEmpty()) {
                 // success
