@@ -6,7 +6,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class RocketLaunchRepositoryImpl(private val phoneLiftDetection: PhoneLiftDetection) : RocketLaunchRepository {
 
     override fun isPhoneLifted(): MutableStateFlow<Boolean> = phoneLiftDetection.isLifted
-    override fun unregisterLiftSensor() {
+    override fun registerSensor(orientation: Int) {
+        phoneLiftDetection.registerSensor(orientation)
+    }
+    override fun unregisterSensor() {
         phoneLiftDetection.unregisterSensor()
     }
 }

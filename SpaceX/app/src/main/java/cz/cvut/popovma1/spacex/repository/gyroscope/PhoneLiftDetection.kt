@@ -6,5 +6,7 @@ interface PhoneLiftDetection {
 
     val isLifted: MutableStateFlow<Boolean>
 
+    fun registerSensor(orientation: Int)
+
     fun unregisterSensor()
 }

@@ -10,7 +10,11 @@ class RocketLaunchViewModel(
     private val _isLifted: MutableStateFlow<Boolean> = rocketLaunchRepository.isPhoneLifted()
     val isLifted get() = _isLifted
 
+    fun registerLiftSensor(orientation: Int) {
+        rocketLaunchRepository.registerSensor(orientation)
+    }
+
     fun unregisterLiftSensor() {
-        rocketLaunchRepository.unregisterLiftSensor()
+        rocketLaunchRepository.unregisterSensor()
     }
 }

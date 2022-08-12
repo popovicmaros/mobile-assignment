@@ -4,5 +4,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 interface RocketLaunchRepository {
     fun isPhoneLifted(): MutableStateFlow<Boolean>
-    fun unregisterLiftSensor()
+    fun registerSensor(orientation: Int)
+    fun unregisterSensor()
 }
