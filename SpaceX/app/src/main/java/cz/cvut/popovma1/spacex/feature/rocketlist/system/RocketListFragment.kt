@@ -1,6 +1,7 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,20 @@ import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
 import cz.cvut.popovma1.spacex.repository.database.RocketRoomDatabase
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
-import quanti.com.kotlinlog.Log
 
 class RocketListFragment : Fragment() {
 
     private lateinit var viewModel: RocketListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("RocketListFragment", "onCreate called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("RocketListFragment", "onDestroy called")
+    }
 
     private fun setupViewModel() {
 

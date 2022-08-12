@@ -12,6 +12,7 @@ import quanti.com.kotlinlog.Log
 class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetection, SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
+
     private val _isLifted = MutableStateFlow(false)
     override val isLifted get() = _isLifted
 
@@ -41,7 +42,7 @@ class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetecti
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
             val xRotation = event.values[X_AXIS]
-            Log.d("X axis rotation: $xRotation")
+//            Log.d("X axis rotation: $xRotation")
             if (xRotation >= TRIGGER_LIFT_VALUE) {
                 Log.d("X axis rotation: Launch !")
                 _isLifted.value = true

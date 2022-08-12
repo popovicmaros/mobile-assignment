@@ -33,6 +33,7 @@ import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchBottomOffset
 import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchDuration
 import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchHeight
 import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchWidth
+import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit, isLifted: Boolean = false) {
@@ -60,6 +61,7 @@ fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit, isLifted: Bo
 */
             RocketLaunchAnimation(isLifted)
             RocketLaunchText(isLifted)
+            Log.d("compose: isLifted = $isLifted")
             Spacer(modifier = Modifier.height(rocketLaunchBottomOffset))
         }
     }
