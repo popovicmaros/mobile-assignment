@@ -9,33 +9,52 @@ import cz.cvut.popovma1.spacex.repository.model.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import quanti.com.kotlinlog.Log
 
 class RocketListViewModel(
-    private val rocketRepository: RocketRepository //= RocketRepositoryImpl() /* todo <- remove init */
-): ViewModel() {
+    private val rocketRepository: RocketRepository
+) : ViewModel() {
 
-    val rockets = MutableStateFlow(defaultRocketsResponse())
-    val isRefreshing = MutableStateFlow(false)
+    private val _rockets = MutableStateFlow(defaultRocketsResponse())
+    val rockets: StateFlow<ResponseWrapper<List<Rocket>>> get() = _rockets
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean> get() = _isRefreshing
 
     init {
         getRockets()
     }
 
     private fun getRockets() {
-        viewModelScope.launch(Dispatchers.IO) {
-            isRefreshing.value = true
-            rocketRepository.getRockets().collect {
-                rockets.value = it
-            }
-            isRefreshing.value = false
+        viewModelScope.launch {
+            _isRefreshing.value = true
+            downloadRockets()
+            _isRefreshing.value = false
         }
     }
 
-    fun refresh() {
-        Log.d("refresh() called")
-        getRockets()
+    fun refreshRockets() {
+        Log.d("refreshRockets() called")
+        _isRefreshing.value = true
+        val downloadJob = viewModelScope.launch { downloadRockets() }
+        val delayJob = viewModelScope.launch { delay(2000) } // always show progressbar for at least 2s
+
+        viewModelScope.launch {
+            downloadJob.join()
+            delayJob.join()
+            _isRefreshing.value = false
+        }
+    }
+
+    private suspend fun downloadRockets() {
+        withContext(Dispatchers.IO) {
+            rocketRepository.getRockets().collect {
+                _rockets.value = it
+            }
+        }
     }
 
     private fun defaultRocketsResponse() = ResponseWrapper<List<Rocket>>(State.LOADING, listOf())

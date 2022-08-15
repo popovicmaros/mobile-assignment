@@ -1,4 +1,4 @@
-package cz.cvut.popovma1.spacex.ui.component.screen.informationScreen
+package cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
@@ -8,14 +8,14 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 
 @Composable
-fun NoDataScreen(
+fun Error(
     isRefreshing: Boolean = false,
     refreshData: () -> Unit = {},
 ) {
-    InformationRefreshScreen(
-        title = stringResource(id = R.string.no_data_screen_text_no_data),
-        painter = painterResource(id = R.drawable.ic_baseline_info_24),
-        contentDescription = stringResource(id = R.string.no_data_icon_desc),
+    InformationRefresh(
+        title = stringResource(id = R.string.error_screen_text_error),
+        painter = painterResource(id = R.drawable.ic_baseline_error_24),
+        contentDescription = stringResource(id = R.string.error_screen_error_icon_desc),
         isRefreshing = isRefreshing,
         refreshData = refreshData
     )
@@ -23,8 +23,8 @@ fun NoDataScreen(
 
 @Preview
 @Composable
-fun PreviewNoDataScreen() {
+fun PreviewErrorScreen() {
     SpaceXTheme {
-        NoDataScreen()
+        Error()
     }
 }

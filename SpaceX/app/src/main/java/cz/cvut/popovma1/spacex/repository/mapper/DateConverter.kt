@@ -1,7 +1,8 @@
 package cz.cvut.popovma1.spacex.repository.mapper
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class DateConverter(
     private val oldDateFormat: String = "yyyy-MM-dd",

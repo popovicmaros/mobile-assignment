@@ -1,21 +1,24 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
-import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
-import androidx.compose.material.*
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.repository.model.Rocket
-import cz.cvut.popovma1.spacex.ui.theme.*
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
+import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
 import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
-import cz.cvut.popovma1.spacex.ui.component.screen.LoadingScreen
-import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.ErrorScreen
-import cz.cvut.popovma1.spacex.ui.component.screen.informationScreen.NoDataScreen
-import cz.cvut.popovma1.spacex.ui.component.snackbar.showLoadingErrorSnackbar
+import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
+import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
+import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
+import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.NoData
+import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import kotlinx.coroutines.CoroutineScope
 import quanti.com.kotlinlog.Log
 
@@ -33,9 +36,11 @@ fun RocketListScreen(
     Log.d("@Composable RocketListScreen recomposed")
 
     ContentWithTopBar(
-        topBar = { TopAppBar(
-            title = { Text(stringResource(id = R.string.title_activity_rocket_list)) },
-        )},
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(id = R.string.title_activity_rocket_list)) },
+            )
+        },
         scaffoldState = scaffoldState
     ) {
         when (rockets.state) {
@@ -47,19 +52,19 @@ fun RocketListScreen(
                     refreshData = refreshData,
                 )
             }
-            State.LOADING -> LoadingScreen()
+            State.LOADING -> Loading()
             State.ERROR -> {
-                ErrorScreen(
+                Error(
                     isRefreshing = isRefreshing,
                     refreshData = refreshData,
                 )
-                showLoadingErrorSnackbar(
+                ShowLoadingErrorSnackbar(
                     coroutineScope = coroutineScope,
                     scaffoldState = scaffoldState,
                     onActionPerformed = refreshData
                 )
             }
-            State.NO_DATA -> NoDataScreen(
+            State.NO_DATA -> NoData(
                 isRefreshing = isRefreshing,
                 refreshData = refreshData,
             )
@@ -82,6 +87,3 @@ fun Preview() {
         )
     }
 }
-
-
-

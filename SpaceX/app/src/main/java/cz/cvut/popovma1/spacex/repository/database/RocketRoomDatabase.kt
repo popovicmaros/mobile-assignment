@@ -7,7 +7,9 @@ import quanti.com.kotlinlog.Log
 // tmp object
 class RocketRoomDatabase(applicationContext: Context) {
     init {
-        if(db == null) {
+        db?.let {
+            Log.d("Database already initialised")
+        } ?: run {
             Log.d("Initialising database...")
             db = Room.databaseBuilder(
                 applicationContext,
@@ -15,8 +17,6 @@ class RocketRoomDatabase(applicationContext: Context) {
                 "rocketDatabase"
             ).build()
             Log.d("Database initialised")
-        } else {
-            Log.d("Database already initialised")
         }
     }
     companion object {

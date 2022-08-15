@@ -8,6 +8,5 @@ interface RocketRepository {
 
     fun getRockets(): Flow<ResponseWrapper<List<Rocket>>>
 
-    fun getRocket(id: Int, rocketId: String): Flow<ResponseWrapper<Rocket>>
-
+    fun getRocket(id: Int): Flow<ResponseWrapper<Rocket>>
 }

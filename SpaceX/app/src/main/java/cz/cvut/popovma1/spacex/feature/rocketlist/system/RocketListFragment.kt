@@ -1,6 +1,7 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,21 +17,41 @@ import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
 import cz.cvut.popovma1.spacex.repository.database.RocketRoomDatabase
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
-import quanti.com.kotlinlog.Log
 
 class RocketListFragment : Fragment() {
+
+    private lateinit var viewModel: RocketListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("RocketListFragment", "onCreate called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("RocketListFragment", "onDestroy called")
+    }
+
+    private fun setupViewModel() {
+
+        if (!this::viewModel.isInitialized) {
+            val spaceXApi = SpaceXRetrofitApi.spaceXApi
+            val rocketDatabase = RocketRoomDatabase(requireContext()).let {
+                RocketRoomDatabase.db
+            }
+            val rocketRepository = RocketRepositoryImpl(spaceXApi, rocketDatabase!!.rocketDao() /*tmp*/)
+//        val viewModel: RocketListViewModel by viewModels()
+            viewModel = RocketListViewModel(rocketRepository)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
 
-        val spaceXApi = SpaceXRetrofitApi.spaceXApi
-        val rocketDatabase = RocketRoomDatabase(applicationContext = context)
-
-        val rocketRepository = RocketRepositoryImpl(spaceXApi, RocketRoomDatabase.db!!)
-//        val viewModel: RocketListViewModel by viewModels()
-        val viewModel = RocketListViewModel(rocketRepository)
+        setupViewModel()
 
         setContent {
             SpaceXTheme {
@@ -38,11 +59,10 @@ class RocketListFragment : Fragment() {
                     rockets = viewModel.rockets.collectAsState().value,
                     onItemClick = ::navigateToRocketDetail,
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = viewModel::refresh
+                    refreshData = viewModel::refreshRockets
                 )
             }
         }
-
     }
 
     private fun navigateToRocketDetail(rocket: Rocket) {

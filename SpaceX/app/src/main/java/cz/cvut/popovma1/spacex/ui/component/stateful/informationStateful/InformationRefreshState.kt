@@ -1,7 +1,10 @@
-package cz.cvut.popovma1.spacex.ui.component.screen.informationScreen
+package cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -18,7 +21,7 @@ import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
 
 @Composable
-fun InformationRefreshScreen(
+fun InformationRefresh(
     title: String,
     painter: Painter,
     contentDescription: String?,
@@ -53,7 +56,7 @@ fun InformationRefreshScreen(
 @Preview
 fun InformationScreenPreview() {
     SpaceXTheme {
-        InformationRefreshScreen (
+        InformationRefresh(
             title = "Info",
             painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_right_24),
             contentDescription = "info",

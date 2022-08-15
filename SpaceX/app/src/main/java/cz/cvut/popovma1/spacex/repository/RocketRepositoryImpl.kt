@@ -1,14 +1,12 @@
 package cz.cvut.popovma1.spacex.repository
 
 import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
-import cz.cvut.popovma1.spacex.repository.database.RocketDatabase
+import cz.cvut.popovma1.spacex.repository.database.RocketDao
 import cz.cvut.popovma1.spacex.repository.entity.RocketNetwork
 import cz.cvut.popovma1.spacex.repository.mapper.RocketNetworkMapper
-import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
@@ -17,91 +15,55 @@ import java.lang.Exception
 
 class RocketRepositoryImpl(
     private val api: SpaceXApi,
-    private val database: RocketDatabase
-): RocketRepository {
-
-    private val rocketDao = database.rocketDao()
+    private val rocketDao: RocketDao,
+    private val rocketNetworkMapper: RocketNetworkMapper = RocketNetworkMapper()
+) : RocketRepository {
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {
+        downloadApiToDb()
+        emitDataFromDb()
+    }
+
+    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.downloadApiToDb() {
         try {
+            // download data & save to db
             val apiResponse: List<RocketNetwork> = api.getRockets()
             val mappedResponse: List<Rocket> = apiResponse.map {
-                RocketNetworkMapper().mapToRocket(it)
+                rocketNetworkMapper.mapToRocket(it)
             }
             Log.d("getRockets() response = $mappedResponse")
-
             rocketDao.insertAll(mappedResponse)
-            val dbResponse = rocketDao.getAllRockets()
+        } catch (e: Exception) {
+            // error downloading
+            e.printStackTrace()
+        }
+    }
 
-            if(!dbResponse.isNullOrEmpty()) {
+    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.emitDataFromDb() {
+        // display data from db
+        try {
+            val dbResponse = rocketDao.getAll()
+            if (!dbResponse.isNullOrEmpty()) {
                 // success
                 emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
             } else {
                 // empty
-                emit(ResponseWrapper(state = State.NO_DATA, data = listOf<Rocket>()))
+                emit(ResponseWrapper(state = State.NO_DATA, data = listOf()))
             }
         } catch (e: Exception) {
-            // error
+            // db error
             e.printStackTrace()
-            emit(ResponseWrapper(state = State.ERROR, data = listOf<Rocket>()))
+            emit(ResponseWrapper(state = State.ERROR, data = listOf()))
         }
-//        fakeGetRockets()
     }
 
-    override fun getRocket(id: Int, rocketId: String): Flow<ResponseWrapper<Rocket>> = flow {
+    override fun getRocket(id: Int): Flow<ResponseWrapper<Rocket>> = flow {
         val dbResponse: Rocket? = rocketDao.getRocket(id)
-        if(dbResponse != null) {
+        dbResponse?.let {
             emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
-        } else {
+        } ?: run {
+            // used in rocketDetail, where data is already expected to be saved in db by rocketList
             emit(ResponseWrapper(state = State.ERROR, data = Rocket.NULL_ROCKET))
-/*
-            try {
-                val response = api.getRocket(rocketId)
-
-                // success
-                val mappedResponse = RocketNetworkMapper().mapToRocket(response)
-                Log.d("getRocket() response = $mappedResponse")
-                rocketDao.insert(rocket = mappedResponse)
-
-                val dbResponse = rocketDao.getRocket(id = mappedResponse.id)!! // if null fall into exception
-                emit(ResponseWrapper(
-                    state = State.SUCCESS,
-                    data = dbResponse
-                ))
-            } catch (e: Exception) {
-                // error
-                e.printStackTrace()
-                emit(ResponseWrapper(
-                    state = State.ERROR,
-                    data = Rocket.NULL_ROCKET
-                ))
-            }
-*/
         }
-//        fakeGetRocket()
-    }
-
-    // TODO remove
-    private suspend fun FlowCollector<ResponseWrapper<Rocket>>.fakeGetRocket() {
-        delay(2000)
-        //        emit(ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET))
-        emit(
-            ResponseWrapper(
-                State.SUCCESS,
-                RocketsSampleData.getRocket()
-            )
-        )
-    }
-
-    // TODO remove
-    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.fakeGetRockets() {
-        delay(2000)
-        //        emit(ResponseWrapper(State.ERROR, listOf()))
-        emit(
-            ResponseWrapper(
-                State.SUCCESS,
-                RocketsSampleData.getRocketsList()
-            )
-        )
     }
 }

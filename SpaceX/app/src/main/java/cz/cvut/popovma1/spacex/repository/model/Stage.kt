@@ -1,16 +1,10 @@
 package cz.cvut.popovma1.spacex.repository.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@Entity
 @JsonClass(generateAdapter = true)
-data class Stage (
-    @PrimaryKey(autoGenerate = true)
-    @Json(name = "id")
-    val id: Int = 0,  // TODO remove?
+data class Stage(
 
     @Json(name = "isReusable")
     val isReusable: Boolean,
@@ -33,5 +27,4 @@ data class Stage (
             burnTimeInSec = 0
         )
     }
-
 }
