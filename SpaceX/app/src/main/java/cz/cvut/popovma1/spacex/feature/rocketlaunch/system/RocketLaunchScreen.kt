@@ -36,7 +36,7 @@ import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchWidth
 import quanti.com.kotlinlog.Log
 
 @Composable
-fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit, isLifted: Boolean = false) {
+fun RocketLaunchScreen(rocketName: String, isLifted: Boolean = false, onBackClick: () -> Unit) {
     ContentWithTopBar(
         topBar = {
             RocketLaunchTopBar(
@@ -45,20 +45,10 @@ fun RocketLaunchScreen(rocketName: String, onBackClick: () -> Unit, isLifted: Bo
             )
         }
     ) {
-/*
-        val isLaunched = remember { mutableStateOf(false) }
-        Button(onClick = { isLaunched.value = !isLaunched.value }) {
-            Text(text = "Launch")
-        }
-*/
         Column(
             modifier = Modifier.align(Alignment.BottomCenter), // column is centered inside box
             horizontalAlignment = Alignment.CenterHorizontally // column content is centered inside column
         ) {
-/*
-            RocketLaunchAnimation(isLaunched.value)
-            RocketLaunchText(isLaunched.value)
-*/
             RocketLaunchAnimation(isLifted)
             RocketLaunchText(isLifted)
             Log.d("compose: isLifted = $isLifted")
@@ -74,7 +64,10 @@ private fun RocketLaunchAnimation(isLaunched: Boolean) {
         animationSpec = tween(rocketLaunchDuration)
     )
     Image(
-        painter = getLaunchPainter(isLaunched),
+        painter = if (isLaunched)
+            painterResource(id = R.drawable.ic_rocket_flying)
+        else
+            painterResource(id = R.drawable.ic_rocket_idle),
         contentDescription = stringResource(id = R.string.rocket_launch_image_description),
         modifier = Modifier
             .width(launchedRocketWidth)
@@ -92,24 +85,13 @@ private fun RocketLaunchText(isLaunched: Boolean) {
             width = rocketLaunchWidth,
             height = rocketLaunchHeight
         ),
-        text = getLaunchText(isLaunched),
+        text = if (isLaunched)
+            stringResource(id = R.string.rocket_launch_text_after_launch)
+        else
+            stringResource(id = R.string.rocket_launch_text_before_launch),
         textAlign = TextAlign.Center
     )
 }
-
-@Composable
-private fun getLaunchPainter(isLaunched: Boolean) =
-    if (isLaunched)
-        painterResource(id = R.drawable.ic_rocket_flying)
-    else
-        painterResource(id = R.drawable.ic_rocket_idle)
-
-@Composable
-private fun getLaunchText(isLaunched: Boolean) =
-    if (isLaunched)
-        stringResource(id = R.string.rocket_launch_text_after_launch)
-    else
-        stringResource(id = R.string.rocket_launch_text_before_launch)
 
 @Composable
 fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
@@ -122,6 +104,6 @@ fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
 @Composable
 fun PreviewRocketLaunchScreen() {
     SpaceXTheme {
-        RocketLaunchScreen("Falcon 1", {}, false)
+        RocketLaunchScreen("Falcon 1", false) {}
     }
 }

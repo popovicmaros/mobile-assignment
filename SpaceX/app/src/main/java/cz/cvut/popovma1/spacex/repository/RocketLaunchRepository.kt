@@ -1,9 +1,9 @@
 package cz.cvut.popovma1.spacex.repository
 
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 interface RocketLaunchRepository {
-    fun isPhoneLifted(): MutableStateFlow<Boolean>
+    fun isPhoneLifted(): StateFlow<Boolean>
     fun registerSensor(orientation: Int)
     fun unregisterSensor()
 }

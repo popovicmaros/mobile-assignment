@@ -50,8 +50,8 @@ class RocketLaunchFragment : Fragment() {
             SpaceXTheme {
                 RocketLaunchScreen(
                     rocketName = args.rocketName,
-                    onBackClick = { navigateBack() },
                     isLifted = viewModel.isLifted.collectAsState().value,
+                    onBackClick = ::navigateBack,
                 )
             }
         }

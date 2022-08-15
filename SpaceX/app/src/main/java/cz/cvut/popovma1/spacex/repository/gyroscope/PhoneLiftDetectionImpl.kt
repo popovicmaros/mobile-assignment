@@ -8,6 +8,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import quanti.com.kotlinlog.Log
 
 class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetection, SensorEventListener {
@@ -16,7 +17,7 @@ class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetecti
     private var orientation: Int? = null
 
     private val _isLifted = MutableStateFlow(false)
-    override val isLifted get() = _isLifted
+    override val isLifted: StateFlow<Boolean> get() = _isLifted
 
     private var landscapeTriggerValue: Int? = null // used in landscape orientation
 
