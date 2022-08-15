@@ -28,12 +28,13 @@ class RocketLaunchFragment : Fragment() {
     private fun setupViewModel() {
         Log.d("RocketLaunchFragment", "isInitialized setupViewModel()")
         if (!this::viewModel.isInitialized) {
-            val phoneLiftDetection = PhoneLiftDetectionImpl(activity)
+            val phoneLiftDetection = PhoneLiftDetectionImpl(requireContext())
             val orientation = this.resources.configuration.orientation
             val rocketLaunchRepository = RocketLaunchRepositoryImpl(phoneLiftDetection)
             viewModel = RocketLaunchViewModel(rocketLaunchRepository)
             viewModel.registerLiftSensor(orientation)
-            Log.d("RocketLaunchFragment", "isInitialized = false")
+//            Log.d("RocketLaunchFragment", "isInitialized = false")
+            Log.d("RocketLaunchFragment", "initializing new viewModel")
         } else {
             Log.d("RocketLaunchFragment", "isInitialized = true")
         }

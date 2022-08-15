@@ -1,6 +1,5 @@
 package cz.cvut.popovma1.spacex.repository.gyroscope
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.hardware.Sensor
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import quanti.com.kotlinlog.Log
 
-class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetection, SensorEventListener {
+class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLiftDetection, SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private var orientation: Int? = null
@@ -25,7 +24,7 @@ class PhoneLiftDetectionImpl(private val activity: Activity?) : PhoneLiftDetecti
         // call this in onCreate
         Log.d("registerSensor")
 
-        sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = applicationContext?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         // register gyroscope
         sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
