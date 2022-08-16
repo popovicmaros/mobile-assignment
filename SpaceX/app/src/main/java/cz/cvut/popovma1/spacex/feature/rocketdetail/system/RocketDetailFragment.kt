@@ -7,40 +7,23 @@ import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
-import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
-import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
-import cz.cvut.popovma1.spacex.repository.database.RocketRoomDatabase
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import quanti.com.kotlinlog.Log
 
 class RocketDetailFragment : Fragment() {
 
-    private lateinit var viewModel: RocketDetailViewModel
-
-    private fun setupViewModel() {
-
-        if (!this::viewModel.isInitialized) {
-            val spaceXApi = SpaceXRetrofitApi.spaceXApi
-            val rocketDatabase = RocketRoomDatabase(requireContext()).let {
-                RocketRoomDatabase.db
-            }
-            val rocketRepository = RocketRepositoryImpl(spaceXApi, rocketDatabase!!.rocketDao() /*tmp*/)
-//        val viewModel: RocketListViewModel by viewModels()
-            viewModel = RocketDetailViewModel(rocketRepository)
-        }
-    }
+    private val viewModel: RocketDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-        setupViewModel()
 
         val args: RocketDetailFragmentArgs by navArgs()
         Log.d("id = ${args.id}")

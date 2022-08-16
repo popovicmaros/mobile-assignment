@@ -60,7 +60,7 @@ val appModule = module {
         RocketDetailViewModel(rocketRepository = get<RocketRepository>())
     }
 
-    factory<PhoneLiftDetection> {
+    single<PhoneLiftDetection> {
         PhoneLiftDetectionImpl(androidContext())
     }
     single<RocketLaunchRepository> {
