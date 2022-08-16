@@ -57,6 +57,11 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
         landscapeTriggerValue = null
     }
 
+    override fun resetIsLifted() {
+        // call this in viewModel's onCleared() to reset rocket lift after onBackPressed()
+        _isLifted.value = false
+    }
+
     override fun onSensorChanged(sensorEvent: SensorEvent?) {
         sensorEvent?.let { event ->
             when (orientation) {

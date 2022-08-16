@@ -49,6 +49,6 @@ class RocketLaunchFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.unregisterLiftSensor()
-        Log.d("RocketLaunchFragment", "onDestroy called")
+        Log.d("RocketLaunchFragment", "RocketLaunchFragment onDestroy called")
     }
 }

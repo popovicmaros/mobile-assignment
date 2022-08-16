@@ -9,4 +9,6 @@ interface PhoneLiftDetection {
     fun registerSensor(orientation: Int)
 
     fun unregisterSensor()
+
+    fun resetIsLifted()
 }
