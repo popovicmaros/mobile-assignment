@@ -22,8 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
@@ -39,19 +37,15 @@ import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketLaunchScreen(
-    navController: NavController,
     rocketName: String,
-    isLifted: Boolean = false,
+    isLifted: Boolean,
     onBackClick: () -> Unit
 ) {
     ContentWithTopBar(
         topBar = {
             RocketLaunchTopBar(
                 rocketName = rocketName,
-                onBackClick = {
-                    Log.d("RocketLaunchScreen - onBackClick")
-                    navController.popBackStack()
-                },
+                onBackClick = onBackClick,
             )
         }
     ) {
@@ -115,7 +109,6 @@ fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
 fun PreviewRocketLaunchScreen() {
     SpaceXTheme {
         RocketLaunchScreen(
-            navController = rememberNavController(),
             rocketName = "Falcon 1",
             isLifted = false
         ) {}

@@ -17,18 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
-import cz.cvut.popovma1.spacex.ui.navigation.Screen
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
 import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
 
 @Composable
 fun RocketItem(
-    navController: NavController = rememberNavController(),
     rocket: Rocket,
     onItemClick: (Rocket) -> Unit
 ) {
@@ -37,14 +33,7 @@ fun RocketItem(
             .padding(all = paddingSmall)
             .fillMaxSize()
             .clickable {
-                navController.navigate(
-                    Screen.RocketDetailScreen.passArgs(
-                        rocket.id,
-                        rocket.rocketId,
-                        rocket.rocketName
-                    )
-                )
-//                onItemClick(rocket)
+                onItemClick(rocket)
             },
         verticalAlignment = Alignment.CenterVertically,
 

@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
@@ -66,7 +65,6 @@ fun RocketList(rockets: List<Rocket>, onItemClick: (Rocket) -> Unit) {
 
 @Composable
 fun RocketListSuccess(
-    navController: NavHostController,
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Rocket) -> Unit,
@@ -91,7 +89,6 @@ fun RocketListSuccess(
                 }
                 items(rockets.data) { rocket ->
                     RocketItem(
-                        navController = navController,
                         rocket = rocket,
                         onItemClick = onItemClick
                     )

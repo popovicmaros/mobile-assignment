@@ -1,9 +1,9 @@
 package cz.cvut.popovma1.spacex.ui.navigation
 
 sealed class Screen(val route: String) {
-    object RocketListScreen : Screen("RocketListScreen")
-    object RocketDetailScreen : Screen("RocketDetailScreen")
-    object RocketLaunchScreen : Screen("RocketLaunchScreen")
+    object RocketListNavScreen : Screen("RocketListNavScreen")
+    object RocketDetailNavScreen : Screen("RocketDetailNavScreen")
+    object RocketLaunchNavScreen : Screen("RocketLaunchNavScreen")
 
     fun expectArgs(vararg args: String) = buildString {
         append(route)
