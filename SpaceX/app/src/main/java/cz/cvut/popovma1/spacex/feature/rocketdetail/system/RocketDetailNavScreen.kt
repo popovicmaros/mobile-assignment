@@ -1,23 +1,26 @@
 package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
-import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
-import cz.cvut.popovma1.spacex.repository.model.State
-import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
+import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
 import cz.cvut.popovma1.spacex.ui.navigation.Screen
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun RocketDetailNavScreen(
     navController: NavController,
-//    todo viewModel: RocketDetailViewModel,
+    viewModel: RocketDetailViewModel = getViewModel(),
     id: Int,
     rocketName: String,
 ) {
-//   todo viewModel.getRocket(id = id)
+    LaunchedEffect(key1 = id) {
+        viewModel.getRocket(id = id)
+    }
 
     RocketDetailScreen(
-        rocket = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocket()), // viewModel.rocket.collectAsState().value,
+        rocket = viewModel.rocket.collectAsState().value,
         rocketName = rocketName,
         onBackClick = navController::popBackStack,
         onLaunchClick = {
@@ -25,7 +28,7 @@ fun RocketDetailNavScreen(
                 route = Screen.RocketLaunchNavScreen.passArgs(rocketName)
             )
         },
-        isRefreshing = false, // todo viewModel.isRefreshing.collectAsState().value,
-        refreshData = {} // todo { viewModel.refreshRocket(id) }
+        isRefreshing = viewModel.isRefreshing.collectAsState().value,
+        refreshData = { viewModel.refreshRocket(id) }
     )
 }

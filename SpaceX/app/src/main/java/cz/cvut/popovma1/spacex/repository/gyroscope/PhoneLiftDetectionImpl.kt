@@ -12,7 +12,7 @@ import quanti.com.kotlinlog.Log
 
 class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLiftDetection, SensorEventListener {
 
-    private lateinit var sensorManager: SensorManager
+    private var sensorManager: SensorManager? = null
     private var orientation: Int? = null
 
     private val _isLifted = MutableStateFlow(false)
@@ -26,24 +26,27 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
 
         sensorManager = applicationContext?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        // register gyroscope
-        sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
-            sensorManager.registerListener(
-                this,
-                it,
-                SensorManager.SENSOR_DELAY_UI,
-                SensorManager.SENSOR_DELAY_UI,
-            )
-        }
+        sensorManager?.let { sensorManager ->
 
-        // register gravity
-        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also {
-            sensorManager.registerListener(
-                this,
-                it,
-                SensorManager.SENSOR_DELAY_NORMAL,
-                SensorManager.SENSOR_DELAY_NORMAL,
-            )
+            // register gyroscope
+            sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
+                sensorManager.registerListener(
+                    this,
+                    it,
+                    SensorManager.SENSOR_DELAY_UI,
+                    SensorManager.SENSOR_DELAY_UI,
+                )
+            }
+
+            // register gravity
+            sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also {
+                sensorManager.registerListener(
+                    this,
+                    it,
+                    SensorManager.SENSOR_DELAY_NORMAL,
+                    SensorManager.SENSOR_DELAY_NORMAL,
+                )
+            }
         }
 
         this.orientation = orientation
@@ -53,7 +56,7 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
     override fun unregisterSensor() {
         // call this in onDestroy
         Log.d("unregisterSensor")
-        sensorManager.unregisterListener(this)
+        sensorManager?.unregisterListener(this)
         landscapeTriggerValue = null
     }
 
