@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
-import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import quanti.com.kotlinlog.Log
 
@@ -32,6 +30,7 @@ class RocketDetailFragment : Fragment() {
 
         viewModel.getRocket(id = args.id) // db
 
+/*
         setContent {
             SpaceXTheme {
                 RocketDetailScreen(
@@ -44,6 +43,7 @@ class RocketDetailFragment : Fragment() {
                 )
             }
         }
+*/
     }
 
     private fun navigateToRocketLaunch(rocketName: String) {

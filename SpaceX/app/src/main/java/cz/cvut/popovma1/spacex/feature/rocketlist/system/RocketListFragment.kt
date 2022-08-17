@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -13,7 +12,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewModel
 import cz.cvut.popovma1.spacex.repository.model.Rocket
-import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketListFragment : Fragment() {
@@ -36,16 +34,18 @@ class RocketListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
 
+/*
         setContent {
             SpaceXTheme {
                 RocketListScreen(
-                    rockets = viewModel.rockets.collectAsState().value,
                     onItemClick = ::navigateToRocketDetail,
                     isRefreshing = viewModel.isRefreshing.collectAsState().value,
-                    refreshData = viewModel::refreshRockets
+                    refreshData = viewModel::refreshRockets,
+                    rockets = viewModel.rockets.collectAsState().value
                 )
             }
         }
+*/
     }
 
     private fun navigateToRocketDetail(rocket: Rocket) {

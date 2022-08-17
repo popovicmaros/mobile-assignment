@@ -14,6 +14,7 @@ val okHttpVersion = "4.9.3"
 val coilVersion = "2.1.0"
 val roomVersion = "2.5.0-alpha01"
 val koinVersion = "3.2.0"
+val composeNavVersion = "2.5.1"
 
 android {
     compileSdk = 32
@@ -71,6 +72,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    // compose navigation
+    implementation("androidx.navigation:navigation-compose:$composeNavVersion")
 
     // moshi
     implementation("com.squareup.moshi:moshi:$moshiVersion")

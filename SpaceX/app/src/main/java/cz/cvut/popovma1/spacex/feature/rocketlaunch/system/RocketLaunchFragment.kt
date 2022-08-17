@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.feature.rocketlaunch.presentation.RocketLaunchViewModel
-import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketLaunchFragment : Fragment() {
@@ -30,6 +28,7 @@ class RocketLaunchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
+/*
         setContent {
             SpaceXTheme {
                 RocketLaunchScreen(
@@ -39,6 +38,7 @@ class RocketLaunchFragment : Fragment() {
                 )
             }
         }
+*/
     }
 
     private fun navigateBack() {

@@ -13,6 +13,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
@@ -24,13 +26,16 @@ import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.navigation.Screen
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun RocketDetailScreen(
+    navController: NavController,
     rocket: ResponseWrapper<Rocket>,
+    rocketId: String = "",
     rocketName: String,
     onBackClick: () -> Unit,
     onLaunchClick: () -> Unit,
@@ -45,8 +50,12 @@ fun RocketDetailScreen(
         topBar = {
             RocketDetailTopBar(
                 title = rocketName,
-                onBackClick = onBackClick,
-                onLaunchClick = onLaunchClick,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onLaunchClick = {
+                    navController.navigate(Screen.RocketLaunchScreen.passArgs(rocketName))
+                },
             )
         },
         scaffoldState = scaffoldState,
@@ -114,6 +123,7 @@ fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
     SpaceXTheme {
         RocketDetailScreen(
+            navController = rememberNavController(),
             rocket = ResponseWrapper(State.SUCCESS, rocket),
 //            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
 //            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),

@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
@@ -24,10 +26,11 @@ import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketListScreen(
-    rockets: ResponseWrapper<List<Rocket>>,
+    navController: NavHostController,
     onItemClick: (Rocket) -> Unit,
     isRefreshing: Boolean,
     refreshData: () -> Unit,
+    rockets: ResponseWrapper<List<Rocket>>,
 ) {
     // setup snackbar
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -46,6 +49,7 @@ fun RocketListScreen(
         when (rockets.state) {
             State.SUCCESS -> {
                 RocketListSuccess(
+                    navController = navController,
                     rockets = rockets,
                     onItemClick = onItemClick,
                     isRefreshing = isRefreshing,
@@ -77,13 +81,14 @@ fun RocketListScreen(
 fun Preview() {
     SpaceXTheme {
         RocketListScreen(
-            rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
 //            rockets = ResponseWrapper(State.LOADING, listOf()),
 //            rockets = ResponseWrapper(State.ERROR, listOf()),
 //            rockets = ResponseWrapper(State.NO_DATA, listOf()),
+            navController = rememberNavController(),
             onItemClick = {},
             isRefreshing = false,
             refreshData = {},
+            rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
         )
     }
 }
