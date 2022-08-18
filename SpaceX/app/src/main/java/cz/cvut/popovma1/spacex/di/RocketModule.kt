@@ -6,16 +6,22 @@ import cz.cvut.popovma1.spacex.repository.RocketRepository
 import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
 import cz.cvut.popovma1.spacex.repository.api.SpaceXApi
 import cz.cvut.popovma1.spacex.repository.database.RocketDatabase
+import cz.cvut.popovma1.spacex.repository.mapper.RocketNetworkMapper
+import cz.cvut.popovma1.spacex.repository.mapper.RocketNetworkMapperImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val rocketModule = module {
 
+    single<RocketNetworkMapper> {
+        RocketNetworkMapperImpl()
+    }
+
     single<RocketRepository> {
         RocketRepositoryImpl(
             api = get<SpaceXApi>(),
             rocketDao = get<RocketDatabase>().rocketDao(),
-            // TODO? rocketNetworkMapper = get<RocketNetWorkMapper>()
+            rocketNetworkMapper = get<RocketNetworkMapper>()
         )
     }
 
