@@ -48,6 +48,6 @@ class CheckModulesTest : KoinTest {
             // mock context https://stackoverflow.com/a/54650383
             Mockito.mock(Context::class.java)
         )
-        modules(appModule)
+        modules(sharedModule + rocketModule + rocketLaunchModule)
     }
 }
