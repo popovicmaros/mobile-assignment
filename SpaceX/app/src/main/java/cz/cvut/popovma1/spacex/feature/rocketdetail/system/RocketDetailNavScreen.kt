@@ -15,12 +15,12 @@ fun RocketDetailNavScreen(
     id: Int,
     rocketName: String,
 ) {
-    LaunchedEffect(key1 = id) {
+    LaunchedEffect(key1 = true) {
         viewModel.getRocket(id = id)
     }
 
     RocketDetailScreen(
-        rocket = viewModel.rocket.collectAsState().value,
+        rocket = viewModel.rocket.collectAsState().value, // causes +1 recompose
         rocketName = rocketName,
         onBackClick = navController::popBackStack,
         onLaunchClick = {
@@ -28,7 +28,7 @@ fun RocketDetailNavScreen(
                 route = Screen.RocketLaunchNavScreen.passArgs(rocketName)
             )
         },
-        isRefreshing = viewModel.isRefreshing.collectAsState().value,
-        refreshData = { viewModel.refreshRocket(id) }
+        isRefreshing = viewModel.isRefreshing.collectAsState().value, // causes +2 recomposes
+        refreshData = { viewModel.refreshRocket(id) } // doesn't cause any recompose
     )
 }
