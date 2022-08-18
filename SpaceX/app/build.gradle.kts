@@ -13,6 +13,7 @@ val moshiVersion = "1.13.0"
 val okHttpVersion = "4.9.3"
 val coilVersion = "2.1.0"
 val roomVersion = "2.5.0-alpha01"
+val koinVersion = "3.2.0"
 
 android {
     compileSdk = 32
@@ -98,6 +99,14 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
+
+    // koin
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    testImplementation("io.insert-koin:koin-test:$koinVersion")
+    testImplementation("io.insert-koin:koin-test-junit4:$koinVersion")
+    // koin testing
+    testImplementation("org.mockito:mockito-core:4.6.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 
     implementation("androidx.appcompat:appcompat:1.4.2")
     testImplementation("junit:junit:4.13.2")

@@ -16,7 +16,7 @@ import java.lang.Exception
 class RocketRepositoryImpl(
     private val api: SpaceXApi,
     private val rocketDao: RocketDao,
-    private val rocketNetworkMapper: RocketNetworkMapper = RocketNetworkMapper()
+    private val rocketNetworkMapper: RocketNetworkMapper
 ) : RocketRepository {
 
     override fun getRockets(): Flow<ResponseWrapper<List<Rocket>>> = flow {

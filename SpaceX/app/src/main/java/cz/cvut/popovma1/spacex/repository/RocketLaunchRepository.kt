@@ -6,4 +6,5 @@ interface RocketLaunchRepository {
     fun isPhoneLifted(): StateFlow<Boolean>
     fun registerSensor(orientation: Int)
     fun unregisterSensor()
+    fun resetIsLifted()
 }

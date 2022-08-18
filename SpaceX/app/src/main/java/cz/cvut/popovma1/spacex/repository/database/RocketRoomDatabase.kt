@@ -2,6 +2,7 @@ package cz.cvut.popovma1.spacex.repository.database
 
 import android.content.Context
 import androidx.room.Room
+import cz.cvut.popovma1.spacex.util.Constants.ROCKET_DB_NAME
 import quanti.com.kotlinlog.Log
 
 // tmp object
@@ -14,7 +15,7 @@ class RocketRoomDatabase(applicationContext: Context) {
             db = Room.databaseBuilder(
                 applicationContext,
                 RocketDatabase::class.java,
-                "rocketDatabase"
+                ROCKET_DB_NAME
             ).build()
             Log.d("Database initialised")
         }

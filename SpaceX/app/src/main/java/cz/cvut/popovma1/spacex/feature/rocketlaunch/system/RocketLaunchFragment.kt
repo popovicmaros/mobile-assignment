@@ -11,32 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cz.cvut.popovma1.spacex.feature.rocketlaunch.presentation.RocketLaunchViewModel
-import cz.cvut.popovma1.spacex.repository.RocketLaunchRepositoryImpl
-import cz.cvut.popovma1.spacex.repository.gyroscope.PhoneLiftDetectionImpl
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketLaunchFragment : Fragment() {
 
     private val args: RocketLaunchFragmentArgs by navArgs()
-    private lateinit var viewModel: RocketLaunchViewModel
+    private val viewModel: RocketLaunchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("RocketLaunchFragment", "onCreate called")
-    }
-
-    private fun setupViewModel() {
-        Log.d("RocketLaunchFragment", "isInitialized setupViewModel()")
-        if (!this::viewModel.isInitialized) {
-            val phoneLiftDetection = PhoneLiftDetectionImpl(activity)
-            val orientation = this.resources.configuration.orientation
-            val rocketLaunchRepository = RocketLaunchRepositoryImpl(phoneLiftDetection)
-            viewModel = RocketLaunchViewModel(rocketLaunchRepository)
-            viewModel.registerLiftSensor(orientation)
-            Log.d("RocketLaunchFragment", "isInitialized = false")
-        } else {
-            Log.d("RocketLaunchFragment", "isInitialized = true")
-        }
+        viewModel.registerLiftSensor(orientation = resources.configuration.orientation)
     }
 
     override fun onCreateView(
@@ -44,8 +30,6 @@ class RocketLaunchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-        setupViewModel()
-
         setContent {
             SpaceXTheme {
                 RocketLaunchScreen(
@@ -65,6 +49,6 @@ class RocketLaunchFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.unregisterLiftSensor()
-        Log.d("RocketLaunchFragment", "onDestroy called")
+        Log.d("RocketLaunchFragment", "RocketLaunchFragment onDestroy called")
     }
 }

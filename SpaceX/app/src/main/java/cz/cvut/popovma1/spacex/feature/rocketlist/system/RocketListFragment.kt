@@ -12,15 +12,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewModel
-import cz.cvut.popovma1.spacex.repository.RocketRepositoryImpl
-import cz.cvut.popovma1.spacex.repository.api.SpaceXRetrofitApi
-import cz.cvut.popovma1.spacex.repository.database.RocketRoomDatabase
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RocketListFragment : Fragment() {
 
-    private lateinit var viewModel: RocketListViewModel
+    private val viewModel: RocketListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,26 +30,11 @@ class RocketListFragment : Fragment() {
         Log.d("RocketListFragment", "onDestroy called")
     }
 
-    private fun setupViewModel() {
-
-        if (!this::viewModel.isInitialized) {
-            val spaceXApi = SpaceXRetrofitApi.spaceXApi
-            val rocketDatabase = RocketRoomDatabase(requireContext()).let {
-                RocketRoomDatabase.db
-            }
-            val rocketRepository = RocketRepositoryImpl(spaceXApi, rocketDatabase!!.rocketDao() /*tmp*/)
-//        val viewModel: RocketListViewModel by viewModels()
-            viewModel = RocketListViewModel(rocketRepository)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(inflater.context).apply {
-
-        setupViewModel()
 
         setContent {
             SpaceXTheme {
