@@ -1,7 +1,5 @@
 package cz.cvut.popovma1.spacex.feature.rocketlaunch.system
 
-import BackButton
-import CenteredTitleTopBar
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -23,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import cz.cvut.popovma1.spacex.R
+import cz.cvut.popovma1.spacex.ui.component.topappbar.BackButton
+import cz.cvut.popovma1.spacex.ui.component.topappbar.CenteredTitleTopBar
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.launchedRocketMaxHeight

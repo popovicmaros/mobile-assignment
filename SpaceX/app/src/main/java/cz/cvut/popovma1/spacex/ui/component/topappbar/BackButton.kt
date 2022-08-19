@@ -1,24 +1,20 @@
+package cz.cvut.popovma1.spacex.ui.component.topappbar
+
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
+import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 
 @Composable
 fun BackButton(text: String, onBackClick: () -> Unit) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clickable { onBackClick() }
-//            .padding(horizontal = padding)
-    ) {
+    TopAppBarItem(onClick = onBackClick) {
         Image(
             painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_left_24),
             contentDescription = stringResource(
@@ -27,6 +23,6 @@ fun BackButton(text: String, onBackClick: () -> Unit) {
             modifier = Modifier
                 .size(iconSizeMedium)
         )
-        Text(text = text)
+        Text(text = text, modifier = Modifier.padding(end = paddingSmall))
     }
 }

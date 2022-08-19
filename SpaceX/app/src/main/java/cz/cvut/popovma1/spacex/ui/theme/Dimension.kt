@@ -4,10 +4,13 @@ import androidx.compose.ui.unit.dp
 
 val spacerSizeSmall = 8.dp
 val spacerSizeMedium = 16.dp
+val spacerSizeLarge = 32.dp
 val iconSizeMedium = 35.dp
 val iconSizeSmall = 20.dp
+val paddingNone = 0.dp
 val paddingSmall = 8.dp
 val paddingMedium = 16.dp
+val paddingLarge = 32.dp
 val cornerRadius = 25.dp
 val smallBorder = 2.dp
 
@@ -26,3 +29,6 @@ val squareCardSize = 100.dp
 
 // UrlImagesColumn.kt
 val imageHeight = 200.dp
+
+// RocketList
+val surfaceElevation = 1.dp

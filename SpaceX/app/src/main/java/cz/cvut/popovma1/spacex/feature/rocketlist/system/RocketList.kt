@@ -1,27 +1,32 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
+import cz.cvut.popovma1.spacex.ui.theme.paddingLarge
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
+import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeLarge
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
+import cz.cvut.popovma1.spacex.ui.theme.surfaceElevation
 
 @Composable
 fun RocketList(
@@ -31,28 +36,38 @@ fun RocketList(
     isRefreshing: Boolean,
     refreshData: () -> Unit
 ) {
-    Surface(
-        shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius),
-        elevation = 1.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = paddingMedium, start = paddingMedium, end = paddingMedium),
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing),
+        onRefresh = refreshData
     ) {
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing),
-            onRefresh = refreshData
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(top = paddingLarge, start = paddingMedium, end = paddingMedium)
         ) {
-            LazyColumn {
-                item {
-                    LargeTitle(title)
-                    Spacer(modifier = Modifier.width(spacerSizeSmall))
+            item {
+                Spacer(modifier = Modifier.height(spacerSizeLarge))
+                LargeTitle(title)
+                Spacer(modifier = Modifier.height(spacerSizeSmall))
+            }
+            item {
+                Surface(
+                    shape = RoundedCornerShape(cornerRadius),
+                    elevation = surfaceElevation,
+                    color = MaterialTheme.colors.background
+                ) {
+                    Column {
+                        rockets.data.forEachIndexed { i, rocket ->
+                            if (i != 0) {
+                                Divider(startIndent = paddingSmall, color = MaterialTheme.colors.surface)
+                            }
+                            RocketItem(
+                                rocket = rocket,
+                                onItemClick = onItemClick
+                            )
+                        }
+                    }
                 }
-                items(rockets.data) { rocket ->
-                    RocketItem(
-                        rocket = rocket,
-                        onItemClick = onItemClick
-                    )
-                }
+                Spacer(modifier = Modifier.height(spacerSizeSmall))
             }
         }
     }

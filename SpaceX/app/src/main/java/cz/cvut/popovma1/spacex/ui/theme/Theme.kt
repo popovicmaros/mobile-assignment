@@ -7,15 +7,17 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = QuantiPink500,
+    primaryVariant = QuantiPink900,
+    background = BackgroundDark100,
+    surface = BackgroundDark200
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = QuantiPink200,
+    primaryVariant = QuantiPink500,
+    background = Background100,
+    surface = Background200
 
     /* Other default colors to override
     background = Color.White,
@@ -40,5 +42,9 @@ fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
         typography = Typography,
         shapes = Shapes,
         content = content
-    )
+    ) /*{
+        Box(modifier = Modifier.fillMaxSize()) {
+            content()
+        }
+    }*/
 }

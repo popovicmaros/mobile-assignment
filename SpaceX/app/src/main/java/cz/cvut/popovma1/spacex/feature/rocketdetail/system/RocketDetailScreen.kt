@@ -1,10 +1,9 @@
 package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 
-import BackButton
-import CenteredTitleTopBar
 import LaunchButton
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
@@ -23,9 +22,12 @@ import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
+import cz.cvut.popovma1.spacex.ui.component.topappbar.BackButton
+import cz.cvut.popovma1.spacex.ui.component.topappbar.CenteredTitleTopBar
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -84,7 +86,8 @@ private fun RocketDetailSuccess(
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = refreshData
     ) {
-        LazyColumn(modifier = Modifier.padding(paddingMedium)) {
+        LazyColumn(contentPadding = PaddingValues(horizontal = paddingMedium)) {
+            item { Spacer(modifier = Modifier.height(height = spacerSizeMedium)) }
             item { RocketOverview(rocket) }
             item { RocketParameters(rocket) }
             item { RocketImages(rocket.images) }
