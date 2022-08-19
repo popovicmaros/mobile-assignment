@@ -9,7 +9,7 @@ import cz.cvut.popovma1.spacex.repository.model.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import quanti.com.kotlinlog.Log
@@ -19,10 +19,10 @@ class RocketDetailViewModel(
 ) : ViewModel() {
 
     private val _rocket = MutableStateFlow(defaultRocket())
-    val rocket: StateFlow<ResponseWrapper<Rocket>> get() = _rocket
+    val rocket = _rocket.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean> get() = _isRefreshing
+    val isRefreshing = _isRefreshing.asStateFlow()
 
     fun getRocket(id: Int) {
         Log.d("getRocket called")

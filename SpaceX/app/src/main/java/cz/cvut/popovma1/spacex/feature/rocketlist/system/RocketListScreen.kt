@@ -45,7 +45,7 @@ fun RocketListScreen(
     ) {
         when (rockets.state) {
             State.SUCCESS -> {
-                RocketListSuccess(
+                RocketList(
                     rockets = rockets,
                     onItemClick = onItemClick,
                     isRefreshing = isRefreshing,

@@ -18,7 +18,7 @@ fun RocketLaunchNavScreen(
     viewModel: RocketLaunchViewModel = getViewModel(),
     rocketName: String
 ) {
-    setupSensor(viewModel)
+    SetUpSensor(viewModel)
     RocketLaunchScreen(
         rocketName = rocketName,
         isLifted = viewModel.isLifted.collectAsState().value,
@@ -27,7 +27,7 @@ fun RocketLaunchNavScreen(
 }
 
 @Composable
-private fun setupSensor(
+private fun SetUpSensor(
     viewModel: RocketLaunchViewModel,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     orientation: Int = LocalConfiguration.current.orientation
