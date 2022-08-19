@@ -11,7 +11,7 @@ class RocketLaunchViewModel(
     private val rocketLaunchRepository: RocketLaunchRepository
 ) : ViewModel() {
 
-    val isLifted: StateFlow<Boolean> get() = rocketLaunchRepository.isPhoneLifted()
+    val isLifted: StateFlow<Boolean> = rocketLaunchRepository.isPhoneLifted()
 
     fun registerLiftSensor(orientation: Int) {
         if (!isLifted.value) { // optimize sensor usage after screen rotation
