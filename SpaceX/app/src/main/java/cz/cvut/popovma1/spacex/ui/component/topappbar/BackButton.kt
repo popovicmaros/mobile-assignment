@@ -14,7 +14,7 @@ import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 
 @Composable
 fun BackButton(text: String, onBackClick: () -> Unit) {
-    TopAppBarItem(onClick = onBackClick) {
+    TopBarItem(onClick = onBackClick) {
         Image(
             painter = painterResource(R.drawable.ic_baseline_keyboard_arrow_left_24),
             contentDescription = stringResource(

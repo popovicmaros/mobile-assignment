@@ -91,6 +91,7 @@ private fun RocketDetailSuccess(
             item { RocketOverview(rocket) }
             item { RocketParameters(rocket) }
             item { RocketImages(rocket.images) }
+            item { Spacer(modifier = Modifier.height(height = spacerSizeMedium)) }
         }
     }
 }

@@ -16,7 +16,6 @@ fun Title(
         modifier = modifier,
         text = text,
         style = MaterialTheme.typography.h6,
-//        color = TitleColor,
         textAlign = textAlign
     )
 }

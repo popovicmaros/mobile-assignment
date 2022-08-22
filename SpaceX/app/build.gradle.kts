@@ -67,6 +67,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
 
     // navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")

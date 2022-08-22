@@ -1,4 +1,5 @@
 package cz.cvut.popovma1.spacex.ui.component.topappbar
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,12 +20,15 @@ fun CenteredTitleTopBar(
     title: String,
     content: @Composable RowScope.() -> Unit
 ) {
+//    TopBarSpaceXTheme {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.surface,
         contentPadding = PaddingValues(horizontal = paddingNone)
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.surface),
             contentAlignment = Alignment.Center,
         ) {
             Row(
@@ -39,4 +43,5 @@ fun CenteredTitleTopBar(
             )
         }
     }
+//    }
 }

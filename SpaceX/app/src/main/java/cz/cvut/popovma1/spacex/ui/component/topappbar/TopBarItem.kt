@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import cz.cvut.popovma1.spacex.ui.theme.TopBarText
+import cz.cvut.popovma1.spacex.ui.theme.Blue200
 
 @Composable
-fun TopAppBarItem(
+fun TopBarItem(
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit
 ) {
@@ -23,7 +23,7 @@ fun TopAppBarItem(
             .fillMaxHeight(),
         content = {
             ProvideTextStyle(
-                value = TextStyle(color = TopBarText),
+                value = TextStyle(color = Blue200),
                 content = {
                     content() // RowScope
                 }

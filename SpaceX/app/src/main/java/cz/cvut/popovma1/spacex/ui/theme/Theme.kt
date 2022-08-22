@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
     primary = QuantiPink500,
@@ -41,10 +42,42 @@ fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
         colors = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
-    ) /*{
+    ) {
+        rememberSystemUiController().let {
+            it.setNavigationBarColor(color = colors.background, darkIcons = !darkTheme)
+            it.setStatusBarColor(color = colors.surface, darkIcons = !darkTheme)
+        }
+        content()
+/*
         Box(modifier = Modifier.fillMaxSize()) {
             content()
         }
-    }*/
+*/
+    }
 }
+
+/*
+@Composable
+fun TopBarSpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+    val colors = if (darkTheme) {
+        DarkColorPalette.copy(
+            primary = Blue200
+        )
+    } else {
+        LightColorPalette.copy(
+            primary = Blue200
+        )
+    }
+
+    MaterialTheme(
+        colors = colors,
+        typography = Typography,
+        shapes = Shapes,
+    ) {
+        content()
+//        Box(modifier = Modifier.fillMaxSize()) {
+//            content()
+//        }
+    }
+}
+*/

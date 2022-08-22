@@ -12,9 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
-import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
+import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.squareCardSize
 
 @Composable
@@ -30,17 +31,19 @@ fun SquareCardWithTwoTexts(
         modifier = Modifier.size(size)
     ) {
         Column(
-            Modifier.padding(paddingMedium),
+            Modifier.padding(paddingSmall),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = topText,
-                style = MaterialTheme.typography.h5
+                style = MaterialTheme.typography.h5,
+                fontWeight = FontWeight.Bold,
             )
             Text(
                 text = bottomText,
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.subtitle1,
+                fontWeight = FontWeight.Light,
             )
         }
     }

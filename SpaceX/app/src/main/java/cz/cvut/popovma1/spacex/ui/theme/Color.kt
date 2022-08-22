@@ -11,10 +11,8 @@ val QuantiPink200 = Color(0xFFF05187)
 val QuantiPink500 = Color(0xFF632238)
 val QuantiPink900 = Color(0xFF3C1422)
 
-val TopBarText = Color(0xFF428BD8)
-// val TopBarTextBold = Color(0xFF0D7BF1)
-val FirstFlightText = Color(0xFFACACAE)
-val TitleColor = Color.Black
+val Blue200 = Color(0xFF428BD8) // TopAppBar text
+val Gray500 = Color(0xFFACACAE) // First Flight text
 
 val Background100 = Color(0xFFFFFFFF) // RocketDetail bg, RocketList Card bg,
 val Background200 = Color(0xFFF5F5F5) // RocketList bg, TopBar bg

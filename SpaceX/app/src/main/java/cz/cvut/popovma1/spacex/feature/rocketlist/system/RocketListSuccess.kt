@@ -15,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
@@ -29,7 +30,7 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 import cz.cvut.popovma1.spacex.ui.theme.surfaceElevation
 
 @Composable
-fun RocketList(
+fun RocketListSuccess(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Rocket) -> Unit,
@@ -50,24 +51,32 @@ fun RocketList(
                 Spacer(modifier = Modifier.height(spacerSizeSmall))
             }
             item {
-                Surface(
-                    shape = RoundedCornerShape(cornerRadius),
-                    elevation = surfaceElevation,
-                    color = MaterialTheme.colors.background
-                ) {
-                    Column {
-                        rockets.data.forEachIndexed { i, rocket ->
-                            if (i != 0) {
-                                Divider(startIndent = paddingSmall, color = MaterialTheme.colors.surface)
-                            }
-                            RocketItem(
-                                rocket = rocket,
-                                onItemClick = onItemClick
-                            )
-                        }
-                    }
-                }
+                RocketList(rockets = rockets, onItemClick = onItemClick)
                 Spacer(modifier = Modifier.height(spacerSizeSmall))
+            }
+        }
+    }
+}
+
+@Composable
+private fun RocketList(
+    rockets: ResponseWrapper<List<Rocket>>,
+    onItemClick: (Rocket) -> Unit
+) {
+    Surface(
+        shape = RoundedCornerShape(cornerRadius),
+        elevation = surfaceElevation,
+        color = MaterialTheme.colors.background
+    ) {
+        Column {
+            rockets.data.forEachIndexed { i, rocket ->
+                if (i != 0) {
+                    Divider(startIndent = paddingSmall, color = MaterialTheme.colors.surface)
+                }
+                RocketItem(
+                    rocket = rocket,
+                    onItemClick = onItemClick
+                )
             }
         }
     }
@@ -78,5 +87,6 @@ fun LargeTitle(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.h3,
+        fontWeight = FontWeight.Bold
     )
 }
