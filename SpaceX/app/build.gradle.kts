@@ -8,6 +8,7 @@ plugins {
 
 val composeVersion = "1.2.0-beta01"
 val navVersion = "2.3.5"
+val destinationsVersion = "1.5.16-beta"
 val retrofitVersion = "2.9.0"
 val moshiVersion = "1.13.0"
 val okHttpVersion = "4.9.3"
@@ -56,6 +57,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -73,6 +81,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    // navigation external library
+    implementation("io.github.raamcosta.compose-destinations:core:$destinationsVersion")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$destinationsVersion")
 
     // compose navigation
     implementation("androidx.navigation:navigation-compose:$composeNavVersion")

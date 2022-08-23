@@ -3,7 +3,8 @@ package cz.cvut.popovma1.spacex
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import cz.cvut.popovma1.spacex.ui.navigation.Navigation
+import com.ramcosta.composedestinations.DestinationsNavHost
+import cz.cvut.popovma1.spacex.feature.NavGraphs
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.util.LoggingUtil
 
@@ -12,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SpaceXTheme {
-                Navigation()
+                DestinationsNavHost(navGraph = NavGraphs.root)
             }
         }
         initLog()

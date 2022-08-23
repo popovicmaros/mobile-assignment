@@ -8,13 +8,15 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import cz.cvut.popovma1.spacex.feature.rocketlaunch.presentation.RocketLaunchViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Destination
 @Composable
 fun RocketLaunchNavScreen(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     viewModel: RocketLaunchViewModel = getViewModel(),
     rocketName: String
 ) {
@@ -22,7 +24,7 @@ fun RocketLaunchNavScreen(
     RocketLaunchScreen(
         rocketName = rocketName,
         isLifted = viewModel.isLifted.collectAsState().value,
-        onBackClick = navController::popBackStack
+        onBackClick = navigator::popBackStack
     )
 }
 

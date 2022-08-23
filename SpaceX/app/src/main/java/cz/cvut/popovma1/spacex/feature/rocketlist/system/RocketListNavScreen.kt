@@ -2,23 +2,24 @@ package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import cz.cvut.popovma1.spacex.feature.destinations.RocketDetailNavScreenDestination
 import cz.cvut.popovma1.spacex.feature.rocketlist.presentation.RocketListViewModel
-import cz.cvut.popovma1.spacex.ui.navigation.Screen
 import org.koin.androidx.compose.getViewModel
 
+@Destination(start = true)
 @Composable
 fun RocketListNavScreen(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     viewModel: RocketListViewModel = getViewModel()
 ) {
     RocketListScreen(
         onItemClick = { rocket ->
-            navController.navigate(
-                Screen.RocketDetailNavScreen.passArgs(
-                    rocket.id,
-                    rocket.rocketId,
-                    rocket.rocketName
+            navigator.navigate(
+                RocketDetailNavScreenDestination(
+                    id = rocket.id,
+                    rocketName = rocket.rocketName
                 )
             )
         },

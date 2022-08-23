@@ -3,14 +3,16 @@ package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import cz.cvut.popovma1.spacex.feature.destinations.RocketLaunchNavScreenDestination
 import cz.cvut.popovma1.spacex.feature.rocketdetail.presentation.RocketDetailViewModel
-import cz.cvut.popovma1.spacex.ui.navigation.Screen
 import org.koin.androidx.compose.getViewModel
 
+@Destination
 @Composable
 fun RocketDetailNavScreen(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     viewModel: RocketDetailViewModel = getViewModel(),
     id: Int,
     rocketName: String,
@@ -22,10 +24,10 @@ fun RocketDetailNavScreen(
     RocketDetailScreen(
         rocket = viewModel.rocket.collectAsState().value, // causes +1 recompose
         rocketName = rocketName,
-        onBackClick = navController::popBackStack,
+        onBackClick = navigator::popBackStack,
         onLaunchClick = {
-            navController.navigate(
-                route = Screen.RocketLaunchNavScreen.passArgs(rocketName)
+            navigator.navigate(
+                RocketLaunchNavScreenDestination(rocketName = rocketName)
             )
         },
         isRefreshing = viewModel.isRefreshing.collectAsState().value, // causes +2 recomposes
