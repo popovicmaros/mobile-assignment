@@ -24,7 +24,10 @@ import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
 
 @Composable
-fun RocketItem(rocket: Rocket, onItemClick: (Rocket) -> Unit) {
+fun RocketItem(
+    rocket: Rocket,
+    onItemClick: (Rocket) -> Unit
+) {
     Row(
         modifier = Modifier
             .padding(all = paddingSmall)

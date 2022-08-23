@@ -14,6 +14,7 @@ val okHttpVersion = "4.9.3"
 val coilVersion = "2.1.0"
 val roomVersion = "2.5.0-alpha01"
 val koinVersion = "3.2.0"
+val composeNavVersion = "2.5.1"
 
 android {
     compileSdk = 32
@@ -23,7 +24,7 @@ android {
         minSdk = 21
         targetSdk = 32
         versionCode = 1
-        versionName = "1.1.0"
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -72,6 +73,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
 
+    // compose navigation
+    implementation("androidx.navigation:navigation-compose:$composeNavVersion")
+
     // moshi
     implementation("com.squareup.moshi:moshi:$moshiVersion")
     implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
@@ -102,6 +106,7 @@ dependencies {
 
     // koin
     implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinVersion")
     testImplementation("io.insert-koin:koin-test:$koinVersion")
     testImplementation("io.insert-koin:koin-test-junit4:$koinVersion")
     // koin testing

@@ -36,7 +36,11 @@ import cz.cvut.popovma1.spacex.ui.theme.rocketLaunchWidth
 import quanti.com.kotlinlog.Log
 
 @Composable
-fun RocketLaunchScreen(rocketName: String, isLifted: Boolean = false, onBackClick: () -> Unit) {
+fun RocketLaunchScreen(
+    rocketName: String,
+    isLifted: Boolean,
+    onBackClick: () -> Unit
+) {
     ContentWithTopBar(
         topBar = {
             RocketLaunchTopBar(
@@ -104,6 +108,9 @@ fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
 @Composable
 fun PreviewRocketLaunchScreen() {
     SpaceXTheme {
-        RocketLaunchScreen("Falcon 1", false) {}
+        RocketLaunchScreen(
+            rocketName = "Falcon 1",
+            isLifted = false
+        ) {}
     }
 }

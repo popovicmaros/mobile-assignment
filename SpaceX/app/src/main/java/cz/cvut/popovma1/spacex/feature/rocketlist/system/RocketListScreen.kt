@@ -24,10 +24,10 @@ import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketListScreen(
-    rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Rocket) -> Unit,
     isRefreshing: Boolean,
     refreshData: () -> Unit,
+    rockets: ResponseWrapper<List<Rocket>>,
 ) {
     // setup snackbar
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -45,7 +45,7 @@ fun RocketListScreen(
     ) {
         when (rockets.state) {
             State.SUCCESS -> {
-                RocketListSuccess(
+                RocketList(
                     rockets = rockets,
                     onItemClick = onItemClick,
                     isRefreshing = isRefreshing,
@@ -77,13 +77,13 @@ fun RocketListScreen(
 fun Preview() {
     SpaceXTheme {
         RocketListScreen(
-            rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
 //            rockets = ResponseWrapper(State.LOADING, listOf()),
 //            rockets = ResponseWrapper(State.ERROR, listOf()),
 //            rockets = ResponseWrapper(State.NO_DATA, listOf()),
             onItemClick = {},
             isRefreshing = false,
             refreshData = {},
+            rockets = ResponseWrapper(State.SUCCESS, RocketsSampleData.getRocketsList()),
         )
     }
 }

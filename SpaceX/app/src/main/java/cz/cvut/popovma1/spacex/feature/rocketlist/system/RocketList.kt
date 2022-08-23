@@ -1,6 +1,5 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,46 +24,7 @@ import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
-fun RocketListWithTitle(
-    title: String = stringResource(id = R.string.rocket_list_title_rockets),
-    rockets: List<Rocket>,
-    onItemClick: (Rocket) -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(paddingMedium),
-    ) {
-        LargeTitle(title)
-        Spacer(modifier = Modifier.width(spacerSizeSmall))
-        RocketList(rockets = rockets, onItemClick = onItemClick)
-    }
-}
-
-@Composable
-fun LargeTitle(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.h3,
-    )
-}
-
-@Composable
-fun RocketList(rockets: List<Rocket>, onItemClick: (Rocket) -> Unit) {
-    Surface(
-        shape = RoundedCornerShape(cornerRadius),
-        elevation = 1.dp
-    ) {
-        LazyColumn {
-            items(rockets) { rocket ->
-                RocketItem(rocket, onItemClick)
-            }
-        }
-    }
-}
-
-@Composable
-fun RocketListSuccess(
+fun RocketList(
     title: String = stringResource(id = R.string.rocket_list_title_rockets),
     rockets: ResponseWrapper<List<Rocket>>,
     onItemClick: (Rocket) -> Unit,
@@ -88,9 +48,20 @@ fun RocketListSuccess(
                     Spacer(modifier = Modifier.width(spacerSizeSmall))
                 }
                 items(rockets.data) { rocket ->
-                    RocketItem(rocket, onItemClick)
+                    RocketItem(
+                        rocket = rocket,
+                        onItemClick = onItemClick
+                    )
                 }
             }
         }
     }
+}
+
+@Composable
+fun LargeTitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.h3,
+    )
 }

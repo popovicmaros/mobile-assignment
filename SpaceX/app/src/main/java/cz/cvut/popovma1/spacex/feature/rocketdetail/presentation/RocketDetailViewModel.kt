@@ -9,27 +9,33 @@ import cz.cvut.popovma1.spacex.repository.model.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import quanti.com.kotlinlog.Log
 
 class RocketDetailViewModel(
     private val rocketRepository: RocketRepository
 ) : ViewModel() {
 
     private val _rocket = MutableStateFlow(defaultRocket())
-    val rocket: StateFlow<ResponseWrapper<Rocket>> get() = _rocket
+    val rocket = _rocket.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean> get() = _isRefreshing
+    val isRefreshing = _isRefreshing.asStateFlow()
 
     fun getRocket(id: Int) {
-        viewModelScope.launch {
-            _isRefreshing.value = true
-            downloadRocket(id)
-            _isRefreshing.value = false
+        Log.d("getRocket called")
+        if (!isDownloaded()) {
+            viewModelScope.launch {
+                _isRefreshing.value = true
+                downloadRocket(id)
+                _isRefreshing.value = false
+            }
         }
     }
+
+    private fun isDownloaded() = (rocket.value.state == State.SUCCESS)
 
     fun refreshRocket(id: Int) {
         _isRefreshing.value = true
