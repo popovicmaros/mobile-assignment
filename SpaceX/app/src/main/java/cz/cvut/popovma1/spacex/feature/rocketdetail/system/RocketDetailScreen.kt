@@ -1,6 +1,5 @@
 package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 
-import LaunchButton
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -22,9 +21,8 @@ import cz.cvut.popovma1.spacex.repository.sampledata.RocketsSampleData
 import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
-import cz.cvut.popovma1.spacex.ui.component.topappbar.BackButton
-import cz.cvut.popovma1.spacex.ui.component.topappbar.CenteredTitleTopBar
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.component.topappbar.TopBarCustom
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
@@ -45,10 +43,12 @@ fun RocketDetailScreen(
 
     ContentWithTopBar(
         topBar = {
-            RocketDetailTopBar(
+            TopBarCustom(
                 title = rocketName,
-                onBackClick = onBackClick,
-                onLaunchClick = onLaunchClick,
+                backButtonText = stringResource(id = R.string.rocket_list_title_rockets),
+                onBackButtonClick = onBackClick,
+                actionButtonText = stringResource(id = R.string.rocket_launch_title),
+                onActionButtonClick = onLaunchClick
             )
         },
         scaffoldState = scaffoldState,
@@ -93,22 +93,6 @@ private fun RocketDetailSuccess(
             item { RocketImages(rocket.images) }
             item { Spacer(modifier = Modifier.height(height = spacerSizeMedium)) }
         }
-    }
-}
-
-@Composable
-private fun RocketDetailTopBar(
-    title: String,
-    onBackClick: () -> Unit,
-    onLaunchClick: () -> Unit
-) {
-    CenteredTitleTopBar(title = title) {
-        BackButton(
-            text = stringResource(id = R.string.rocket_list_title_rockets),
-            onBackClick = onBackClick
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        LaunchButton(onLaunchClick = onLaunchClick)
     }
 }
 

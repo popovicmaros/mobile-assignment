@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
 import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
@@ -23,6 +24,11 @@ fun BackButton(text: String, onBackClick: () -> Unit) {
             modifier = Modifier
                 .size(iconSizeMedium)
         )
-        Text(text = text, modifier = Modifier.padding(end = paddingSmall))
+        Text(
+            text = text,
+            modifier = Modifier.padding(end = paddingSmall),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
+        )
     }
 }

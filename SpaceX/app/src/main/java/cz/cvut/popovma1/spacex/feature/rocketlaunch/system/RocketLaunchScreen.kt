@@ -21,9 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import cz.cvut.popovma1.spacex.R
-import cz.cvut.popovma1.spacex.ui.component.topappbar.BackButton
-import cz.cvut.popovma1.spacex.ui.component.topappbar.CenteredTitleTopBar
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.component.topappbar.TopBarCustom
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.launchedRocketMaxHeight
 import cz.cvut.popovma1.spacex.ui.theme.launchedRocketWidth
@@ -43,9 +42,10 @@ fun RocketLaunchScreen(
 ) {
     ContentWithTopBar(
         topBar = {
-            RocketLaunchTopBar(
-                rocketName = rocketName,
-                onBackClick = onBackClick,
+            TopBarCustom(
+                title = stringResource(id = R.string.rocket_launch_title),
+                backButtonText = rocketName,
+                onBackButtonClick = onBackClick
             )
         }
     ) {
@@ -95,13 +95,6 @@ private fun RocketLaunchText(isLaunched: Boolean) {
             stringResource(id = R.string.rocket_launch_text_before_launch),
         textAlign = TextAlign.Center
     )
-}
-
-@Composable
-fun RocketLaunchTopBar(rocketName: String, onBackClick: () -> Unit) {
-    CenteredTitleTopBar(title = stringResource(id = R.string.rocket_launch_title)) {
-        BackButton(text = rocketName, onBackClick = onBackClick)
-    }
 }
 
 @Preview(showBackground = true)

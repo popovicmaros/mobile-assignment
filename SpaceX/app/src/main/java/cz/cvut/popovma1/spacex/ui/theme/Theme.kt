@@ -36,7 +36,7 @@ private val LightColorPalette = lightColors(
 
 val Colors.firstFlightText: Color
     @Composable
-    get() = Gray500
+    get() = Gray500 // for both dark & light
 
 @Composable
 fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
