@@ -22,9 +22,9 @@ import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
+import cz.cvut.popovma1.spacex.ui.theme.dividerIndent
 import cz.cvut.popovma1.spacex.ui.theme.paddingLarge
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
-import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeLarge
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 import cz.cvut.popovma1.spacex.ui.theme.surfaceElevation
@@ -71,7 +71,10 @@ private fun RocketList(
         Column {
             rockets.data.forEachIndexed { i, rocket ->
                 if (i != 0) {
-                    Divider(startIndent = paddingSmall, color = MaterialTheme.colors.surface)
+                    Divider(
+                        startIndent = dividerIndent,
+                        color = MaterialTheme.colors.surface
+                    )
                 }
                 RocketItem(
                     rocket = rocket,

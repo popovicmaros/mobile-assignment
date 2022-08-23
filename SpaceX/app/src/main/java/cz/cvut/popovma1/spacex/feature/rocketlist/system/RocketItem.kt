@@ -19,10 +19,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
-import cz.cvut.popovma1.spacex.ui.theme.Gray500
+import cz.cvut.popovma1.spacex.ui.theme.firstFlightText
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
 import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketItem(
@@ -42,6 +43,7 @@ fun RocketItem(
             verticalAlignment = Alignment.CenterVertically,
 
         ) {
+            Spacer(modifier = Modifier.width(spacerSizeSmall))
             RocketIcon()
             Spacer(modifier = Modifier.width(spacerSizeMedium))
             Column {
@@ -79,7 +81,7 @@ fun RocketFirstFlight(firstFlight: String) {
     Text(
         text = stringResource(R.string.rocket_list_first_flight, firstFlight),
         style = MaterialTheme.typography.subtitle1,
-        color = Gray500
+        color = MaterialTheme.colors.firstFlightText
     )
 }
 

@@ -40,6 +40,7 @@ fun CenteredTitleTopBar(
                 modifier = Modifier.fillMaxWidth(),
                 text = title,
                 textAlign = TextAlign.Center,
+                color = MaterialTheme.colors.onBackground
             )
         }
     }

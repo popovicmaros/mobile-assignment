@@ -13,6 +13,7 @@ val paddingMedium = 16.dp
 val paddingLarge = 32.dp
 val cornerRadius = 25.dp
 val smallBorder = 2.dp
+val dividerIndent = paddingSmall + spacerSizeSmall
 
 // RocketLaunch.kt
 val launchedRocketWidth = 122.dp
