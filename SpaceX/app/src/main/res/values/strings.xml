@@ -15,7 +15,9 @@
     <string name="rocket_detail_overview">Overview</string>
     <string name="rocket_detail_parameters">Parameters</string>
 
-    <string name="rocket_detail_stage">Stage #%1$d</string>
+    <string name="rocket_detail_stage_one">First Stage</string>
+    <string name="rocket_detail_stage_two">Second Stage</string>
+    <string name="rocket_detail_stage_other">%d. Stage</string>
 
     <string name="rocket_detail_height">height</string>
     <string name="rocket_detail_diameter">diameter</string>
@@ -76,6 +78,6 @@
     <string name="loading_error_snackbar_action">Refresh</string>
     <string name="error_snackbar_message">Loading error</string>
     <string name="error_snackbar_action">Refresh</string>
-    <string name="defalt_icon_desc">icon</string>
+    <string name="default_icon_desc">icon</string>
 
 </resources>

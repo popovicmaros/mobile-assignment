@@ -2,7 +2,6 @@ package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,29 +29,22 @@ fun RocketItem(
     rocket: Rocket,
     onItemClick: (Rocket) -> Unit
 ) {
-    Box(
+    Row(
         modifier = Modifier
-            .clickable {
-                onItemClick(rocket)
-            }
+            .clickable { onItemClick(rocket) }
+            .padding(paddingSmall)
+            .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            modifier = Modifier
-                .padding(horizontal = paddingSmall, vertical = paddingSmall /* TODO */)
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-
-        ) {
-            Spacer(modifier = Modifier.width(spacerSizeSmall))
-            RocketIcon()
-            Spacer(modifier = Modifier.width(spacerSizeMedium))
-            Column {
-                RocketName(rocket.rocketName)
-                RocketFirstFlight(rocket.firstFlight)
-            }
-            Spacer(Modifier.weight(1f))
-            RightArrowIcon()
+        Spacer(modifier = Modifier.width(spacerSizeSmall))
+        RocketIcon()
+        Spacer(modifier = Modifier.width(spacerSizeMedium))
+        Column {
+            RocketName(rocket.rocketName)
+            RocketFirstFlight(rocket.firstFlight)
         }
+        Spacer(Modifier.weight(1f))
+        RightArrowIcon()
     }
 }
 

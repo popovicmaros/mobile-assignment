@@ -36,10 +36,11 @@ fun RocketStages(rocket: Rocket) {
 @Composable
 fun RocketStage(stageNumber: Int, stage: Stage) {
     CardWithTitle(
-        title = stringResource(
-            id = R.string.rocket_detail_stage,
-            stageNumber
-        ),
+        title = when (stageNumber) {
+            1 -> stringResource(id = R.string.rocket_detail_stage_one)
+            2 -> stringResource(id = R.string.rocket_detail_stage_two)
+            else -> stringResource(id = R.string.rocket_detail_stage_other)
+        },
         modifier = Modifier.padding(paddingMedium)
     ) {
         ReusableItem(stage)

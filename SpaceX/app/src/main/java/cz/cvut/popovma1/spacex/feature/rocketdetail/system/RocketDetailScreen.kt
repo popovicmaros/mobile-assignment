@@ -113,3 +113,21 @@ fun PreviewRocketDetailScreen() {
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRocketDetailScreenDark() {
+    val rocket = RocketsSampleData.getRocket()
+    SpaceXTheme(darkTheme = true) {
+        RocketDetailScreen(
+            rocket = ResponseWrapper(State.SUCCESS, rocket),
+//            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
+//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
+            rocketName = rocket.rocketName,
+            onBackClick = {},
+            onLaunchClick = {},
+            isRefreshing = false,
+            refreshData = {}
+        )
+    }
+}

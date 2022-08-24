@@ -22,7 +22,6 @@ import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.NoData
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import kotlinx.coroutines.CoroutineScope
-import quanti.com.kotlinlog.Log
 
 @Composable
 fun RocketListScreen(
@@ -34,8 +33,6 @@ fun RocketListScreen(
     // setup snackbar
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
-
-    Log.d("RocketListScreen recomposed")
 
     Scaffold(scaffoldState = scaffoldState) { contentPadding ->
         Box(

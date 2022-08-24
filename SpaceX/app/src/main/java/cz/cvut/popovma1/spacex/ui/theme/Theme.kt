@@ -10,33 +10,22 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-    primary = QuantiPink500,
-    primaryVariant = QuantiPink900,
-    secondary = Blue200,
-    background = BackgroundDark100,
-    surface = BackgroundDark200
+    primary = quantiPink500,
+    secondary = blue200,
+    background = backgroundDark100,
+    surface = backgroundDark200
 )
 
 private val LightColorPalette = lightColors(
-    primary = QuantiPink200,
-    primaryVariant = QuantiPink500,
-    secondary = Blue200,
-    background = Background100,
-    surface = Background200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    primary = quantiPink200,
+    secondary = blue200,
+    background = background100,
+    surface = background200
 )
 
 val Colors.firstFlightText: Color
     @Composable
-    get() = Gray500 // for both dark & light
+    get() = gray500 /* for both dark & light */
 
 @Composable
 fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {

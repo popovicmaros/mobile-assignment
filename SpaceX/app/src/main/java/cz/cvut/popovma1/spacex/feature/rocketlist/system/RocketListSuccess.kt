@@ -11,16 +11,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
+import cz.cvut.popovma1.spacex.ui.component.text.LargeTitle
 import cz.cvut.popovma1.spacex.ui.theme.cornerRadius
 import cz.cvut.popovma1.spacex.ui.theme.dividerIndent
 import cz.cvut.popovma1.spacex.ui.theme.paddingLarge
@@ -83,13 +82,4 @@ private fun RocketList(
             }
         }
     }
-}
-
-@Composable
-fun LargeTitle(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.h3,
-        fontWeight = FontWeight.Bold
-    )
 }

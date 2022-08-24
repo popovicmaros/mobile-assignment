@@ -19,7 +19,7 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 @Composable
 fun TextWithIcon(
     iconSrc: Int,
-    iconDescription: String = stringResource(R.string.defalt_icon_desc),
+    iconDescription: String = stringResource(R.string.default_icon_desc),
     text: String
 ) {
     Row(
