@@ -1,10 +1,8 @@
 package cz.cvut.popovma1.spacex.feature.rocketdetail.system
 
-import BackButton
-import CenteredTitleTopBar
-import LaunchButton
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
@@ -24,8 +22,10 @@ import cz.cvut.popovma1.spacex.ui.component.snackbar.ShowLoadingErrorSnackbar
 import cz.cvut.popovma1.spacex.ui.component.stateful.Loading
 import cz.cvut.popovma1.spacex.ui.component.stateful.informationStateful.Error
 import cz.cvut.popovma1.spacex.ui.component.topappbar.ContentWithTopBar
+import cz.cvut.popovma1.spacex.ui.component.topappbar.TopBarCustom
 import cz.cvut.popovma1.spacex.ui.theme.SpaceXTheme
 import cz.cvut.popovma1.spacex.ui.theme.paddingMedium
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -43,10 +43,12 @@ fun RocketDetailScreen(
 
     ContentWithTopBar(
         topBar = {
-            RocketDetailTopBar(
+            TopBarCustom(
                 title = rocketName,
-                onBackClick = onBackClick,
-                onLaunchClick = onLaunchClick,
+                backButtonText = stringResource(id = R.string.rocket_list_title_rockets),
+                onBackButtonClick = onBackClick,
+                actionButtonText = stringResource(id = R.string.rocket_launch_title),
+                onActionButtonClick = onLaunchClick
             )
         },
         scaffoldState = scaffoldState,
@@ -84,27 +86,13 @@ private fun RocketDetailSuccess(
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = refreshData
     ) {
-        LazyColumn(modifier = Modifier.padding(paddingMedium)) {
+        LazyColumn(contentPadding = PaddingValues(horizontal = paddingMedium)) {
+            item { Spacer(modifier = Modifier.height(height = spacerSizeMedium)) }
             item { RocketOverview(rocket) }
             item { RocketParameters(rocket) }
             item { RocketImages(rocket.images) }
+            item { Spacer(modifier = Modifier.height(height = spacerSizeMedium)) }
         }
-    }
-}
-
-@Composable
-private fun RocketDetailTopBar(
-    title: String,
-    onBackClick: () -> Unit,
-    onLaunchClick: () -> Unit
-) {
-    CenteredTitleTopBar(title = title) {
-        BackButton(
-            text = stringResource(id = R.string.rocket_list_title_rockets),
-            onBackClick = onBackClick
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        LaunchButton(onLaunchClick = onLaunchClick)
     }
 }
 
@@ -113,6 +101,24 @@ private fun RocketDetailTopBar(
 fun PreviewRocketDetailScreen() {
     val rocket = RocketsSampleData.getRocket()
     SpaceXTheme {
+        RocketDetailScreen(
+            rocket = ResponseWrapper(State.SUCCESS, rocket),
+//            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
+//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
+            rocketName = rocket.rocketName,
+            onBackClick = {},
+            onLaunchClick = {},
+            isRefreshing = false,
+            refreshData = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRocketDetailScreenDark() {
+    val rocket = RocketsSampleData.getRocket()
+    SpaceXTheme(darkTheme = true) {
         RocketDetailScreen(
             rocket = ResponseWrapper(State.SUCCESS, rocket),
 //            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),

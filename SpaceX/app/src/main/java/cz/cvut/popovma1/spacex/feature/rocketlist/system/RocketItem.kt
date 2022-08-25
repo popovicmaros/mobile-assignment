@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,9 +18,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cvut.popovma1.spacex.R
 import cz.cvut.popovma1.spacex.repository.model.Rocket
+import cz.cvut.popovma1.spacex.ui.theme.firstFlightText
 import cz.cvut.popovma1.spacex.ui.theme.iconSizeMedium
 import cz.cvut.popovma1.spacex.ui.theme.paddingSmall
 import cz.cvut.popovma1.spacex.ui.theme.spacerSizeMedium
+import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 
 @Composable
 fun RocketItem(
@@ -30,14 +31,12 @@ fun RocketItem(
 ) {
     Row(
         modifier = Modifier
-            .padding(all = paddingSmall)
-            .fillMaxSize()
-            .clickable {
-                onItemClick(rocket)
-            },
+            .clickable { onItemClick(rocket) }
+            .padding(paddingSmall)
+            .fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
-
     ) {
+        Spacer(modifier = Modifier.width(spacerSizeSmall))
         RocketIcon()
         Spacer(modifier = Modifier.width(spacerSizeMedium))
         Column {
@@ -47,7 +46,6 @@ fun RocketItem(
         Spacer(Modifier.weight(1f))
         RightArrowIcon()
     }
-    Divider(startIndent = paddingSmall)
 }
 
 @Composable
@@ -75,7 +73,7 @@ fun RocketFirstFlight(firstFlight: String) {
     Text(
         text = stringResource(R.string.rocket_list_first_flight, firstFlight),
         style = MaterialTheme.typography.subtitle1,
-//                    color = MaterialTheme.colors. TODO color
+        color = MaterialTheme.colors.firstFlightText
     )
 }
 

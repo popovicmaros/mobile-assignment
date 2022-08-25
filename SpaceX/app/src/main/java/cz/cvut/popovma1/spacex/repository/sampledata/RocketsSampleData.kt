@@ -15,7 +15,7 @@ object RocketsSampleData {
                 "orbit.",
             heightInMeters = it * 10,
             diameterInMeters = it,
-            massInKilograms = it * 1000,
+            massInKilograms = it * 100,
             stages = getRocketStages(),
             images = getRocketImages()
         )
