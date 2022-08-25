@@ -38,7 +38,7 @@ fun TopBarCustom(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.surface),
-            contentAlignment = Alignment.Center, // space around?
+            contentAlignment = Alignment.Center,
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),

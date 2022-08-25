@@ -20,9 +20,7 @@ import cz.cvut.popovma1.spacex.ui.theme.spacerSizeSmall
 @Composable
 fun RocketDimensions(rocket: Rocket) {
     Row(
-        Modifier
-//                .padding(paddingMedium)
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
         DimensionCard(

@@ -76,9 +76,6 @@ fun RocketListScreen(
 fun Preview() {
     SpaceXTheme {
         RocketListScreen(
-//            rockets = ResponseWrapper(State.LOADING, listOf()),
-//            rockets = ResponseWrapper(State.ERROR, listOf()),
-//            rockets = ResponseWrapper(State.NO_DATA, listOf()),
             onItemClick = {},
             isRefreshing = false,
             refreshData = {},
@@ -98,13 +95,49 @@ fun PreviewDark() {
             onItemClick = {},
             isRefreshing = false,
             refreshData = {},
-//            rockets = ResponseWrapper(State.LOADING, listOf()),
-//            rockets = ResponseWrapper(State.ERROR, listOf()),
-//            rockets = ResponseWrapper(State.NO_DATA, listOf()),
             rockets = ResponseWrapper(
                 State.SUCCESS,
                 RocketsSampleData.getRocketsList().subList(0, 4)
             ),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoading() {
+    SpaceXTheme(darkTheme = true) {
+        RocketListScreen(
+            onItemClick = {},
+            isRefreshing = false,
+            refreshData = {},
+            rockets = ResponseWrapper(State.LOADING, listOf()),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewError() {
+    SpaceXTheme(darkTheme = true) {
+        RocketListScreen(
+            onItemClick = {},
+            isRefreshing = false,
+            refreshData = {},
+            rockets = ResponseWrapper(State.ERROR, listOf()),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewNoData() {
+    SpaceXTheme(darkTheme = true) {
+        RocketListScreen(
+            onItemClick = {},
+            isRefreshing = false,
+            refreshData = {},
+            rockets = ResponseWrapper(State.NO_DATA, listOf()),
         )
     }
 }

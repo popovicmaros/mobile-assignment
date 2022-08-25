@@ -15,9 +15,9 @@ class RocketNetworkMapperImpl : RocketNetworkMapper {
                 rocketName = name,
                 firstFlight = DateConverter().convertDateFormat(firstFlight),
                 description = description,
-                heightInMeters = height.meters.toInt(), // TODO make double
-                diameterInMeters = diameter.meters.toInt(), // TODO make double
-                massInKilograms = mass.kilograms.toInt() / 1000, // TODO make double + convert to tons
+                heightInMeters = height.meters.toInt(),
+                diameterInMeters = diameter.meters.toInt(),
+                massInKilograms = mass.kilograms.toInt() / 1000,
                 stages = listOf(stage1, stage2).map { stage ->
                     Stage(
                         isReusable = stage.isReusable,

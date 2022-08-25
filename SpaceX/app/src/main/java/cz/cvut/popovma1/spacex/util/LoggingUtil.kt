@@ -9,7 +9,6 @@ import quanti.com.kotlinlog.base.LoggerBundle
 object LoggingUtil {
 
     fun setLoggers(context: Context) {
-        // Log initialisation
         Log.initialise(context)
 
         // forwards all log to android logcat

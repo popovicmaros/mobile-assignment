@@ -9,11 +9,6 @@ import cz.cvut.popovma1.spacex.repository.model.Rocket
 @Dao
 interface RocketDao {
 
-/*
-    @Query("SELECT * FROM rocket")
-    fun getAllStream(): Flow<List<Rocket>>
-*/
-
     @Query("SELECT * FROM rocket")
     suspend fun getAll(): List<Rocket>?
 

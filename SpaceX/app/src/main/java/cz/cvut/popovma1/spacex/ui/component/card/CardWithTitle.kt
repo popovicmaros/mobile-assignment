@@ -25,9 +25,8 @@ fun CardWithTitle(
     ) {
         ColumnWithTitle(
             title = title,
-            modifier = modifier
-        ) {
-            content()
-        }
+            modifier = modifier,
+            content = content
+        )
     }
 }

@@ -37,7 +37,7 @@ fun RocketDetailScreen(
     isRefreshing: Boolean,
     refreshData: () -> Unit,
 ) {
-    // snackbar setup
+    /* snackBar setup */
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
@@ -69,7 +69,6 @@ fun RocketDetailScreen(
                     coroutineScope = coroutineScope,
                     scaffoldState = scaffoldState,
                     onActionPerformed = refreshData
-                    // TODO fix snackbar showing up multiple times after screen rotation (error snackBars are being added to queue)
                 )
             }
         }
@@ -103,8 +102,6 @@ fun PreviewRocketDetailScreen() {
     SpaceXTheme {
         RocketDetailScreen(
             rocket = ResponseWrapper(State.SUCCESS, rocket),
-//            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
-//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
             onBackClick = {},
             onLaunchClick = {},
@@ -121,8 +118,38 @@ fun PreviewRocketDetailScreenDark() {
     SpaceXTheme(darkTheme = true) {
         RocketDetailScreen(
             rocket = ResponseWrapper(State.SUCCESS, rocket),
-//            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
-//            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
+            rocketName = rocket.rocketName,
+            onBackClick = {},
+            onLaunchClick = {},
+            isRefreshing = false,
+            refreshData = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRocketDetailScreenLoading() {
+    val rocket = RocketsSampleData.getRocket()
+    SpaceXTheme(darkTheme = true) {
+        RocketDetailScreen(
+            rocket = ResponseWrapper(State.LOADING, Rocket.NULL_ROCKET),
+            rocketName = rocket.rocketName,
+            onBackClick = {},
+            onLaunchClick = {},
+            isRefreshing = false,
+            refreshData = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRocketDetailScreenError() {
+    val rocket = RocketsSampleData.getRocket()
+    SpaceXTheme(darkTheme = true) {
+        RocketDetailScreen(
+            rocket = ResponseWrapper(State.ERROR, Rocket.NULL_ROCKET),
             rocketName = rocket.rocketName,
             onBackClick = {},
             onLaunchClick = {},
