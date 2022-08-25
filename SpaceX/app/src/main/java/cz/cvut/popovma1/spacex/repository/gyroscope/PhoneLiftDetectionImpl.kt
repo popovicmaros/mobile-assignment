@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import quanti.com.kotlinlog.Log
 
-class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLiftDetection, SensorEventListener {
+class PhoneLiftDetectionImpl(private val applicationContext: Context?) :
+    PhoneLiftDetection, SensorEventListener {
 
     private var sensorManager: SensorManager? = null
     private var orientation: Int? = null
@@ -18,7 +19,7 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
     private val _isLifted = MutableStateFlow(false)
     override val isLifted = _isLifted.asStateFlow()
 
-    private var landscapeTriggerValue: Int? = null // used in landscape orientation
+    private var landscapeTriggerValue: Int? = null
 
     override fun registerSensor(orientation: Int) {
         // call this in onCreate
@@ -27,30 +28,34 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
         sensorManager = applicationContext?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         sensorManager?.let { sensorManager ->
-
-            // register gyroscope
-            sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
-                sensorManager.registerListener(
-                    this,
-                    it,
-                    SensorManager.SENSOR_DELAY_UI,
-                    SensorManager.SENSOR_DELAY_UI,
-                )
-            }
-
-            // register gravity
-            sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also {
-                sensorManager.registerListener(
-                    this,
-                    it,
-                    SensorManager.SENSOR_DELAY_NORMAL,
-                    SensorManager.SENSOR_DELAY_NORMAL,
-                )
-            }
+            registerGyroscope(sensorManager)
+            registerGravity(sensorManager)
         }
 
         this.orientation = orientation
-        landscapeTriggerValue = null // will be calculated at onSensorChanged()
+        landscapeTriggerValue = null
+    }
+
+    private fun registerGravity(sensorManager: SensorManager) {
+        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)?.also {
+            sensorManager.registerListener(
+                this,
+                it,
+                SensorManager.SENSOR_DELAY_NORMAL,
+                SensorManager.SENSOR_DELAY_NORMAL,
+            )
+        }
+    }
+
+    private fun registerGyroscope(sensorManager: SensorManager) {
+        sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
+            sensorManager.registerListener(
+                this,
+                it,
+                SensorManager.SENSOR_DELAY_UI,
+                SensorManager.SENSOR_DELAY_UI,
+            )
+        }
     }
 
     override fun unregisterSensor() {
@@ -95,7 +100,6 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
         val isGravityEvent: Boolean = (event.sensor?.type == Sensor.TYPE_GRAVITY)
         if (isGravityEvent) {
             val gravity = event.values[X_AXIS]
-//            Log.d("gravity: $gravity")
             return if (gravity > 0) {
                 TRIGGER_LIFT_VALUE_LANDSCAPE_LEFT
             } else {
@@ -125,12 +129,10 @@ class PhoneLiftDetectionImpl(private val applicationContext: Context?) : PhoneLi
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // do nothing
-    }
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     companion object {
-        private const val TRIGGER_LIFT_VALUE = 4 // sensitivity of lift speed to trigger launch
+        private const val TRIGGER_LIFT_VALUE = 4
         const val TRIGGER_LIFT_VALUE_PORTRAIT = TRIGGER_LIFT_VALUE
         const val TRIGGER_LIFT_VALUE_LANDSCAPE_LEFT = -1 * TRIGGER_LIFT_VALUE
         const val TRIGGER_LIFT_VALUE_LANDSCAPE_RIGHT = TRIGGER_LIFT_VALUE

@@ -1,6 +1,5 @@
 package cz.cvut.popovma1.spacex.feature.rocketlist.system
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -42,7 +41,11 @@ fun RocketListSuccess(
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(top = paddingLarge, start = paddingMedium, end = paddingMedium)
+            contentPadding = PaddingValues(
+                top = paddingLarge,
+                start = paddingMedium,
+                end = paddingMedium
+            )
         ) {
             item {
                 Spacer(modifier = Modifier.height(spacerSizeLarge))

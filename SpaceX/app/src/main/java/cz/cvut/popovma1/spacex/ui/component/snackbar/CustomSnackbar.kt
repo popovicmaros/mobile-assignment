@@ -7,8 +7,6 @@ import kotlinx.coroutines.launch
 import quanti.com.kotlinlog.Log
 
 /**
- * This is not a Composable, it's a function that makes Snackbar show up
- *
  * Can be used only with Scaffold (but can be used outside Scaffold) with setup:
  * val [scaffoldState]: ScaffoldState = rememberScaffoldState()
  * val [coroutineScope]: CoroutineScope = rememberCoroutineScope()

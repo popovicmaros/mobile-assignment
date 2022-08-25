@@ -14,7 +14,8 @@ class RocketLaunchViewModel(
     val isLifted: StateFlow<Boolean> = rocketLaunchRepository.isPhoneLifted()
 
     fun registerLiftSensor(orientation: Int) {
-        if (!isLifted.value) { // optimize sensor usage after screen rotation
+        val isSensorNeeded = !isLifted.value
+        if (isSensorNeeded) {
             viewModelScope.launch {
                 rocketLaunchRepository.registerSensor(orientation)
             }
@@ -22,10 +23,8 @@ class RocketLaunchViewModel(
     }
 
     fun unregisterLiftSensor() {
-        // after back press, viewModelScope dies before this method is called in onDestroy()
         viewModelScope.launch {
-            // unregisterSensor() is called here only during screen rotation
-            // unregisterSensor() for back press is instead called in onCleared
+            // unregister after screen rotation
             rocketLaunchRepository.unregisterSensor()
         }
     }
@@ -34,7 +33,7 @@ class RocketLaunchViewModel(
         super.onCleared()
         Log.d("onCleared")
 
-        // actions after back pressed
+        // unregister after back pressed
         rocketLaunchRepository.unregisterSensor()
         rocketLaunchRepository.resetIsLifted()
     }

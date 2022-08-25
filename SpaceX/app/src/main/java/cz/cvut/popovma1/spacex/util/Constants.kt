@@ -4,4 +4,6 @@ object Constants {
     const val SPACEX_URL = "https://api.spacexdata.com/v3/"
 
     const val ROCKET_DB_NAME = "rocketDatabase"
+
+    const val MIN_PROGRESS_BAR_TIME_VISIBLE = 2000L
 }

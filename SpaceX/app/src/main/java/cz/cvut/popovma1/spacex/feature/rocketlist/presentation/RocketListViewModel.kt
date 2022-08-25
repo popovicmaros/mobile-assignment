@@ -6,6 +6,7 @@ import cz.cvut.popovma1.spacex.repository.RocketRepository
 import cz.cvut.popovma1.spacex.repository.model.ResponseWrapper
 import cz.cvut.popovma1.spacex.repository.model.Rocket
 import cz.cvut.popovma1.spacex.repository.model.State
+import cz.cvut.popovma1.spacex.util.Constants.MIN_PROGRESS_BAR_TIME_VISIBLE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,7 +41,7 @@ class RocketListViewModel(
         Log.d("refreshRockets() called")
         _isRefreshing.value = true
         val downloadJob = viewModelScope.launch { downloadRockets() }
-        val delayJob = viewModelScope.launch { delay(2000) } // always show progressbar for at least 2s
+        val delayJob = viewModelScope.launch { delay(MIN_PROGRESS_BAR_TIME_VISIBLE) }
 
         viewModelScope.launch {
             downloadJob.join()

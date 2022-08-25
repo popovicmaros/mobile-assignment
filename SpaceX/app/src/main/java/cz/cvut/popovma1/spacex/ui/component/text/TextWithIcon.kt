@@ -23,7 +23,6 @@ fun TextWithIcon(
     text: String
 ) {
     Row(
-//        Modifier.fillMaxHeight(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(

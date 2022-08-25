@@ -20,7 +20,7 @@ fun RocketDetailNavScreen(
     }
 
     RocketDetailScreen(
-        rocket = viewModel.rocket.collectAsState().value, // causes +1 recompose
+        rocket = viewModel.rocket.collectAsState().value,
         rocketName = rocketName,
         onBackClick = navController::popBackStack,
         onLaunchClick = {
@@ -28,7 +28,7 @@ fun RocketDetailNavScreen(
                 route = Screen.RocketLaunchNavScreen.passArgs(rocketName)
             )
         },
-        isRefreshing = viewModel.isRefreshing.collectAsState().value, // causes +2 recomposes
-        refreshData = { viewModel.refreshRocket(id) } // doesn't cause any recompose
+        isRefreshing = viewModel.isRefreshing.collectAsState().value,
+        refreshData = { viewModel.refreshRocket(id) }
     )
 }

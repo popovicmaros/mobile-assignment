@@ -24,34 +24,30 @@ class RocketRepositoryImpl(
         emitDataFromDb()
     }
 
-    private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.downloadApiToDb() {
+    private suspend fun downloadApiToDb() {
         try {
-            // download data & save to db
             val apiResponse: List<RocketNetwork> = api.getRockets()
-            val mappedResponse: List<Rocket> = apiResponse.map {
+            val modelResponse: List<Rocket> = apiResponse.map {
                 rocketNetworkMapper.mapToRocket(it)
             }
-            Log.d("getRockets() response = $mappedResponse")
-            rocketDao.insertAll(mappedResponse)
+            Log.d("getRockets() response = $modelResponse")
+            rocketDao.insertAll(modelResponse)
         } catch (e: Exception) {
-            // error downloading
+            Log.d("error downloading")
             e.printStackTrace()
         }
     }
 
     private suspend fun FlowCollector<ResponseWrapper<List<Rocket>>>.emitDataFromDb() {
-        // display data from db
         try {
             val dbResponse = rocketDao.getAll()
             if (!dbResponse.isNullOrEmpty()) {
-                // success
                 emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
             } else {
-                // empty
                 emit(ResponseWrapper(state = State.NO_DATA, data = listOf()))
             }
         } catch (e: Exception) {
-            // db error
+            Log.d("db error")
             e.printStackTrace()
             emit(ResponseWrapper(state = State.ERROR, data = listOf()))
         }
@@ -62,7 +58,6 @@ class RocketRepositoryImpl(
         dbResponse?.let {
             emit(ResponseWrapper(state = State.SUCCESS, data = dbResponse))
         } ?: run {
-            // used in rocketDetail, where data is already expected to be saved in db by rocketList
             emit(ResponseWrapper(state = State.ERROR, data = Rocket.NULL_ROCKET))
         }
     }

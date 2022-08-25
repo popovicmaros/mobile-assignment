@@ -50,8 +50,8 @@ fun RocketLaunchScreen(
         }
     ) {
         Column(
-            modifier = Modifier.align(Alignment.BottomCenter), // column is centered inside box
-            horizontalAlignment = Alignment.CenterHorizontally // column content is centered inside column
+            modifier = Modifier.align(Alignment.BottomCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             RocketLaunchAnimation(isLifted)
             RocketLaunchText(isLifted)
