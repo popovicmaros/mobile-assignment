@@ -45,36 +45,5 @@ fun SpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
             it.setStatusBarColor(color = colors.surface, darkIcons = !darkTheme)
         }
         content()
-/*
-        Box(modifier = Modifier.fillMaxSize()) {
-            content()
-        }
-*/
     }
 }
-
-/*
-@Composable
-fun TopBarSpaceXTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette.copy(
-            primary = Blue200
-        )
-    } else {
-        LightColorPalette.copy(
-            primary = Blue200
-        )
-    }
-
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-    ) {
-        content()
-//        Box(modifier = Modifier.fillMaxSize()) {
-//            content()
-//        }
-    }
-}
-*/
